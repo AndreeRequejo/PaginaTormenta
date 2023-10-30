@@ -2,8 +2,8 @@
 
 > Enlace del GitHub:
 
-[Google] (http://developers.google.com)
+[Google] (https://github.com/AndreeRequejo/PaginaTormenta.git)
 
+> Clonar Repositorio:
 
-
-
+[Consola] (git clone https://github.com/AndreeRequejo/PaginaTormenta.git)
