@@ -1,0 +1,40 @@
+{% extends "vista_admin.html" %}
+{% block titulo %} Materiales {% endblock %}
+{% block content %}
+
+<section class="section" style="margin-left: 40px;">
+    <div class="columns">
+        <div class="column">
+            <img src="{{url_for('static', filename='admin/img/telaRopa.jpeg')}}" width='400' height ='300' />
+            <h3 class="is-size-3">Materiales </h3>
+            <a href="{{url_for('agregar_material')}}" class="button is-success">Agregar</a>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Código de materiales</th>
+                        <th>Materiales</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for material in material_prendas %}
+                    <tr>
+                        <td>{{material[0]}}</td>
+                        <td>{{material[1]}}</td>
+                        <td>
+                            {# Pasar el id lo que hay en color[0] #}
+                            <a href="{{url_for('editar_material', id=material[0])}}" class="button is-info">Editar</a>
+                        </td>
+                        <td>
+                            <form action="{{url_for('eliminar_material')}}" method="POST">
+                                <input type="hidden" name="id" value="{{material[0]}}">
+                                <button class="button is-danger">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}

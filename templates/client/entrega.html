@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/catalogo.css">
+    <link rel="stylesheet" href="css/carrito.css">
+    <link rel="stylesheet" href="css/entrega.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="icon" type="image/x-icon" href="img/icono.ico" />
+
+    <title>TORMENTA</title>
+</head>
+
+<body>
+    <header class="m-0 mx-2 align-items-center">
+        <nav class="navbar navbar-expand-lg navbar-light white-light d-flex ">
+            <div class="container-fluid">
+                <a class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2" href="index.html"><img src="img/logo.jpg" alt=""></a>
+                <input type="text" placeholder="Buscar" class=" col-12  col-sm-4 col-md-5 col-lg-5">
+                <div class=" col-12  col-sm-3 col-md-3 col-lg-3 col-xl-2 my-4 m-sm-0 m-md-0 m-lg-0 m-xl-0 d-flex justify-content-center align-items-center text-center"
+                    id="usu-gus-car">
+                    <a href="mi_cuenta.html" style="text-decoration: none; color: black;"><i class='bx bx-user'></i></a>
+                    <div class="position-relative">
+
+                        <a href="Lista_de_deseos.html" style="text-decoration: none; color: black;"><i
+                                class='bx bx-heart'></i></a>
+
+                        <span class="notification-badge">4</span>
+                    </div>
+
+                    <div class="position-relative">
+                        <a href="carrito.html" style="text-decoration: none; color: black;">
+                            <i class='bx bx-cart'></i></a>
+
+                        <span class="notification-badge" id="totalCarrito">0</span>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </nav>
+        <div
+            class="container-fluid  d-flex flex-wrap  justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between">
+
+            <div class="btn-group m-0 m-sm-0 m-md-0 m-lg-0 m-xl-0" role="group">
+                <a href="catalogo_masculino.html">
+                    <button type="button" class="btn btn-outline-secondary btn-no-border">Varon</button>
+
+                </a>
+                <a href="catalogo_femenino.html">
+                    <button type="button" class="btn btn-outline-secondary btn-no-border2">Mujer</button>
+
+                </a>
+            </div>
+
+
+
+            <div class="btn-group  m-3 m-sm-3 m-md-0 m-lg-0 m-xl-0" role="group">
+                <a href="catalogo_novedades.html">
+                    <button type="button" class="btn btn-outline-secondary btn-no-border">Novedades</button>
+                </a>
+                <a href="catalogo_ropa.html">
+                    <button type="button" class="btn btn-outline-secondary btn-no-border3">Ropa</button>
+
+                </a>
+                <a href="catalogo_ropa.html">
+                    <button type="button" class="btn btn-outline-secondary btn-no-border2">Ofertas</button>
+
+                </a>
+
+
+            </div>
+
+        </div>
+    </header>
+
+    <main>
+        <div class="container mt-5">
+            <hr>
+
+        </div>
+
+        <div class="d-flex justify-content-around m-3 car-en-pag align-items-center">
+            <a>
+                <p class="fs-3"><span>1.- Carrito</span></p>
+            </a>
+            <a>
+                <p class="fs-3"> 2.- Entrega</p>
+            </a>
+            <a>
+                <p class="fs-3"> <span>3.- Pago</span></p>
+            </a>
+        </div>
+
+        <div class="container">
+            <hr>
+        </div>
+        <div class="container d-block d-sm-block d-md-flex d-lg-flex d-xl-flex w-100 mt-5">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-4 p-5">
+                <div>
+                    <h5 class="titulo">Selecciona un Método:</h5>
+                </div>
+                <div class="card rounded-pill d-flex align-items-center my-xl-5 mt-lg-5 my-md-4 my-sm-5 my-5" id="card1">
+                    <div>
+                    <div class="form-check align-items-center d-flex">
+                        <input class="form-check-input p-0 border-dark-subtle" type="radio" name="flexRadioDefault" id="envioGratis" onclick="seleccionado()">
+                        <label class="texto form-check-label ms-3 mt-3 align-items-center d-flex align-items-center" for="envioGratis">
+                            <div class="fs-6">
+                                <p class="fw-bold mb-1" id>Envío gratis</p>
+                                <p>Entre 2 - 5 días laborales</p>
+                            </div>
+                        </label>
+                      </div>
+                    </div>
+                </div>
+                <div class="card rounded-pill d-flex align-items-center mt-lg-5" id="card2">
+                    <div>
+                    <div class="form-check align-items-center d-flex">
+                        <input class="form-check-input p-0 border-dark-subtle" type="radio" name="flexRadioDefault" id="recojoTienda" onclick="seleccionado()">
+                        <label class="texto form-check-label ms-3 mt-3 align-items-center d-flex align-items-center" for="recojoTienda">
+                            <div class="fs-6">
+                                <p class="fw-bold mb-1">Recojo en tienda</p>
+                                <p>Entre 2 - 5 días laborales</p>
+                            </div>
+                        </label>
+                      </div>
+                    </div>
+                </div>
+                <div class="d-grid gap-2 col-sm-12">
+                    <button type="button" id="white" class="titulo btn btn-secondary mt-xxl-5 mt-xl-4 mt-lg-5 mt-md-4 mt-sm-5 mt-5 rounded-pill p-2">Cancelar</button>
+                </div>
+            </div>
+
+            <div class="d-flex mt-0 mt-md-5 mt-lg-5 mt-xl-5 .d-md-none .d-lg-block" id="vlinea">
+                <div class="vr 	.d-sm-none .d-md-block"></div>
+              </div>
+
+            <div class="datos col-12 col-sm-12 col-md-6 col-lg-7 col-xl-8 p-5" id="contenido1">
+                <div class="mb-4">
+                    <h5 class="titulo">Datos de Envío:</h5>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" id="nombres" placeholder="Nombres">
+                    </div>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" id="apellidos" placeholder="Apellidos">
+                    </div>
+                    <div class="texto form-group">
+                        <input type="text" class="form-control" id="calle" placeholder="Ingresa el nombre de la calle"> 
+                    </div>
+                    <div class="texto form-group">
+                        <input type="text" class="form-control" id="otros" placeholder="Dpto. / Interior / Lote / Bloque (Opcional)"> 
+                    </div>
+                    <div class="form-group col-lg-4" id="btndrop">
+                        <select class="form-select select" aria-label="Departamento" id="departamento">
+                            <option selected>Departamento</option>
+                            <option value="1">Lambayeque</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-lg-4" id="btndrop">
+                        <select class="form-select select" aria-label="Departamento" id="provincia">
+                            <option selected>Provincia</option>
+                            <option value="1">Chiclayo</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-lg-4" id="btndrop">
+                        <select class="form-select select" aria-label="Departamento" id="distrito">
+                            <option selected>Distrito</option>
+                            <option value="1">Chiclayo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="d-grid gap-2">
+                    <a id="linkBtnEnvio">
+                        <button type="button" class="titulo btn btn-secondary mt-4 rounded-pill p-2 px-5" id="blue">Siguiente</button>
+                    </a>
+                </div>
+            </div>
+            <div class="datos col-12 col-sm-12 col-md-6 col-lg-7 col-xl-8 p-5" id="contenido2" style="display: none">
+                <div class="mb-4">
+                    <h5 class="titulo">Datos de Recojo:</h5>
+                </div>
+                <div class="row g-4">
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" id="nomRecojo" placeholder="Nombres">
+                    </div>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" id="apeRecojo" placeholder="Apellidos">
+                    </div>
+                    <div class="col-lg-6">
+                        <input type="text" class="form-control" id="docRocojo" placeholder="DNI">
+                    </div>
+                    
+                    <h5 class="titulo">Seleccionar Tienda</h5>
+
+                    <div class="form-check px-5 mb-2">
+                        <input class="form-check-input p-0 mb-3" type="radio" name="nomTienda" id="nomTienda" checked>
+                        <label class="texto form-check-label" for="nomTienda">
+                          Tienda Tormenta, Av. Bolognesi, 231
+                        </label>
+                    </div>
+                </div>
+                <div class="d-grid gap-2">
+                    <a id="linkBtnRecojo">
+                        <button type="button" class="titulo btn btn-secondary rounded-pill p-2 mt-5 px-5" id="blue">Siguiente</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+    <footer class="container-fluid pt-4">
+        <div class="d-flex flex-wrap">
+            <div class="contact d-flex col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                <div class="lo-red ">
+
+                    <a href="index.html"><img src="img/logo-nube.png " alt="" class="lo"></a>
+
+                    <div class="redes-sociales">
+                        <a href="#"><i class='bx bxl-facebook'></i></a>
+                        <a href="#"><i class='bx bxl-instagram'></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="nosotros col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3 ">
+                <h4
+                    class="d-flex  justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between">
+                    Nosotros</h4>
+                <a href="quienes_somos.html"
+                    class="d-flex  justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between ">¿Quiénes
+                    somos?</a>
+                <a href="contactanos.html"
+                    class="d-flex justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between ">Contactanos!</a>
+                <a href="terminos_condiciones.html"
+                    class="d-flex  justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between">Terminos
+                    y condiciones</a>
+            </div>
+            <div class="atencion col-12  col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                <h4
+                    class="d-flex  justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between">
+                    Atencion al Cliente</h4>
+                <a href="preguntas_frecuentes.html"
+                    class="d-flex justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between">Preguntas
+                    frecuentes</a>
+                <a href="libro_reclamaciones.html"
+                    class="d-flex justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between">Libro
+                    de Reclamaciones</a>
+                <a href="politicas_privacidad.html"
+                    class="d-flex justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between">Política
+                    de Privacidad</a>
+            </div>
+            <div class="mapa justify-content-center col-12  col-sm-6 col-md-12 col-lg-3 col-xl-3">
+                <img src="img/mapa.jpg" alt="" class="mx-auto d-block ">
+                <p class="text-center">
+                    D' Ángelo Galeria Comercial,<br>
+                    Avenida José Balta, Chiclayo
+                </p>
+            </div>
+        </div>
+        <div>
+            <div>
+                <hr>
+                <p> &copy; Tormenta,  30/06/2023 - 12/07/2023</p>
+                <div style="display: flex; justify-content: center;">
+                    <hr style="width: 50%;">
+
+                </div>
+                <a href="creadores.html" target="_blank">
+                    <p> Creador por: TrimWeb</p>
+                </a>
+            </div>
+        </div>
+
+    </footer>
+    <script src="js/datosEntrega.js"></script>
+    <script src="js/cargarCantProductos.js"></script>
+    <script src="js/entrega.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+</body>
+
+</html>

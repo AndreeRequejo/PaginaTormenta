@@ -1,0 +1,40 @@
+{% extends "maestraAdmin.html" %}
+
+{% block titulo %}
+Registrar usuario
+{% endblock %}
+
+{% block contenido %}
+<form class="form-signin" action="{{url_for('guardar_usuario')}}" method="post" onsubmit="return validarRegistro()" enctype="multipart/form-data">
+    <div class="mt-5">
+        <h3 class="titulo text-center">Regístrate</h5>
+    </div>
+
+    <div class="texto input-group d-flex justify-content-center align-items-center mt-5 flex-column">
+        <div class="d-flex mb-3" id="contenedor-texto">
+            <span class="input-group-text no-brr" id="basic-addon1"><i class='bx bx-user' for="username"></i></span>
+            <input type="text" class="form-control no-blr" placeholder="Usuario" aria-label="Nombres" aria-describedby="basic-addon1" name="username" id="username">
+        </div>
+        <div class="d-flex mb-3" id="contenedor-texto">
+          <span class="input-group-text no-brr" id="basic-addon3"><i class='bx bx-envelope' for="email"></i></span>
+          <input type="email" class="form-control no-blr" placeholder="Correo Electrónico" aria-label="Correo" aria-describedby="basic-addon2" name="email" id="email">
+        </div>
+        <div class="d-flex mb-2" id="contenedor-texto">
+          <span class="input-group-text no-brr" id="basic-addon5"><i class='bx bx-lock-alt' for="password"></i></span>
+          <input type="password" class="form-control no-blr" placeholder="Contraseña" aria-label="Contraseña" aria-describedby="basic-addon5" name="password" id="password">
+        </div>
+        <div class="d-flex mb-2" id="contenedor-texto">
+            <span class="input-group-text no-brr" id="basic-addon5"><i class='bx bx-lock-alt' for="confirm-password"></i></span>
+            <input type="password" class="form-control no-blr" placeholder="Confirmar Contraseña" aria-label="Confirmar Contraseña" aria-describedby="basic-addon5" name="confirm-password" id="confirm-password">
+          </div>
+    </div>
+    <div class="d-flex justify-content-center mb-3">
+        <div id="botones">
+            <button type="submit" class="titulo btn btn-secondary mt-4 rounded-pill p-2 w-100" id="blue">REGISTRAR</button>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <a href="{{url_for('login')}}">Volver a Iniciar Sesión</a>
+    </div>
+</form>
+{% endblock %}

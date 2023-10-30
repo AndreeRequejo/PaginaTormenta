@@ -1,0 +1,309 @@
+.info-usuario h3 {
+  font-weight: 300;
+  font-family: "Lexend", sans-serif;
+}
+
+.info-usuario h1 {
+  font-weight: bold;
+  font-family: "Lexend", sans-serif;
+}
+
+.naveg a {
+  text-decoration: none;
+  font-family: "Lexend", sans-serif;
+  font-weight: bold;
+  color: black;
+  font-size: 20px;
+}
+
+.bxs-user-circle,
+.bxs-map,
+.bxs-cart,
+.bxs-dollar-circle,
+.bx-x-circle {
+  font-size: 45px;
+  margin-right: 15px;
+}
+
+.toda-infor h1 {
+  font-weight: bold;
+  font-family: "Lexend", sans-serif;
+  font-size: 30px;
+}
+
+.nombre-apelllidos h3 {
+  font-family: "Lexend", sans-serif;
+  font-size: 22px;
+}
+
+.nombre-apelllidos h4 {
+  font-family: "Metrophobic", sans-serif;
+  font-size: 21px;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.contras h3 {
+  font-family: "Lexend", sans-serif;
+  font-size: 21px;
+  font-weight: bold;
+}
+
+.ingreso-contras {
+  width: 80%;
+}
+
+.linea {
+  width: 80%;
+  font-family: "Metrophobic", sans-serif;
+  color: #aaaaaa;
+  border-radius: 0;
+  padding: 0;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.ingreso-contras i {
+  display: flex;
+  justify-content: end;
+  width: 20%;
+  font-family: "Metrophobic", sans-serif;
+  color: #aaaaaa;
+  border-radius: 0;
+  padding: 0;
+  font-size: 30px;
+}
+
+.requisito-contra h6 {
+  font-family: "Lexend", sans-serif;
+  color: #606060;
+}
+
+.requisito-contra li {
+  font-family: "Metrophobic", sans-serif;
+  color: #929292;
+}
+
+.guardar button {
+  font-size: 20px;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 60px;
+  color: white;
+  background-color: #717fe0;
+  font-weight: bold;
+  font-family: "Lexend", sans-serif;
+}
+
+/*Direcciones*/
+
+.form-check {
+  padding: 0;
+  margin: 0;
+}
+
+.titulo-direcciones h1 {
+  font-family: "Lexend", sans-serif;
+  font-weight: bold;
+}
+
+.direcciones-local {
+  font-family: "Lexend", sans-serif !important;
+  font-size: 22px;
+}
+
+.editar,
+.eliminar {
+  color: #717fe0;
+}
+
+input[type="radio"]:checked {
+  background-color: #717fe0;
+  border: #717fe0;
+}
+
+input#flexRadioDefault2 {
+  padding: 10px;
+  margin-left: 1%;
+  margin-right: 5%;
+}
+
+.bt {
+  font-size: 20px;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 60px;
+  color: rgb(0, 0, 0);
+  background-color: #d6d6d6;
+  font-weight: bold;
+  font-family: "Lexend", sans-serif;
+}
+
+.bp {
+  font-size: 20px;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 60px;
+  color: white;
+  background-color: #717fe0;
+  font-weight: bold;
+  font-family: "Lexend", sans-serif;
+}
+
+/*Medio de pago*/
+.titu-medio-pago h1 {
+  font-family: "Lexend", sans-serif;
+  font-weight: bold;
+  font-size: 35px;
+}
+
+.titu-medio-pago h5 {
+  font-family: "Lexend", sans-serif;
+}
+
+.titu-medio-pago i {
+  color: #aaaaaa;
+  font-size: 35px;
+}
+
+.box-medio-pago {
+  border-radius: 20px;
+  box-shadow: 0 0 10px #c0c0c0;
+}
+
+.datos-tarjeta .nom-tar {
+  font-family: "Lexend", sans-serif;
+  font-weight: bold;
+}
+
+.datos-tarjeta .nom-usua-tar {
+  font-family: "Metrophobic", sans-serif;
+  color: #606060;
+}
+.confir-metod-pag input {
+  padding: 7px;
+  background-color: white;
+}
+
+.confir-metod-pag p {
+  font-family: "Metrophobic", sans-serif;
+  color: #232323;
+  font-size: 15px;
+  margin-left: 10px;
+}
+
+.elimi-medio-pago p {
+  font-family: "Lexend", sans-serif;
+  font-weight: bold;
+  font-size: 13px;
+  text-decoration: 1.5px underline;
+}
+
+/*Mis compras*/
+
+.titulo-compra h1 {
+  font-family: "Lexend", sans-serif;
+  font-weight: bold;
+  font-size: 35px;
+}
+
+.busqueda-selecccion input {
+  font-family: "Lexend", sans-serif;
+  padding: 5px 15px;
+  border-radius: 15px;
+  border: solid 1px #ccc;
+}
+
+.form-select {
+  width: 160px;
+  font-family: "Lexend", sans-serif;
+  padding: 5px 15px;
+  margin-left: 20px;
+  color: #7a7a7a;
+  border-radius: 15px;
+}
+
+.filtrar h4 {
+  font-size: 15px;
+  margin: 0;
+  font-family: "Lexend", sans-serif;
+  font-weight: bold;
+}
+
+.detalle-compra {
+  padding: 15px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px #c0c0c0;
+}
+
+.dets-esta-tien {
+  padding-left: 10px;
+}
+
+.num-compra-estado h4{
+  font-family: "Lexend", sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.num-compra-estado h5{
+  font-family: "Metrophobic", sans-serif;
+  font-weight: bold;
+  color: #606060;
+  font-size: 15px;
+}
+
+.img-prod img {
+  width: 100px;
+  border-radius: 5px;
+}
+
+.detalle-compra-estado h4,
+.detalle-compra-tienda h4,
+.detalle-compra-fecha h4 {
+  font-family: "Lexend", sans-serif;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.detalle-compra-estado h5,
+.detalle-compra-tienda h5,
+.detalle-compra-fecha h5 {
+  font-family: "Metrophobic", sans-serif;
+  font-size: 12px;
+  color: #606060;
+  font-weight: 600;
+}
+
+.ver-detalle button {
+  border: none;
+  border-radius: 25px;
+  padding: 10px 60px;
+  color: white;
+  background-color: #717fe0;
+  font-family: "Lexend", sans-serif;
+}
+
+.modal input, .modal select {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-radius: 10px !important;
+  font-family: "Metrophobic", sans-serif !important;
+  color: #606060 !important;
+}
+
+.modal #titulo-modal {
+  font-family: "Lexend", sans-serif;
+  font-weight: bold;
+}
+
+.input-group-text {
+  border-left: none;
+}
+
+#inp-2, #inp-1 {
+  border-right: none;
+  border-bottom-right-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+}
+

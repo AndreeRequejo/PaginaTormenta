@@ -1,0 +1,54 @@
+/*Entrega*/
+.titulo {
+    font-family: "Lexend Exa", sans-serif;
+    font-weight: bold;
+}
+
+.texto {
+    font-family: "Metrophobic", sans;
+}
+
+.form-control, .form-select {
+    height: 50px;
+    border-color: #c1c7cd;
+    color: #505358;
+}
+
+#white {
+    max-width: 280px; 
+    background-color: #d6d6d6; 
+    border: none; 
+    color: #505358;
+}
+
+#blue {
+    max-width: 280px;
+    background-color: #717FE0;
+    border: none;
+    color: white;
+}
+
+input[type="radio"]:checked {
+    background-color: #717FE0;
+}
+
+#card1, #card2 {
+    max-width: 280px;
+}
+
+#vlinea {
+    height: 380px;
+}
+
+@media (min-width: 768px) and (max-width:992px) {
+    #card1, #card2 {
+        padding-left: 18px;
+    }
+}
+
+@media (min-width: 0px) and (max-width:764px) {
+    #vlinea, .vr {
+        display: none;
+        height: 0px;
+    }
+}

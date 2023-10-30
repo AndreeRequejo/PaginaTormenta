@@ -1,0 +1,163 @@
+.breadcrumb-item {
+  font-family: "Lexend", sans-serif;
+  font-weight: bold;
+}
+
+.breadcrumb-item a {
+  text-decoration: none;
+  color: #444444;
+}
+
+.breadcrumb-item a:hover {
+  color: #5d6bd4;
+}
+
+.det img {
+  width: 15%;
+  border-radius: 10%;
+}
+
+.det-bordr img {
+  border: solid 2px #ccc;
+}
+
+.descrip {
+  font-family: "Metrophobic", sans-serif;
+  text-align: justify;
+}
+
+.nombre-prod-co {
+  margin-left: 5%;
+}
+
+.califica p {
+  font-family: "Metrophobic", sans-serif;
+
+  margin-left: 20px;
+  color: #606060;
+}
+
+.rating .checked {
+  color: #717fe0;
+}
+
+.color1 {
+  border-radius: 50%;
+  padding: 15px;
+  background-color: #0844a4;
+  transition: 1s;
+}
+
+.color2 {
+  margin-left: 20px;
+  border-radius: 50%;
+  padding: 15px;
+  background-color: #231f1c;
+  transition: 1s;
+}
+
+.color1:hover,
+.color2:hover {
+  transform: scale(1.1);
+}
+
+.combox {
+  width: 250px;
+  font-family: "Lexend", sans-serif;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0px 5px #ccc;
+}
+
+.inpt {
+  width: 100px;
+  font-family: "Lexend", sans-serif;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 0px 5px #ccc;
+}
+
+.agregar button {
+  width: 80%;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 15px;
+  color: white;
+  font-size: 20px;
+  background-color: #717fe0;
+  font-family: "Lexend", sans-serif;
+}
+
+.me-gusta {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  width: 20%;
+}
+
+.corazon {
+  align-items: center;
+  text-align: center;
+  width: 50px;
+  border-radius: 50%;
+  border: solid 2px #ccc;
+  font-size: 30px;
+}
+
+.corazon i:hover {
+  font-weight: 500;
+  transform: scale(1.1);
+}
+
+.cora.clicked {
+  color: #717fe0;
+}
+
+.infor-adi a,
+.infor-env a {
+  font-family: "Lexend", sans-serif;
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+.infor-adi p,
+.infor-env p {
+  font-family: "Metrophobic", sans-serif;
+
+  color: black;
+}
+
+.div-resenia {
+  border: solid 1px #ccc;
+}
+
+.usuario-rese i {
+  font-size: 70px;
+  margin-right: 20px;
+}
+
+.usuario-rese p {
+  font-family: "Lexend Exa", sans-serif;
+  margin-bottom: 10px;
+  color: #606060;
+}
+
+.usuario-rese .usu-name {
+  font-weight: 600;
+}
+
+.div-resenia {
+  padding: 40px 50px;
+}
+.div-resenia h3 {
+  font-family: "Lexend", sans-serif;
+  text-align: center;
+  color: #606060;
+  font-weight: 400;
+}
+.text-rese p {
+  font-family: "Metrophobic", sans-serif;
+  text-align: justify;
+  color: 606060;
+}

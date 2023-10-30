@@ -1,0 +1,573 @@
+{% extends "maestraUsuario.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='client/css/nosotros.css') }}">  
+{% endblock %}
+
+{% block titulo %}
+TORMENTA
+{% endblock %}
+
+{% block contenido %}
+<main>
+
+    <div class="d-flex justify-content-center">
+        <img src="{{url_for('static', filename='client/img/banner_novedades.jpg')}}" class="d-block w-100 my-3" alt="Imagen 2">
+    </div>
+
+
+    <div class="container-fluid d-block d-sm-block d-dm-flex d-lg-flex d-xl-flex  w-100 co">
+
+        <div class="filtrar col-12 col-sm-12 col-md-12 col-lg-3 col-xl-2">
+            <a href="{{url_for('catalogoMasculino')}}" class="d-flex">VARONES</a>
+            <a href="{{url_for('catalogoFemenino')}}" class="d-flex mt-4 mb-4">MUJERES</a>
+
+            <div class="d-flex ">
+                <i class='bx bx-filter fs-1'></i>
+                <h4 class="m-0">FILTRAR</h4>
+            </div>
+            <div class="categ my-3">
+                <div class="align-items-center">
+                    <a class="" role="button" href="#categoria" data-bs-toggle="collapse" aria-controls="categoria"
+                        aria-expanded="false">
+                        <div class="d-flex align-items-center justify-content-around ">
+                            <span style="width:50%;"> CATEGORIA</span> <span class="triangle"></span>
+                        </div>
+                    </a>
+                </div>
+                <div class="collapse  mt-2" style="margin-left: 20%;" id="categoria">
+                    <div class="form-check ">
+                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
+                            id="flexCheckDefault">
+                        <label class="form-check-label mx-2 " for="flexCheckDefault">
+                            Polos </label>
+                    </div>
+                </div>
+
+                <div class="collapse  mt-2 " style="margin-left: 20%;" id="categoria">
+                    <div class="form-check">
+                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
+                            id="flexCheckDefault">
+                        <label class="form-check-label mx-2 " for="flexCheckDefault">
+                            Chompas </label>
+                    </div>
+                </div>
+
+                <div class="collapse  mt-2" style="margin-left: 20%;" id="categoria">
+                    <div class="form-check ">
+                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
+                            id="flexCheckDefault">
+                        <label class="form-check-label mx-2 " for="flexCheckDefault">
+                            Jeans </label>
+                    </div>
+                </div>
+
+                <div class="collapse  mt-2" style="margin-left: 20%;" id="categoria">
+                    <div class="form-check ">
+                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
+                            id="flexCheckDefault">
+                        <label class="form-check-label mx-2 " for="flexCheckDefault">
+                            Camisas </label>
+                    </div>
+                </div>
+
+                <div class="collapse mt-2" style="margin-left: 20%;" id="categoria">
+                    <div class="form-check ">
+                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
+                            id="flexCheckDefault">
+                        <label class="form-check-label mx-2 " for="flexCheckDefault">
+                            Casacas </label>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <div class="tama my-3">
+                <div class="align-items-center">
+                    <a class="" role="button" href="#tamano" data-bs-toggle="collapse" aria-controls="tamano"
+                        aria-expanded="false">
+                        <div class="d-flex align-items-center justify-content-around ">
+                            <span style="width:50%;"> TAMAÑO</span> <span class="triangle"></span>
+
+                        </div>
+                    </a>
+                </div>
+
+                <div class="collapse  mt-2 " style="margin-left: 20%;" id="tamano">
+                    <div class="form-check ">
+                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
+                            id="flexCheckDefault">
+                        <label class="form-check-label mx-2 " for="flexCheckDefault">
+                            S - XS </label>
+                    </div>
+
+                </div>
+
+                <div class="collapse  mt-2" style="margin-left: 20%;" id="tamano">
+                    <div class="form-check">
+                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
+                            id="flexCheckDefault">
+                        <label class="form-check-label mx-2 " for="flexCheckDefault">
+                            M </label>
+                    </div>
+
+                </div>
+
+                <div class="collapse  mt-2" style="margin-left: 20%;" id="tamano">
+                    <div class="form-check ">
+                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
+                            id="flexCheckDefault">
+                        <label class="form-check-label mx-2 " for="flexCheckDefault">
+                            L - XL </label>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="colo my-3">
+                <div class="align-items-center">
+                    <a class="" role="button" href="#colo" data-bs-toggle="collapse" aria-controls="colo"
+                        aria-expanded="false">
+                        <div class="d-flex align-items-center justify-content-around ">
+                            <span style="width:50%;"> COLOR</span> <span class="triangle"></span>
+
+                        </div>
+                    </a>
+                </div>
+
+                <div class="collapse  mt-2 " style="margin-left: 20%;" id="colo">
+                    <div class="form-check ">
+                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
+                            id="flexCheckDefault">
+                        <label class="form-check-label mx-2 " for="flexCheckDefault">
+                            Negro </label>
+                    </div>
+
+                </div>
+
+                <div class="collapse  mt-2 " style="margin-left: 20%;" id="colo">
+                    <div class="form-check">
+                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
+                            id="flexCheckDefault">
+                        <label class="form-check-label mx-2 " for="flexCheckDefault">
+                            Rojo </label>
+                    </div>
+
+                </div>
+
+                <div class="collapse  mt-2" style="margin-left: 20%;" id="colo">
+                    <div class="form-check ">
+                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
+                            id="flexCheckDefault">
+                        <label class="form-check-label mx-2 " for="flexCheckDefault">
+                            Marron </label>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="mate my-3">
+                <div class="align-items-center">
+                    <a class="" role="button" href="#mate" data-bs-toggle="collapse" aria-controls="mate"
+                        aria-expanded="false">
+                        <div class="d-flex align-items-center justify-content-around ">
+                            <span style="width:50%;"> MATERIAL</span> <span class="triangle"></span>
+
+                        </div>
+                    </a>
+                </div>
+
+                <div class="collapse  mt-2 " style="margin-left: 20%;" id="mate">
+                    <div class="form-check ">
+                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
+                            id="flexCheckDefault">
+                        <label class="form-check-label mx-2 " for="flexCheckDefault">
+                            Algodón </label>
+                    </div>
+
+                </div>
+
+                <div class="collapse  mt-2 " style="margin-left: 20%;" id="mate">
+                    <div class="form-check">
+                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
+                            id="flexCheckDefault">
+                        <label class="form-check-label mx-2 " for="flexCheckDefault">
+                            Pooliester </label>
+                    </div>
+
+                </div>
+
+                <div class="collapse  mt-2 " style="margin-left: 20%;" id="mate">
+                    <div class="form-check ">
+                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
+                            id="flexCheckDefault">
+                        <label class="form-check-label mx-2 " for="flexCheckDefault">
+                            Lana </label>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="desc my-3">
+                <div class="align-items-center">
+                    <a class="" role="button" href="#desc" data-bs-toggle="collapse" aria-controls="desc"
+                        aria-expanded="false">
+                        <div class="d-flex align-items-center justify-content-around ">
+                            <span style="width:50%;">DESCUENTO</span> <span class="triangle"></span>
+
+                        </div>
+                    </a>
+                </div>
+
+                <div class="collapse  mt-2 " style="margin-left: 20%;" id="desc">
+                    <div class="form-check ">
+                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
+                            id="flexCheckDefault">
+                        <label class="form-check-label mx-2 " for="flexCheckDefault">
+                            10% </label>
+                    </div>
+
+                </div>
+
+                <div class="collapse  mt-2 " style="margin-left: 20%;" id="desc">
+                    <div class="form-check">
+                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
+                            id="flexCheckDefault">
+                        <label class="form-check-label mx-2 " for="flexCheckDefault">
+                            20% </label>
+                    </div>
+
+                </div>
+
+                <div class="collapse  mt-2" style="margin-left: 20%;" id="desc">
+                    <div class="form-check ">
+                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
+                            id="flexCheckDefault">
+                        <label class="form-check-label mx-2 " for="flexCheckDefault">
+                            30% </label>
+                    </div>
+
+
+                </div>
+            </div>
+
+            <div class="temp my-3">
+                <div class="align-items-center">
+                    <a class="" role="button" href="#temp" data-bs-toggle="collapse" aria-controls="temp"
+                        aria-expanded="false">
+                        <div class="d-flex align-items-center justify-content-around ">
+                            <span style="width:50%;">TEMPORADA</span> <span class="triangle"></span>
+                        </div>
+                    </a>
+                </div>
+                <div class="collapse  mt-2 " style="margin-left: 20%;" id="temp">
+                    <div class="form-check ">
+                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
+                            id="flexCheckDefault">
+                        <label class="form-check-label mx-2 " for="flexCheckDefault">
+                            Invierno</label>
+                    </div>
+                </div>
+                <div class="collapse  mt-2 " style="margin-left: 20%;" id="temp">
+                    <div class="form-check">
+                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
+                            id="flexCheckDefault">
+                        <label class="form-check-label mx-2 " for="flexCheckDefault">
+                            Otoño</label>
+                    </div>
+                </div>
+                <div class="collapse  mt-2" style="margin-left: 20%;" id="temp">
+                    <div class="form-check ">
+                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
+                            id="flexCheckDefault">
+                        <label class="form-check-label mx-2 " for="flexCheckDefault">
+                            Verano</label>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="productos col-12 col-sm-12 col-md-12 col-lg-9 col-xl-10">
+            <div class="ordenar d-flex ">
+                <h5>ORDERNAR POR: </h5>
+                <select class="form-select " aria-label="Combo box">
+                    <option selected>Precio (Menor a Mayor)</option>
+                    <option value="opcion1">Opción 1</option>
+                    <option value="opcion2">Opción 2</option>
+                    <option value="opcion3">Opción 3</option>
+                </select>
+            </div>
+
+            <div class="img-prod d-flex flex-wrap justify-content-center w-100 ">
+
+                <div class="m-3 contenedor-descuento-promo" id="contenido1">
+                    <div class="descuento-promo"> <span class="desc">44%</span> </div>
+
+                    <img src="https://cdn.shopify.com/s/files/1/0373/4513/2676/files/TX926W_055_01_50f0a74f-2c99-4583-b7ae-c5a8867f4166_540x.jpg?v=1684351202"
+                        alt="">
+                    <p class="text-center nombre_prod">POLERA PARA MUJER <br>LIPPI</p>
+                    <div class="d-flex justify-content-around">
+                        <p class="text-decoration-line-through prec-ant"> <span> S/. <span
+                                    id="precio5">179.50</span></span>
+                        </p>
+                        <p class="prec-act"> <span> S/. <span id="precio1">100.00</span></span>
+                        </p>
+
+                    </div>
+                    </p>
+                    <i class='bx bxs-heart cora2'></i>
+
+                </div>
+                <div class="m-3 contenedor-descuento-promo" id="contenido2">
+                    <div class="descuento-promo"> <span class="desc">30%</span> </div>
+
+                    <img src="https://cdn.shopify.com/s/files/1/0373/4513/2676/files/TX921W_137_01_b94fc058-723a-4bb7-974e-2a81e0a5a3dd_540x.jpg?v=1684351163"
+                        alt="">
+                    <p class="text-center nombre_prod">POLERA PARA MUJER <br>INSIGNE FULL HOODY</p>
+                    <div class="d-flex justify-content-around">
+                        <p class="text-decoration-line-through prec-ant"> <span> S/. <span
+                                    id="precio5">239.00</span></span>
+                        </p>
+                        <p class="prec-act"> <span> S/. <span id="precio2">167.30</span></span>
+                        </p>
+
+                    </div>
+                    <i class='bx bxs-heart cora2'></i>
+
+                </div>
+                <a href="detalle_prod_mujer.html">
+                    <div class="m-3 contenedor-descuento-promo" id="contenido3">
+                        <img src="https://cdn.shopify.com/s/files/1/0373/4513/2676/products/ERJSW03523_KVJ0_1_54ffb0c5-6fa8-4035-b5fb-f989eeaca7cd_1024x1024@2x.jpg?v=1680100951"
+                            alt="">
+                        <p class="text-center nombre_prod">CHOMPA PARA MUJER <br>ROXY SWEATER LOFT</p>
+                        <p class="prec-act"> <span> S/. <span id="precio3">199.20</span></span>
+                        </p>
+                        <i class='bx bxs-heart cora1'></i>
+
+                    </div>
+                </a>
+
+                <div class="m-3 contenedor-descuento-promo" id="contenido4">
+                    <img src="https://cdn.shopify.com/s/files/1/0373/4513/2676/products/ERJJK03508_KVJW_01_1024x1024_2x_32de7d3d-324d-499a-b456-896d5e09e253_540x.png?v=1671736646"
+                        alt="">
+                    <p class="text-center nombre_prod">CASACA PARA MUJER <br>ROXY PATH TO PARADISE </p>
+                    <p class="prec-act"> <span> S/. <span id="precio4">378.00</span></span>
+                    </p>
+                    <i class='bx bxs-heart cora2'></i>
+
+                </div>
+
+
+
+                <div class="m-3 contenedor-descuento-promo" id="contenido5">
+                    <img src="https://cdn.shopify.com/s/files/1/0373/4513/2676/files/THE-BOX-JEANS-ABR-230265_540x.jpg?v=1682377675"
+                        alt="">
+                    <p class="text-center nombre_prod">JEAN PARA MUJER <br>HUNTER IC</p>
+                    <p class="prec-act"> <span> S/. <span id="precio4">167.00</span></span>
+                    </p>
+                    <i class='bx bxs-heart cora'></i>
+
+                </div>
+                <div class="m-3 contenedor-descuento-promo" id="contenido6">
+                    <div class="descuento-promo"> <span class="desc">30%</span> </div>
+
+                    <img src="https://cdn.shopify.com/s/files/1/0373/4513/2676/products/DV-00016_OFWH_2_1024x1024@2x.jpg?v=1656022408"
+                        alt="">
+                    <p class="text-center nombre_prod">POLO PARA MUJER <br>AZUCENA OFWH</p>
+                    <div class="d-flex justify-content-around">
+                        <p class="text-decoration-line-through prec-ant"> <span> S/. <span
+                                    id="precio5">89.90</span></span>
+                        </p>
+                        <p class="prec-act"> <span> S/. <span id="precio2">62.93</span></span>
+                        </p>
+
+                    </div>
+                    <i class='bx bxs-heart cora'></i>
+
+                </div>
+                <div class="m-3 contenedor-descuento-promo" id="contenido7">
+                    <img src="https://cdn.shopify.com/s/files/1/0373/4513/2676/files/CAMIMEH25706_540x.jpg?v=1682377608"
+                        alt="">
+                    <p class="text-center nombre_prod">JEAN PARA MUJER <br>HUNTER BLUE</p>
+                    <p class="prec-act"> <span> S/. <span id="precio4">217.00</span></span>
+                    </p>
+                    <i class='bx bxs-heart cora'></i>
+
+                </div>
+                <div class="m-3 contenedor-descuento-promo  " id="contenido8">
+                    <div class="descuento-promo"> <span class="desc">20%</span> </div>
+
+                    <img src="https://cdn.shopify.com/s/files/1/0373/4513/2676/products/DV-TO-00014_RSD_2_bf32deee-3036-4c65-944c-a62b8a588435_540x.jpg?v=1657646433"
+                        alt="">
+                    <p class="text-center nombre_prod">POLO PARA MUJER <br>AMPARO RSD</p>
+                    <div class="d-flex justify-content-around">
+                        <p class="text-decoration-line-through prec-ant"> <span> S/. <span
+                                    id="precio5">89.90</span></span>
+                        </p>
+                        <p class="prec-act"> <span> S/. <span id="precio2">71.92</span></span>
+                        </p>
+
+                    </div>
+                    <i class='bx bxs-heart cora'></i>
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+                <div class="m-3 contenedor-descuento-promo" id="contenido9" style="display: none;">
+                    <img src="https://cdn.shopify.com/s/files/1/0373/4513/2676/products/T0022-003-1_540x.jpg?v=1682349599"
+                        alt="">
+                    <p class="text-center nombre_prod">POLO CHAMPION</p>
+                    <p class="prec-act"> <span> S/. <span id="precio4">74.00</span></span>
+                    </p>
+                    <i class='bx bxs-heart cora1'></i>
+
+                </div>
+                <div class="m-3 contenedor-descuento-promo " id="contenido10" style="display: none;">
+                    <div class="descuento-promo"> <span class="desc">40%</span> </div>
+
+                    <img src="https://cdn.shopify.com/s/files/1/0373/4513/2676/files/GF89HY06794-NYC-1_1_540x.jpg?v=1685391032"
+                        alt="">
+                    <p class="text-center nombre_prod">POLERA CHAMPION</p>
+                    <div class="d-flex justify-content-around">
+                        <p class="text-decoration-line-through prec-ant"> <span> S/. <span
+                                    id="precio5">219.00</span></span>
+                        </p>
+                        <p class="prec-act"> <span> S/. <span id="precio2">131.00</span></span>
+                        </p>
+
+                    </div>
+                    <i class='bx bxs-heart cora1'></i>
+
+                </div>
+                <div class="m-3 contenedor-descuento-promo " id="contenido11" style="display: none;">
+                    <img src="https://cdn.shopify.com/s/files/1/0373/4513/2676/files/DK-JK-00013_CAT_03_3f6d5a93-5b86-4527-9263-a37c4b9f1641_540x.jpg?v=1687209438"
+                        alt="">
+                    <p class="text-center nombre_prod">CASACA DUNKELVOLK</p>
+                    <p class="prec-act"> <span> S/. <span id="precio4">181.00</span></span>
+                    </p>
+                    <i class='bx bxs-heart cora1'></i>
+
+                </div>
+                <div class="m-3 contenedor-descuento-promo " id="contenido12" style="display: none;">
+                    <div class="descuento-promo"> <span class="desc">30%</span> </div>
+
+                
+                    <img src="https://cdn.shopify.com/s/files/1/0373/4513/2676/files/W14XT112E-GO-1_1024x1024_2x_0eae274f-92cc-4188-8529-a66262811474_360x.jpg?v=1688654144"
+                        alt="">
+                    <p class="text-center nombre_prod">JEAN WRANGLER</p>
+                    <div class="d-flex justify-content-around">
+                        <p class="text-decoration-line-through prec-ant"> <span> S/. <span
+                                    id="precio5">169.00</span></span>
+                        </p>
+                        <p class="prec-act"> <span> S/. <span id="precio2">118.00</span></span>
+                        </p>
+
+                    </div>
+                    <i class='bx bxs-heart cora1'></i>
+
+                </div>
+
+
+
+
+                <a href="detalle_prod_hom.html">
+                    <div class="m-3 contenedor-descuento-promo " id="contenido13" style="display: none;">
+                        <div class="descuento-promo"> <span class="desc">20%</span> </div>
+
+                        <img src="https://cdn.shopify.com/s/files/1/0373/4513/2676/files/DK-FL-00053-BLOP-1_1_1024x1024@2x.jpg?v=1685389999"
+                            alt="">
+                        <p class="text-center nombre_prod">POLERA BLOP</p>
+                        <div class="d-flex justify-content-around">
+                            <p class="text-decoration-line-through prec-ant"> <span> S/. <span
+                                        id="precio5">100.00</span></span>
+                            </p>
+                            <p class="prec-act"> <span> S/. <span id="precio1">80.00</span></span>
+                            </p>
+
+                        </div>
+                        </p>
+                        <i class='bx bxs-heart cora1'></i>
+
+                    </div>
+
+                </a>
+
+                <div class="m-3 contenedor-descuento-promo" id="contenido14" style="display: none;">
+                    <div class="descuento-promo"> <span class="desc">20%</span> </div>
+
+                    <img src="https://cdn.shopify.com/s/files/1/0270/6987/4274/products/DK-JK-00018-BLK-1_1_1024x1024@2x.jpg?v=1682124932"
+                        alt="">
+                    <p class="text-center nombre_prod">CASACA BLK</p>
+                    <div class="d-flex justify-content-around">
+                        <p class="text-decoration-line-through prec-ant"> <span> S/. <span
+                                    id="precio5">100.00</span></span>
+                        </p>
+                        <p class="prec-act"> <span> S/. <span id="precio2">80.00</span></span>
+                        </p>
+
+                    </div>
+                    <i class='bx bxs-heart cora1'></i>
+
+                </div>
+                <div class="m-3 contenedor-descuento-promo" id="contenido15" style="display: none;">
+                    <img src="https://cdn.shopify.com/s/files/1/0270/6987/4274/products/DK-FL-00027_NGR_1_540x.jpg?v=1680272534"
+                        alt="">
+                    <p class="text-center nombre_prod">POLERA DUNKELVOLK</p>
+                    <p class="prec-act"> <span> S/. <span id="precio3">100.00</span></span>
+                    </p>
+                    <i class='bx bxs-heart cora1'></i>
+
+                </div>
+                <div class="m-3 contenedor-descuento-promo" id="contenido16" style="display: none;">
+                    <img src="https://cdn.shopify.com/s/files/1/0373/4513/2676/products/T0022_029_1_540x.jpg?v=1660319798"
+                        alt="">
+                    <p class="text-center nombre_prod">POLO CORE TEE</p>
+                    <p class="prec-act"> <span> S/. <span id="precio4">100.00</span></span>
+                    </p>
+                    <i class='bx bxs-heart cora1'></i>
+
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+    <div class="btn-toolbar justify-content-center m-3 " role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group me-2 d-flex flex-wrap" role="group" aria-label="First group">
+            <button type="button" class="btn btn btn-custom" onclick="retroceder()"><span>
+                    <<</span></button>
+            <button type="button" class="btn btn btn-custom" onclick="cambiarContenido('uno')">1</button>
+            <button type="button" class="btn btn btn-custom" onclick="cambiarContenido('dos')">2</button>
+            <button type="button" class="btn btn btn-custom" onclick="avanzar()"><span>>></span></button>
+
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+{% block js %}
+<script src="{{url_for('static', filename='client/js/paginacion3.js')}}"></script>
+<script src="{{url_for('static', filename='client/js/corazon.js')}}"></script>
+<script src="{{url_for('static', filename='client/js/cargarCantProductos.js')}}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+crossorigin="anonymous"></script>
+{% endblock %}

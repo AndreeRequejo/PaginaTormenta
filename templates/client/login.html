@@ -1,0 +1,43 @@
+{% extends "maestraUsuario.html" %}
+
+{% block css %} <link rel="stylesheet" href="{{ url_for('static', filename='client/css/formularios.css') }}">{% endblock %}
+
+{% block titulo %} LOGIN - TORMENTA {% endblock %}
+
+{% block contenido %}
+<form class="form-signin container" action="{{url_for('procesar_login')}}" method="post">
+    <div class="mt-5">
+        <h3 class="titulo text-center">¡Bienvenido de Vuelta!</h5>
+    </div>
+
+    <div class="texto input-group d-flex justify-content-center align-items-center mt-5 flex-column">
+        <div class="d-flex mb-3" id="contenedor-texto">
+            <span class="input-group-text no-brr" id="basic-addon1" for="username"><i class='bx bx-envelope'></i></span>
+            <input type="text" class="form-control no-blr" placeholder="Usuario" aria-label="Correo"
+            aria-describedby="basic-addon1" name="username" id="username">
+        </div>
+        <div class="d-flex mb-2" id="contenedor-texto">
+            <span class="input-group-text no-brr" id="basic-addon2" for="password"><i class='bx bx-lock-alt'></i></span>
+            <input type="password" class="form-control no-blr" placeholder="Contraseña" aria-label="Contraseña"
+            aria-describedby="basic-addon2" name="password" id="password">
+        </div>
+            <a href="rest_contrasenia.html" id="forgot_pswd">¿Olvidaste tu contraseña?</a>
+        </div>
+    <div class="d-flex justify-content-center mb-5">
+        <div id="botones">
+            <div class="d-flex justify-content-center mt-4">
+                <button type="submit" class="titulo btn btn-secondary rounded-pill p-2" id="blue">INGRESAR</button>
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+                <a href="{{url_for('signup')}}">
+                <button type="button" class="titulo btn btn-secondary rounded-pill p-2" id="white">REGÍSTRATE</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</form>
+
+{% endblock %}
+
+{% block js %} <script src="js/cargarCantProductos.js"></script> {% endblock %}
+

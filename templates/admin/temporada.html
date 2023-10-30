@@ -1,0 +1,40 @@
+{% extends "vista_admin.html" %}
+{% block titulo %} Temporadas {% endblock %}
+{% block content %}
+
+<section class="section" style="margin-left: 40px;">
+    <div class="columns">
+        <div class="column">
+            <img src="{{url_for('static', filename='admin/img/temporadaPrenda.jpg')}}" width='400' height ='300' />
+            <h3 class="is-size-3">Temporadas </h3>
+            <a href="{{url_for('agregar_temporada')}}" class="button is-success">Agregar</a>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Código de Temporada</th>
+                        <th>Temporada</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for temporada in temporada_prendas %}
+                    <tr>
+                        <td>{{temporada[0]}}</td>
+                        <td>{{temporada[1]}}</td>
+                        <td>
+                            {# Pasar el id lo que hay en color[0] #}
+                            <a href="{{url_for('editar_temporada', id=temporada[0])}}" class="button is-info">Editar</a>
+                        </td>
+                        <td>
+                            <form action="{{url_for('eliminar_temporada')}}" method="POST">
+                                <input type="hidden" name="id" value="{{temporada[0]}}">
+                                <button class="button is-danger">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}

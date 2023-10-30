@@ -1,0 +1,21 @@
+{% extends "maestraAdmin.html" %}
+{% block titulo %}
+Editar Categoría
+{% endblock %}
+{% block contenido %}
+<section class="section">
+    <div class="columns">
+        <div class="column">
+            <h3 class="is-size-3">Editar Tipo Prenda</h3>
+            <form action="{{url_for('actualizar_tipo_prenda')}}" method="post">
+                {# Enviar el id en un campo oculto #}
+                <input type="hidden" name="id" value="{{tipo_prendas[0]}}">
+                <label for="nombre_tipo">Tipo de Prenda:</label>
+                <input value="{{tipo_prendas[1]}}" type="text" class="input" placeholder="nombre_tipo" name="nombre_tipo" id="nombre_tipo">
+                <button type="submit" class="button is-success mt-2">Guardar</button>
+                <a href="{{url_for('tipo_prenda')}}" class="button is-primary mt-2">Volver</a>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

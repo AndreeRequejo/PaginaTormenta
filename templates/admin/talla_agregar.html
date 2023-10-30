@@ -1,0 +1,19 @@
+{% extends "maestraAdmin.html" %}
+{% block titulo %}
+Agregar Talla
+{% endblock %}
+{% block contenido %}
+<section class="section">
+    <div class="columns">
+        <div class="column is-one-third">
+            <h3 class="is-size-3">Agregar Talla</h3>
+            <form action="{{url_for('guardar_talla')}}" method="post">
+                <label for="nombre_talla">Nombre de Talla:</label>
+                <input type="text" class="input" placeholder="Nombre talla" name="nombre_talla" id="nombre_talla">
+                <button type="submit" class="button is-success mt-2">Guardar</button>
+                <a href="{{url_for('talla_prenda')}}" class="button is-primary mt-2">Volver</a>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

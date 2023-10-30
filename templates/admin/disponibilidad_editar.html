@@ -1,0 +1,49 @@
+{% extends "maestraAdmin.html" %}
+{% block titulo %}
+Editar Disponibilidad
+{% endblock %}
+{% block contenido %}
+<section class="section">
+    <div class="columns">
+        <div class="column">
+            <h3 class="is-size-3">Editar Disponibilidad de Prenda</h3>
+            <form action="{{url_for('actualizar_disponibilidad')}}" method="post">
+                {# Enviar el id en un campo oculto #}
+                <input type="hidden" name="id_prenda" value="{{disponibilidad_prendas[4]}}">
+                <input type="hidden" name="id_talla" value="{{disponibilidad_prendas[5]}}">
+
+                <label for="nomPrenda">Nombre de Prenda:</label>
+                <select class="form-select" name="nomPrenda" id="nomPrenda">
+                    {% for prenda in prendas %}
+                        {% if disponibilidad_prendas[0] == prenda[2] %}
+                            <option value="{{prenda[0]}}" selected>{{prenda[2]}}</option>
+                        {% else %}
+                            <option value="{{prenda[0]}}">{{prenda[2]}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                
+                <label for="nomPrenda">Talla de Prenda:</label>
+                <select class="form-select" name="color_prenda" id="color_prenda">
+                    {% for talla in talla_prendas %}
+                        {% if disponibilidad_prendas[1] == talla[1] %}
+                            <option value="{{talla[0]}}" selected>{{talla[1]}}</option>
+                        {% else %}
+                            <option value="{{talla[0]}}">{{talla[1]}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+
+                <label for="precio">Precio:</label>
+                <input type="text" value="{{disponibilidad_prendas[2]}}" class="input" placeholder="Precio" name="precio" id="precio">
+
+                <label for="stock">Stock:</label>
+                <input type="text" value="{{disponibilidad_prendas[3]}}" class="input" placeholder="Stock" name="stock" id="stock">
+                                
+                <button type="submit" class="button is-success mt-2">Guardar</button>
+                <a href="{{url_for('disponibilidad_prenda')}}" class="button is-primary mt-2">Volver</a>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

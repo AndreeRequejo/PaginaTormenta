@@ -1,0 +1,65 @@
+{% extends "maestraAdmin.html" %}
+{% block titulo %}
+Editar Prenda
+{% endblock %}
+{% block contenido %}
+<section class="section">
+    <div class="columns">
+        <div class="column">
+            <h3 class="is-size-3">Editar Prenda</h3>
+            <form action="{{url_for('actualizar_prenda')}}" method="post">
+                {# Enviar el id en un campo oculto #}
+                <input type="hidden" name="id" value="{{prendas[0]}}">
+                <label for="cod_prenda">Código de Prenda:</label>
+                <input type="text" class="input" value="{{prendas[1]}}" placeholder="Código Prenda" name="cod_prenda" id="cod_prenda">
+                <label for="nom_prenda">Nombre:</label>
+                <input type="text" class="input" value="{{prendas[2]}}" placeholder="Nombre Prenda" name="nom_prenda" id="nom_prenda">
+                <label for="desc_prenda">Descripción:</label>
+                <textarea class="form-control" value="{{prendas[3]}}" name="desc_prenda" id="desc_prenda" cols="65" rows="5"></textarea>
+                <label for="tipo_prenda">Tipo de Prenda:</label>
+                <select class="form-select" name="tipo_prenda" id="tipo_prenda">
+                    {% for tipo in tipo_prendas %}
+                        {% if prendas[4] == tipo[1] %}
+                            <option value="{{tipo[0]}}" selected>{{tipo[1]}}</option>
+                        {% else %}
+                            <option value="{{tipo[0]}}">{{tipo[1]}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <label for="color_prenda">Color de Prenda:</label>
+                <select class="form-select" name="color_prenda" id="color_prenda">
+                    {% for color in color_prendas %}
+                        {% if prendas[5] == color[1] %}
+                            <option value="{{color[0]}}" selected>{{color[1]}}</option>
+                        {% else %}
+                            <option value="{{color[0]}}">{{color[1]}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <label for="material_prenda">Material de Prenda:</label>
+                <select class="form-select" name="material_prenda" id="material_prenda">
+                    {% for material in material_prendas %}
+                        {% if prendas[6] == material[1] %}
+                            <option value="{{material[0]}}" selected>{{material[1]}}</option>
+                        {% else %}
+                            <option value="{{material[0]}}">{{material[1]}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <label for="temporada_prenda">Temporada de Prenda:</label>
+                <select class="form-select" name="temporada_prenda" id="temporada_prenda">
+                    {% for temporada in temporada_prendas %}
+                        {% if prendas[7] == temporada[1] %}
+                            <option value="{{temporada[0]}}" selected>{{temporada[1]}}</option>
+                        {% else %}
+                            <option value="{{temporada[0]}}">{{temporada[1]}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>                
+                <button type="submit" class="button is-success mt-2">Guardar</button>
+                <a href="{{url_for('prenda')}}" class="button is-primary mt-2">Volver</a>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

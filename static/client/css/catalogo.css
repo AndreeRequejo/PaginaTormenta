@@ -1,0 +1,221 @@
+.co {
+  margin: 40px 0px;
+}
+.ordenar {
+  float: right;
+  align-items: center;
+}
+
+.ordenar h5 {
+  width: 40%;
+  font-family: "Lexend", sans-serif;
+  font-weight: 500;
+  font-size: 17px;
+  margin: 0px;
+  text-align: center;
+  margin-right: 5px;
+}
+
+.ordenar .form-select {
+  width: 60%;
+}
+
+.img-prod img {
+  width: 250px;
+  border-radius: 20px;
+}
+
+.img-prod a img {
+  width: 250px;
+  border-radius: 20px;
+}
+
+.img-prod a {
+  text-decoration: none;
+  color: #000000;
+}
+
+.nombre_prod {
+  margin: 10px 0;
+  font-family: "Lexend Exa", sans-serif;
+  font-weight: bold;
+}
+
+.prec-act,
+.prec-ant {
+  font-size: 16px;
+  font-weight: 700;
+  font-family: "Metrophobic", sans-serif;
+}
+
+.prec-ant {
+  color: #cac8c8;
+}
+
+.btn-custom {
+  background-color: #ffffff;
+  border-color: #4b4b4b;
+  color: #000000;
+  font-weight: 500;
+  font-family: "Lexend Exa", sans-serif;
+  border-radius: 10px;
+  margin: 0 5px;
+}
+
+.btn-custom:focus {
+  background-color: #5d6bd4;
+  color: white;
+}
+.btn-custom:hover {
+  background-color: #5d6bd4;
+  border-color: #5d6bd4;
+  color: white;
+  transform: scale(1.1);
+}
+
+.filtrar h4 {
+  font-family: "Lexend", sans-serif;
+}
+
+.triangle {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 10px solid #5d6bd4;
+  margin-right: 10px;
+  transition: transform 0.3s;
+}
+
+[aria-expanded="true"] .triangle {
+  transform: rotate(-90deg);
+}
+
+.custom-checkbox {
+  border-color: #5d6bd4;
+}
+
+.custom-checkbox:checked {
+  background-color: #5d6bd4;
+  border-color: #5d6bd4;
+}
+
+.categ a,
+.tama a,
+.colo a,
+.mate a,
+.desc a,
+.temp a {
+  font-family: "Lexend", sans-serif;
+  text-decoration: none;
+  color: black;
+}
+
+.collapse label {
+  font-family: "Metrophobic", sans-serif;
+}
+
+.img-hom-mujer {
+  flex-wrap: wrap;
+}
+.img-hom-mujer img {
+  border-radius: 25px;
+  box-shadow: 0px 0px 10px #5d6bd4;
+}
+
+.filtrar a {
+  font-family: "Lexend", sans-serif;
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+.baner-titulo-litdeseos p {
+  font-family: "Lexend Exa", sans-serif;
+  color: #000000;
+  font-weight: bold;
+}
+
+@media (max-width: 476px) {
+  .baner-titulo-litdeseos p {
+    font-size: 100%;
+  }
+}
+@media (min-width: 477px) and (max-width: 669px) {
+  .baner-titulo-litdeseos p {
+    font-size: 40px;
+  }
+}
+
+@media (min-width: 700px) and (max-width: 921px) {
+  .baner-titulo-litdeseos p {
+    font-size: 60px;
+  }
+}
+
+@media (min-width: 922px) and (max-width: 1181px) {
+  .baner-titulo-litdeseos p {
+    font-size: 80px;
+  }
+}
+
+@media (min-width: 1182px) {
+  .baner-titulo-litdeseos p {
+    font-size: 100px;
+  }
+}
+
+.descuento-promo {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  width: 70px;
+  height: 40px;
+  background-color: #5d6bd4;
+  color: #ffffff;
+  align-items: center;
+  text-align: center;
+  line-height: 30px;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: "Lexend Exa", sans-serif;
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.contenedor-descuento-promo {
+  position: relative;
+}
+
+.cora {
+  position: absolute;
+  bottom: 110px;
+  right: 10px;
+  font-size: 30px;
+  border: #4b4b4b;
+}
+
+.cora.clicked,.cora1.clicked,.cora2.clicked {
+  color: #717fe0;
+}
+
+.cora1 {
+  position: absolute;
+  bottom: 93px;
+  right: 10px;
+  font-size: 30px;
+  border: #4b4b4b;
+}
+
+.cora2 {
+  position: absolute;
+  bottom: 125px;
+  right: 10px;
+  font-size: 30px;
+  border: #4b4b4b;
+}
+

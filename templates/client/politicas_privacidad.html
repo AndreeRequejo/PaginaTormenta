@@ -1,0 +1,399 @@
+{% extends "maestraUsuario.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='client/css/nosotros.css') }}">
+{% endblock %}
+
+{% block titulo %}
+<title>TORMENTA</title>
+{% endblock %}
+
+{% block contenido %}
+<main>
+    <div class="card text-black mt-4  d-flex justify-content-center align-items-center">
+        <div class="zImagen">
+            <img src="{{url_for('static', filename='client/img/banner_pol_privacidad.png')}}"  class="card-img opacity-50" alt="...">
+            <div class="card-img-overlay d-flex justify-content-center align-items-center">
+                <p class="card-title text-center">POLÍTICAS DE PRIVACIDAD</>
+            </div>
+        </div>
+    </div>
+    <div class="accordion container mx-5 my-4 zPreguntas" style="width: 80%;" id="accordionPanelsStayOpenExample">
+        <div class="tituloZona">
+            <h3 class="fs-4">COMPROMISO DEL CLIENTE CON LA PROTECCIÓN DE DATOS Y LA PRIVACIDAD</h3>
+        </div>
+        <!-- Pregunta 1_L-->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed px-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                    aria-controls="panelsStayOpen-collapseOne">
+                    Principios
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    Tormenta manifiesta su compromiso con su derecho a la privacidad y la protección de datos al
+                    adoptar los siguientes principios. <br>
+                    Tormenta utiliza datos personales legalmente, de manera justa, correcta y de manera
+                    transparente. <br>
+                    Tormenta no recopila más datos personales de lo necesario, y solo para un propósito legítimo.
+                    <br>
+                    Tormenta no retiene más datos de los necesarios o por un período más largo de lo necesario. <br>
+                    Tormenta protege los datos personales con las medidas de seguridad técnicas, organizativas y
+                    legales acorde a la normativa nacional vigente.
+                </div>
+            </div>
+        </div>
+        <!-- Pregunta 2_L-->
+        <div class="accordion-item pt-3">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed px-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseTwo">
+                    ¿Por qué procesamos sus datos?
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    Usamos y procesamos sus datos personales en relación a, por ejemplo, al comprar nuestros
+                    productos en línea o en tienda, visitando nuestro sitio web o contactando a Servicio al Cliente.
+                    Algunos ejemplos de datos personales son el nombre completo, dirección, dirección de correo
+                    electrónico, número de teléfono, RUC, información de pago, historial de compras y uso, dirección
+                    IP, ID de miembro y otra información relacionada al caso (por ejemplo, información que
+                    proporciona cuando contacta a nuestro Servicio al Cliente).
+                    Bajo cada sección específica de esta Política de Privacidad se le informará la finalidad de cada
+                    procesamiento relevante de información.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item ">
+            <h2 class="accordion-header pt-3">
+                <button class="accordion-button collapsed px-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseThree">
+                    ¿Quién es responsable de procesar sus datos personales?
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    Tormenta identificada con RUC Nro.20555881551 y domicilio fiscal en Av.
+                    Víctor Andrés Belaunde Nro. 332 Int. 202 Urb. El Rosario - San Isidro - Lima. Las empresas que
+                    forman parte del Grupo Tormenta, por lo que a lo largo del presente documento podrá entenderse
+                    señalada de forma individual o colectivamente como "Tormenta", "Nosotros" o "nosotros".
+                    Bajo ciertas circunstancias, la responsabilidad de la protección de datos y su privacidad se
+                    comparten con terceros, como instituciones bancarias y financieras, servicios de entrega
+                    postales o proveedores de comunicación electrónica. Se puede encontrar más información en cada
+                    sección específica de esta Política de Privacidad.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item pt-3">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed px-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseFour">
+                    ¿Dónde procesamos sus datos?
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    Los datos personales que recopilamos de usted generalmente se almacenan dentro de un país de la
+                    Unión Europea o del Área Económica Europea ("EU/EEE"), pero también pueden, siempre que sea
+                    necesario, transferirse y procesarse en un país fuera de la UE/EEE. Cualquier tipo de
+                    transferencia de estos datos personales se llevará a cabo en conformidad con las leyes
+                    aplicables y sin socavar sus derechos legales. <br>
+                    De vez en cuando podemos transferir datos personales de la UE/EEE a un tercer país no aprobado
+                    por la Comisión Europea como un país seguro para tal transferencia (decisión de adecuación).
+                    Siempre que sea aplicable, Tormenta usará cláusulas contractuales estándar para garantizar un
+                    nivel
+                    similar de protección concedido dentro de la UE/EEE u otros motivos legales para la
+                    transferencia de información. En tanto, el usuario al aceptar la presente Política de Privacidad
+                    autoriza el flujo transfronterizo de los datos personales materia de tratamiento bajo la
+                    normativa de peruana de protección de datos personales. Siempre que se realice el flujo
+                    transfronterizo de datos personales serán consideradas las medidas adecuadas para garantizar
+                    tanto su seguridad y confidencialidad de acuerdo con la ley de protección de datos aplicable,
+                    estandolos receptores de la información sujetos a las mismas obligaciones y medidas de seguridad
+                    organizativas, técnicas y legales descritas en la Ley N° 29733, su Reglamento, Directivas y
+                    legislación aplicable.
+                </div>
+            </div>
+        </div>
+        <div class="tituloZona">
+            <h3 class="fs-4">COMPRAS EN LÍNEA Y EN TIENDA FÍSICA</h3>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed px-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseFive">
+                    ¿Por qué usamos sus datos personales?
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    Utilizamos sus datos personales para brindarle la información, productos y servicios que
+                    solicite o compre de nosotros, ya sea en línea y en tiendas físicas. En este contexto, usamos
+                    sus datos personales para poder procesar sus ordenes de compra y transacciones de pago, además
+                    de gestionar sus entregas, reclamaciones, devoluciones y reembolsos de manera segura y efectiva.
+                    Los datos de compra y pago de una orden recopilados con el propósito anterior también se
+                    utilizarán, bajo ciertas condiciones y limitaciones, para fines de marketing, desarrollo de
+                    negocios y analíticos, detectar fraudes y robos en relación con las ventas en línea y en tienda
+                    física, para cumplir con las leyes aplicables.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item ">
+            <h2 class="accordion-header pt-3">
+                <button class="accordion-button collapsed px-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseSix">
+                    ¿Cuánto tiempo mantenemos sus datos personales?
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    Mantendremos y procesaremos sus datos personales no más de lo necesario para cumplir con
+                    nuestras obligaciones, por ejemplo, la gestión completa de su compra, incluido el envío, el pago
+                    y las devoluciones. <br>
+                    Los datos de compra y pago también se utilizarán con fines de desarrollo y mejora de productos,
+                    servicios y cadenas de suministro. <br>
+                    Los datos de compra y pago también se utilizarán con fines de seguridad y seguridad por
+                    detección de fraude y prevención de pérdidas. <br>
+                    Si usted es usuario de una cuenta de Tormenta, continuaremos utilizando sus datos de pedido en
+                    la medida necesaria para cumplir con nuestras promesas y distribuir Anuncios y Promociones de
+                    acuerdo con sus expectativas. <br>
+                    En adición a lo anterior, con el fin de cumplir con las leyes, estamos obligados a seguir
+                    guardando y, a veces, utilizar los datos de su compra para cumplir con la legislación fiscal y
+                    contable aplicable y para proteger los derechos del consumidor. <br>
+                    Puede leer más sobre por qué y cómo el Grupo Tormenta reutiliza los datos personales en cada
+                    sección de esta Política de Privacidad.
+                </div>
+            </div>
+        </div>
+        <div class="tituloZona">
+            <h3 class="fs-4">ANUNCIOS Y PROMOCIONES</h3>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed px-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseSeven" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseSeven">
+                    ¿Cómo usamos sus datos personales?
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseSeven" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    En primer lugar, usamos los datos obtenidos directamente de usted, cuando creó su cuenta, compra
+                    con nosotros, se suscribe a los boletines o participa con nosotros de cualquier otra manera.
+                    Tormenta y nuestros socios de Adiverting también usan cookies y otras tecnologías para rastrear
+                    su navegación, al hacer click y realizar búsquedas en los sitios web. Lea más sobre el
+                    seguimiento del sitio web en la sección de cookies de esta Política de Privacidad y la Política
+                    de Cookies. <br>
+                    Nunca recuperaremos, utilizaremos y almacenaremos datos personales de los corredores de datos u
+                    otras fuentes externas sin tener acceso a dichos datos para perseguir un propósito comercial a
+                    menos que lo aclaremos explícitamente.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item ">
+            <h2 class="accordion-header pt-3">
+                <button class="accordion-button collapsed px-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseEight" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseEight">
+                    Socios de publicidad
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseEight" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    Tormenta colabora con socios publicitarios titulares de plataformas publicitarias, como Facebook
+                    Inc., Snap Inc., Cold Brew Labs y Alphabet, Inc. y sus marcas vinculadas. <br>
+                    Nuestros socios de publicidad nos permiten identificar y participar con la audiencia objetivo
+                    correcta, para crear y distribuir contenido de marketing personalizado a través de plataformas y
+                    servicios. Para poder elegir el contenido que se ajuste a sus intereses, podemos usar la
+                    información obtenida de usted cuando se registró para recibir un boletín, creó una cuenta o
+                    realice una compra con nosotros. Podemos compartir esta información y un identificador de
+                    cliente, por ejemplo. Una dirección de correo electrónico cifrada o un ID de dispositivo, con
+                    terceros, como Facebook Inc. y Alphabet Inc. El propósito es mostrarle anuncios relevantes a
+                    usted en sitios web y aplicaciones de terceros. Para hacer esto, sus datos se combinan con la
+                    base de datos del tercero. Si se encuentra una coincidencia, recibirá contenido promocional y
+                    relevante dentro de un sitio o motor de búsqueda. Si no se encuentra ninguna coincidencia, sus
+                    datos se destruyen de forma segura. Tomamos muy seriamente nuestra responsabilidad de proteger
+                    los datos personales de nuestros clientes muy en serio y nos gusta asegurarle que estos datos
+                    personales se manejan de manera segura utilizando una técnica llamada Hashing. Esto asegura que
+                    sus datos se codifiquen tal manera que sean ilegibles para cualquier persona que no sea el
+                    destinatario para el propósito explícito entregado. <br>
+                    También podemos vincular estos datos a través de los diversos dispositivos que usa, así como los
+                    datos de procesamiento de anuncios, por ejemplo, si hace click en un anuncio y luego realiza una
+                    compra. El propósito es medir el impacto del anuncio y permitir la facturación de anuncios. <br>
+                    Si no desea que compartamos sus datos con terceros para este propósito, en cualquier momento
+                    puede revocar su consentimiento de marketing al administrar su consentimiento en la
+                    configuración de cookies en la sección de ayuda en la parte inferior de la portada. <br>
+                    Cada socio publicitario es responsable de su parte del procesamiento como controladores,
+                    incluidos (si corresponde) transferencias de datos personales a países no pertenecientes al Área
+                    Económica Europea.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item ">
+            <h2 class="accordion-header pt-3">
+                <button class="accordion-button collapsed px-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseNine" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseNine">
+                    ¿Cuál es la base legal para procesar sus datos personales?
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseNine" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    Obtendremos su consentimiento antes de que le enviemos boletines informativos por correo
+                    electrónico. <br>
+                    Pediremos su consentimiento previo relacionado con actividades publicitarias que se basa en
+                    datos de cookies u otras tecnologías de seguimiento.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item ">
+            <h2 class="accordion-header pt-3">
+                <button class="accordion-button collapsed px-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseTen" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseTen">
+                    Cómo ejercer tus derechos
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseTen" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    Usted tiene el derecho de ejercer sus derechos contra Tormenta a dichos datos personales
+                    investidos en la posesión y control de Tormenta. <br>
+                    Los datos personales en nuestra posesión son los datos obtenidos directamente de usted cuando
+                    está comprando con nosotros, creando una cuenta, suscribiéndose a los boletines o participando
+                    con nosotros por otros medios en línea o en el mundo físico. <br>
+                    Usted tiene, en cualquier momento, el derecho de retirar su consentimiento para fines de
+                    marketing, u objetarlo si el procesamiento se basa en nuestro interés legítimo (cuando
+                    corresponda). <br>
+                    Su revocación de consentimiento u objeción a una comunicación de índole publicitario significa
+                    una cesura de todos los anuncios futuros, promociones y otros mensajes de marketing que se
+                    originan en el Grupo Tormenta, incluido el procesamiento subyacente de datos personales para
+                    este propósito. <br>
+                    Sin embargo, si continúa recibiendo comunicación de marketing de nosotros que se muestra en su
+                    alimentación de redes sociales o en el navegador web, este es un asunto enteramente entre usted
+                    y su proveedor de plataformas. <br>
+                    Puede revocar su consentimiento u optar por no seguir recibiendo más comunicación de marketing
+                    por los siguientes medios:
+                    <ul>
+                        <li>Siguiendo la instrucción en cada publicación de marketing</li>
+                        <li>Editando la configuración de su cuenta de Tormenta</li>
+                        <li>Ajustando la configuración de privacidad en su cuenta de redes sociales o navegador
+                        </li>
+                        <li>Contactar a Servicio al Cliente</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="tituloZona">
+            <h3 class="fs-4">CUENTA TORMENTA</h3>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed px-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseEleven" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseEleven">
+                    ¿Quién es responsable del procesamiento de datos personales?
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseEleven" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    Tormenta es el controlador de datos del procesamiento de datos personales en el contexto de
+                    habilitar
+                    "Mi Cuenta Tormenta".
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item ">
+            <h2 class="accordion-header pt-3">
+                <button class="accordion-button collapsed px-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseTwelve" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseTwelve">
+                    ¿Por qué usamos sus datos personales?
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseTwelve" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    Tormenta usará sus datos personales para administrar su "Cuenta Tormenta" ("Mi cuenta"),
+                    incluida la recopilación de consentimientos, identificar y certificar la identidad del usuario
+                    de la cuenta, evitar el acceso y el uso no autorizado, restringir el uso por menores de edad, la
+                    comunicación de avisos y notificaciones, tomar medidas contra el uso indebido de la cuenta,
+                    hacer cumplir las sanciones correspondientes frente a las violaciones de los Términos de uso, y
+                    para administrar la revocación de los consentimientos. También utilizaremos sus datos personales
+                    para brindarle una experiencia en línea personalizada y para que su información de compra esté
+                    disponible al instante. <br>
+                    No utilizaremos más datos de los necesarios para brindarle todos los beneficios asociados a una
+                    cuenta Tormenta. Esto significa que solo usaremos datos personales obtenidos directamente de
+                    usted al momento de registrarse para obtener una cuenta. <br>
+                    Para que la experiencia sea aún más relevante para usted, podemos personalizar el contenido
+                    antes de mostrarlo según lo que conocemos (o percibimos que sabemos) sobre sus intereses y
+                    preferencias. Si usted como titular de la cuenta Tormenta, se ha registrado para recibir
+                    anuncios y promociones, sus promociones y ofertas se basarán en los datos de su perfil, las
+                    compras e historial de navegación web. La personalización llega tras analizar y predecir
+                    aspectos relacionados con sus intereses, preferencias, comportamiento, etc., haciendo uso de una
+                    combinación de datos personales obtenidos por usted o de terceros debidamente autorizados. <br>
+                    También podemos usar datos personales recibidos de cookies web, píxeles, integraciones,
+                    complementos u otras tecnologías de rastreo web para los mismos objetivos. <br>
+                    Para obtener más información sobre el uso de dicha tecnología, por favor lea la sección
+                    específica sobre cookies en esta Política de Privacidad y la Política de Cookies.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item ">
+            <h2 class="accordion-header pt-3">
+                <button class="accordion-button collapsed px-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseThirteen" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseThirteen">
+                    ¿Cómo procesamos sus datos personales?
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseThirteen" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    No utilizamos más datos de los necesarios para brindarle todos los beneficios que vienen con una
+                    cuenta de Tormenta. Esto significa que solo usaremos datos personales obtenidos directamente de
+                    usted cuando se registró para ello. <br>
+                    Para que la experiencia sea aún más relevante para usted, personalizamos el contenido antes de
+                    visualizarlo según lo que conocemos (o percibimos que sabemos) sobre sus intereses y
+                    preferencias. La personalización llega a analizar y predecir aspectos relacionados con sus
+                    intereses, preferencias, comportamiento, etc., al hacer uso de una combinación de datos
+                    derivados de órdenes de compra anteriores y datos obtenidos a través de cookies y otras
+                    tecnologías de trazado. <br>
+                    Puede leer más sobre las cookies en la sección específica de esta Política de Privacidad y la
+                    Política de Cookies.
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item ">
+            <h2 class="accordion-header pt-3">
+                <button class="accordion-button collapsed px-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseFourteen" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseFourteen">
+                    ¿Cuál es el terreno legal para procesar sus datos personales?
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseFourteen" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    Procesaremos sus datos personales en función de su consentimiento libre, previo, informado,
+                    expreso e inequívoco y, en la medida en que los necesitemos para concluir y mantener la cuenta
+                    Tormenta. En este extremo el usuario autoriza el flujo transfronterizo de los datos personales
+                    recopilados. <br>
+                    El procesamiento de sus datos personales para proporcionarle una experiencia personalizada en
+                    línea, como las recomendaciones de productos, se basa en su consentimiento como titular de la
+                    cuenta.
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+{% block js %}
+<script src="{{url_for('static', filename='client/js/cargarCantProductos.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+crossorigin="anonymous"></script>
+{% endblock %}

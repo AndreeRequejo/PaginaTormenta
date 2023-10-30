@@ -1,0 +1,40 @@
+{% extends "vista_admin.html" %}
+{% block titulo %} Colores {% endblock %}
+{% block content %}
+
+<section class="section" style="margin-left: 40px;">
+    <div class="columns">
+        <div class="column">
+            <img src="{{url_for('static', filename='admin/img/colorPrenda.jpg')}}" width='400' height ='300' />
+            <h3 class="is-size-3">Colores de Prendas</h3>
+            <a href="{{url_for('agregar_color_prenda')}}" class="button is-success">Agregar</a>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Código de Color de Prenda</th>
+                        <th>Color</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for color in color_prendas %}
+                    <tr>
+                        <td>{{color[0]}}</td>
+                        <td>{{color[1]}}</td>
+                        <td>
+                            {# Pasar el id lo que hay en color[0] #}
+                            <a href="{{url_for('editar_color_prenda', id=color[0])}}" class="button is-info">Editar</a>
+                        </td>
+                        <td>
+                            <form action="{{url_for('eliminar_color_prenda')}}" method="POST">
+                                  <input type="hidden" name="id" value="{{color[0]}}">
+                                <button class="button is-danger">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}

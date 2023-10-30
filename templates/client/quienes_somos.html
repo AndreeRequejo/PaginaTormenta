@@ -1,0 +1,88 @@
+{% extends "maestraUsuario.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='client/css/nosotros.css') }}">  
+{% endblock %}
+
+{% block titulo %}
+TORMENTA
+{% endblock %}
+
+{% block contenido %}
+    <main>
+    <div class="card text-black mt-4">
+        <img src="{{url_for('static', filename='client/img/banner_quienesSomos.jpg')}}" class="card-img opacity-50" alt="...">
+        <div class="card-img-overlay d-flex justify-content-center align-items-center">
+            <h2 class="card-title text-center fs-1">¿Quienes somos?</h2>
+        </div>
+    </div>
+
+    <div class="contenido fs-5 d-flex flex-column justify-content-center align-items-center">
+        <div class="card mt-3" style="max-width:80%;">
+            <div class="row">
+                <div class="col-md-7 d-flex justify-content-center align-items-center">
+                    <div class="card-body">
+                        <p class="card-text">
+                            Somos la cadena más grande de ropa, especializada en ropa formal y
+                            casual, brindamos a nuestros clientes la asesoría de profesionales expertos en la moda
+                            para crear una experiencia de compra inolvidable.
+                        </p>
+                    </div>
+                </div>
+                <div class="cont-img col-md-5 d-flex justify-content-center align-items-center">
+                    <img src="{{url_for('static', filename='client/img/qs1.jpg')}}" class="img-fluid" alt="...">
+                </div>
+            </div>
+        </div>
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            <h3 class="fs-2 my-5">¿Cómo empezó nuestra historia?</h3>
+            <div class="card " style="max-width:80%;">
+                <div class="row">
+                    <div class=" inicios-texto col-md-8 d-flex justify-content-center align-items-center">
+                        <div class="card-body ">
+                            <p class="card-text ">
+                                Hace 42 años empezó nuestra aventura con una tienda en Miraflores, desde entonces y
+                                con un sueño claro, nos convertimos en la más grande cadena de tiendas para
+                                caballeros de todo el Perú.
+                            </p>
+                            <p class="card-text">
+                                Gracias a la entrega de muchas personas, hoy contamos con 46 tiendas a nivel
+                                nacional. Nuestra principal diferencia es la asesoría personalizada que damos a
+                                nuestros clientes, brindando los mejores productos para realzar la elegancia
+                            </p>
+                        </div>
+                    </div>
+                    <div class="cont-img col-md-4 d-flex justify-content-center align-items-center">
+                        <img src="{{url_for('static', filename='client/img/qs2.jpg')}}" class="img-fluid" alt="...">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center align-items-center">
+            <div class="row row-cols-1 row-cols-md-2 g-4 my-4" style="max-width:80%;">
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body px-0">
+                            <h5 class="card-title">Misión</h5>
+                            <p class="card-text">Realizar la elegancia y distinción de todos los caballeros a través
+                                de la moda formal y casual.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100">
+                        <div class="card-body px-0">
+                            <h5 class="card-title">Visión</h5>
+                            <p class="card-text">Realzar la elegancia y distinción de todos los caballeros a través
+                                de la moda formal y casual.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </main>
+{% endblock %}
+
+{% block js %}<script src="{{url_for('static', filename='client/js/cargarCantProductos.js')}}"></script>{% endblock %}

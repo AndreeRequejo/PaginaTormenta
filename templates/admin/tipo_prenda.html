@@ -1,0 +1,40 @@
+{% extends "vista_admin.html" %}
+{% block titulo %} Categorías {% endblock %}
+{% block content %}
+
+<section class="section" style="margin-left: 40px;">
+    <div class="columns">
+        <div class="column">
+            <img src="{{url_for('static', filename='admin/img/categorias.jpg')}}" width='400' height ='300' />
+            <h3 class="is-size-3">Tipos de Prendas</h3>
+            <a href="{{url_for('agregar_tipo_prenda')}}" class="button is-success">Agregar</a>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Código de Tipo Prenda</th>
+                        <th>Tipo_Prenda</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for tipo in tipo_prendas %}
+                    <tr>
+                        <td>{{tipo[0]}}</td>
+                        <td>{{tipo[1]}}</td>
+                        <td>
+                            {# Pasar el id lo que hay en pred[0] #}
+                            <a href="{{url_for('editar_tipo_prenda', id=tipo[0])}}" class="button is-info">Editar</a>
+                        </td>
+                        <td>
+                            <form action="{{url_for('eliminar_tipo_prenda')}}" method="POST">
+                                <input type="hidden" name="id" value="{{tipo[0]}}">
+                                <button class="button is-danger">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}

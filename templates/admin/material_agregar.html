@@ -1,0 +1,19 @@
+{% extends "maestraAdmin.html" %}
+{% block titulo %}
+Agregar material
+{% endblock %}
+{% block contenido %}
+<section class="section">
+    <div class="columns">
+        <div class="column is-one-third">
+            <h3 class="is-size-3">Agregar material</h3>
+            <form action="{{url_for('guardar_material')}}" method="post">
+                <label for="nombre_material">Nombre de material:</label>
+                <input type="text" class="input" placeholder="Nombre material" name="nombre_material" id="nombre_material">
+                <button type="submit" class="button is-success mt-2">Guardar</button>
+                <a href="{{url_for('material_prenda')}}" class="button is-primary mt-2">Volver</a>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

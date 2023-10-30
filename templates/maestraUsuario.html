@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='client/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='client/css/index.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='client/css/catalogo.css') }}">
+    {% block css %}{% endblock %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='client/img/icono.ico') }}"/>
+    <title>{% block titulo %}{% endblock %}</title>
+</head>
+
+<body>
+    <header class="m-0 mx-2 align-items-center">
+        <nav class="navbar navbar-expand-lg navbar-light white-light d-flex" data-aos="zoom-in" data-aos-duration="1000">
+            <div class="container-fluid">
+                <a class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2" href="{{url_for('indexUsuario')}}"><img src="{{ url_for('static', filename='client/img/logo.jpg') }}" alt=""
+                    data-aos-offset="1000"
+                    data-aos-easing="ease-in-sine"></a>
+                <input type="text" placeholder="Buscar" class=" col-12  col-sm-4 col-md-5 col-lg-5">
+                <div class=" col-12  col-sm-3 col-md-3 col-lg-3 col-xl-2 my-4 m-sm-0 m-md-0 m-lg-0 m-xl-0 d-flex justify-content-center align-items-center text-center"
+                    id="usu-gus-car"
+                    data-aos-offset="1000"
+                    data-aos-easing="ease-in-sine">
+                    <a href="{{url_for('login')}}" style="text-decoration: none; color: black;"><i class='bx bx-user '></i></a>
+                    <div class="position-relative">
+                        <a href="{{url_for('listaDeseados')}}" style="text-decoration: none; color: black;">
+                            <i class='bx bx-heart'></i>
+                        </a>
+                        <span class="notification-badge">4</span>
+                    </div>
+                    <div class="position-relative">
+                        <a href="{{url_for('carritoCompras')}}" style="text-decoration: none; color: black;">
+                            <i class='bx bx-cart'></i>
+                        </a>
+                        <span class="notification-badge" id="totalCarrito">0</span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div
+            class="container-fluid  d-flex flex-wrap  justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between">
+            <div class="btn-group m-0 m-sm-0 m-md-0 m-lg-0 m-xl-0" role="group" data-aos="zoom-in">
+                <a href="{{url_for('catalogoMasculino')}}">
+                    <button type="button" class="btn btn-outline-secondary btn-no-border">Varon</button>
+                </a>
+                <a href="{{url_for('catalogoFemenino')}}">
+                    <button type="button" class="btn btn-outline-secondary btn-no-border2">Mujer</button>
+                </a>
+            </div>
+            <div class="btn-group  m-3 m-sm-3 m-md-0 m-lg-0 m-xl-0" role="group" data-aos="zoom-in">
+                <a href="{{url_for('catalogoNovedades')}}">
+                    <button type="button" class="btn btn-outline-secondary btn-no-border">Novedades</button>
+                </a>
+                <a href="{{url_for('catalogoRopa')}}">
+                    <button type="button" class="btn btn-outline-secondary btn-no-border3">Ropa</button>
+                </a>
+                <a href="{{url_for('catalogoRopa')}}">
+                    <button type="button" class="btn btn-outline-secondary btn-no-border2">Ofertas</button>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    {% block contenido %}
+    {% endblock %}
+
+    <footer class="container-fluid pt-4">
+        <div class="d-flex flex-wrap">
+            <div class="contact d-flex col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                <div class="lo-red ">
+                    <a href="{{url_for('indexUsuario')}}"><img src="{{url_for('static', filename='client/img/logo-nube.png')}}" alt="" class="lo"></a>
+                    <div class="redes-sociales">
+                        <a href="#"><i class='bx bxl-facebook'></i></a>
+                        <a href="#"><i class='bx bxl-instagram'></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="nosotros col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3 ">
+                <h4
+                    class="d-flex  justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between">
+                    Nosotros</h4>
+                    <a href="{{url_for('quienes_somos')}}" class="d-flex justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between">¿Quiénes somos?</a>
+                <a href="{{url_for('contactanos')}}"
+                    class="d-flex justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between ">Contactanos!</a>
+                <a href="{{url_for('terminos_condiciones')}}"
+                    class="d-flex  justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between">Terminos
+                    y condiciones</a>
+            </div>
+            <div class="atencion col-12  col-sm-6 col-md-3 col-lg-3 col-xl-3">
+                <h4
+                    class="d-flex  justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between">
+                    Atencion al Cliente</h4>
+                <a href="{{url_for('preguntas_frecuentes')}}"
+                    class="d-flex justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between">Preguntas
+                    frecuentes</a>
+                <a href="{{url_for('libro_reclamaciones')}}"
+                    class="d-flex justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between">Libro
+                    de Reclamaciones</a>
+                <a href="{{url_for('politicas_privacidad')}}"
+                    class="d-flex justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between">Política
+                    de Privacidad</a>
+            </div>
+            <div class="mapa justify-content-center col-12  col-sm-6 col-md-12 col-lg-3 col-xl-3">
+                <img src="{{url_for('static', filename='client/img/mapa.jpg')}}" alt="" class="mx-auto d-block ">
+                <p class="text-center">
+                    D' Ángelo Galeria Comercial,<br>
+                    Avenida José Balta, Chiclayo
+                </p>
+            </div>
+        </div>
+        <div>
+            <div>
+                <hr>
+                <p> &copy; Tormenta, 30/06/2023 - 12/07/2023</p>
+                <div style="display: flex; justify-content: center;">
+                    <hr style="width: 50%;">
+
+                </div>
+                <a href="creadores.html" target="_blank">
+                    <p> Creador por: TrimWeb</p>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    {% block js %}
+    <script src="{{url_for('static', filename='client/js/cargarCantProductos.js')}}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    {% endblock %}
+
+</body>
+
+</html>

@@ -1,0 +1,107 @@
+/*Carrito*/
+.car-en-pag {
+  font-family: "Lexend Exa", sans-serif;
+}
+.car-en-pag a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+.car-en-pag p {
+  margin: 0;
+}
+
+.car-en-pag span {
+  color: #aaaaaa;
+  font-weight: bold;
+}
+
+.orden-prod h4,
+.resumen h4,
+.desc span {
+    font-weight: bold;
+  
+  color: #444444;
+  font-family: "Lexend Exa", sans-serif;
+  font-size: 16px;
+}
+
+.resumen .ite {
+  font-family: "Metrophobic", sans-serif;
+  font-weight: 600;
+}
+
+.resumen .ite2 {
+  font-family: "Metrophobic", sans-serif;
+  color: #ccc;
+  font-weight: 600;
+}
+
+.resumen .ite3 {
+  font-family: "Metrophobic", sans-serif;
+  font-size: 25px;
+  font-weight: bold;
+}
+.orden-prod h5 {
+  color: #444444;
+  font-family: "Lexend", sans-serif;
+}
+.text-muted {
+  color: #7a7a7a;
+  font-family: "Metrophobic", sans-serif;
+}
+
+.selec-cant {
+  font-family: "Lexend", sans-serif;
+
+  text-align: center;
+  width: 70px;
+  border: none;
+  border-radius: 4px;
+  padding: 10px;
+  box-shadow: 0 0px 5px #ccc;
+}
+
+.selec-cant:focus {
+  outline: none;
+  border: solid 1px #ccc;
+}
+
+.def-cant-pre-prod {
+  font-family: "Lexend", sans-serif;
+}
+
+.item-total-monto {
+  box-shadow: 0px 0px 10px #ccc;
+  border-radius: 20px;
+}
+
+.pagar button {
+  border: none;
+  border-radius: 25px;
+  padding: 10px 60px;
+  color: white;
+  background-color: #717fe0;
+  font-family: "Lexend", sans-serif;
+}
+
+#desc button {
+  border: none;
+  border-radius: 25px;
+  padding: 10px 40px;
+  color: white;
+  background-color: #717fe0;
+  font-family: "Lexend", sans-serif;
+}
+
+.desc a {
+  font-family: "Lexend", sans-serif;
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+.bxs-trash-alt:hover {
+  cursor: pointer;
+  color: #717fe0;
+}

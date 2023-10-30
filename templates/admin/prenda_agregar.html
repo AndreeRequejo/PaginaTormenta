@@ -1,0 +1,47 @@
+{% extends "maestraAdmin.html" %}
+{% block titulo %}
+Agregar Prenda
+{% endblock %}
+{% block contenido %}
+<section class="section">
+    <div class="columns">
+        <div class="column is-one-third">
+            <h3 class="is-size-2">Agregar Prenda:</h3>
+            <form action="{{url_for('guardar_prenda')}}" method="post">
+                <label for="cod_prenda">Código de Prenda:</label>
+                <input type="text" class="input" placeholder="Código Prenda" name="cod_prenda" id="cod_prenda">
+                <label for="nom_prenda">Nombre:</label>
+                <input type="text" class="input" placeholder="Nombre Prenda" name="nom_prenda" id="nom_prenda">
+                <label for="desc_prenda">Descripción:</label>
+                <textarea class="form-control" name="desc_prenda" id="desc_prenda" cols="65" rows="5"></textarea>
+                <label for="tipo_prenda">Tipo de Prenda:</label>
+                <select class="form-select" name="tipo_prenda" id="tipo_prenda">
+                    {% for tipo in tipo_prendas %}
+                    <option value="{{tipo[0]}}">{{tipo[1]}}</option>
+                    {% endfor %}
+                </select>
+                <label for="color_prenda">Color de Prenda:</label>
+                <select class="form-select" name="color_prenda" id="color_prenda">
+                    {% for color in color_prendas %}
+                    <option value="{{color[0]}}">{{color[1]}}</option>
+                    {% endfor %}
+                </select>
+                <label for="temporada_prenda">Temporada de Prenda:</label>
+                <select class="form-select" name="temporada_prenda" id="temporada_prenda">
+                    {% for temporada in temporada_prendas %}
+                    <option value="{{temporada[0]}}">{{temporada[1]}}</option>
+                    {% endfor %}
+                </select>
+                <label for="material_prenda">Material de Prenda:</label>
+                <select class="form-select" name="material_prenda" id="material_prenda">
+                    {% for material in material_prendas %}
+                    <option value="{{material[0]}}">{{material[1]}}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="button is-success mt-2">Guardar</button>
+                <a href="{{url_for('material_prenda')}}" class="button is-primary mt-2">Volver</a>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

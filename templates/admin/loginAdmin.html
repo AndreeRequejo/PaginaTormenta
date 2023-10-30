@@ -1,0 +1,41 @@
+{% extends "maestra.html" %}
+
+{% block titulo %}
+Iniciar sesión
+{% endblock %}
+
+{% block contenido %}
+<div class="container h-100">
+  <div class="row h-100 justify-content-center align-items-center">
+    <div class="col-md-6">
+      <form class="form-signin" action="{{url_for('procesar_login')}}" method="post">
+        <h3 class="titulo text-center">Iniciar Sesión</h3>
+
+        <div class="texto input-group d-flex justify-content-center align-items-center mt-5 flex-column">
+          <div class="d-flex mb-3" id="contenedor-texto">
+            <span class="input-group-text no-brr" id="basic-addon1" for="username"><i class='bx bx-envelope'></i></span>
+            <input type="text" class="form-control no-blr" placeholder="Usuario" aria-label="Correo"
+              aria-describedby="basic-addon1" name="username" id="username">
+          </div>
+          <div class="d-flex mb-2" id="contenedor-texto">
+            <span class="input-group-text no-brr" id="basic-addon2" for="password"><i class='bx bx-lock-alt'></i></span>
+            <input type="password" class="form-control no-blr" placeholder="Contraseña" aria-label="Contraseña"
+              aria-describedby="basic-addon2" name="password" id="password">
+          </div>
+          <a href="rest_contrasenia.html" id="forgot_pswd">¿Olvidaste tu contraseña?</a>
+        </div>
+
+        <div class="d-flex justify-content-center mt-4">
+          <button type="submit" class="titulo btn btn-secondary rounded-pill p-2" id="blue">INGRESAR</button>
+        </div>
+
+        <div class="d-flex justify-content-center mt-3">
+          <a href="{{url_for('signup')}}">
+            <button type="button" class="titulo btn btn-secondary rounded-pill p-2" id="white">REGÍSTRATE</button>
+          </a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

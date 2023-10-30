@@ -1,0 +1,215 @@
+{% extends "maestraUsuario.html" %}
+
+{% block titulo %} TORMENTA {% endblock %}
+
+{% block contenido %}
+<main>
+    <div class="d-flex justify-content-center my-5 carl" data-aos="zoom-in"
+    data-aos-duration="1000">
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item zImg active">
+                    <img src="{{ url_for('static', filename='client/img/slider (1).png') }}" class="w-100 card-img" alt="...">
+                    <div class="card-img-overlay text-light d-flex align-items-center sli-text">
+                        <div>
+                            <h3 class="">TEMPORADA <span>2023</span></h3>
+                            <a href="catalogo_ropa.html">
+                                <button type="button" class="compr-button animate__animated animate__flash">Comprar
+                                    ahora</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon " aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+    <h3 class="text-center" data-aos="flip-up" data-aos-duration="1000">¡OFERTAS DE VERANO!</h3>
+    <div class="d-flex justify-content-center  img-hom-mujer my-5">
+        <div class="card mt-1" style="border: none;" data-aos="flip-up" data-aos-duration="1000">
+            <img src="{{ url_for('static', filename='client/img/ofertas_hombres.png') }}" class="d-block my-3 mx-5 opacity-75" alt="Imagen 1">
+            <a href="catalogo_masculino.html">
+                <div class="card-img-overlay text-light d-flex align-items-center of_mas_ver">
+                    <div class="fs-2">
+                        <p>ROPA PARA <br> <span class="frs">HOMBRES</span><br> <span class="fs-5">Hasta</span>
+                            <br><span class="frs">35%</span>
+                        </p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="card mt-1" style="border: none;" data-aos="flip-up">
+            <img src="{{ url_for('static', filename='client/img/ofertas_mujeres.png') }}" class="d-block my-3 mx-5 opacity-75" alt="Imagen 1">
+            <a href="catalogo_femenino.html">
+                <div class="card-img-overlay text-light d-flex align-items-center of_mas_ver">
+                    <div class="fs-2">
+                        <p>ROPA PARA <br> <span class="frs">MUJERES</span><br> <span class="fs-5">Hasta</span>
+                            <br><span class="frs">55%</span>
+                        </p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="container">
+        <hr>
+    </div>
+    <div class="text-center cont2" data-aos="flip-up">
+        <h3 class="">COLECCION DE MODA</h3>
+        <h5 class="">Moda tan única como tú</h5>
+        <div class="my-3 d-flex justify-content-around">
+            <a href="#">Nuevos</a>
+            <a href="#">Mas Vendidos</a>
+            <a href="#">En tendencia</a>
+        </div>
+    </div>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel" data-aos="zoom-in"
+    data-aos-duration="1000">
+        <!-- Slides -->
+        <div class="carousel-inner">
+            
+
+            <div class="carousel-item active">
+                <div class="container">
+                    <div class="row">
+                        <div class="img-prod d-flex flex-wrap justify-content-center w-100 ">
+                            <div class="m-3" id="contenido1">
+                                <img src="https://cdn.shopify.com/s/files/1/0373/4513/2676/files/TX926W_055_01_50f0a74f-2c99-4583-b7ae-c5a8867f4166_540x.jpg?v=1684351202"
+                                    alt="">
+                                <p class="text-center nombre_prod">POLERA LIPPI</p>
+                                <div class="d-flex justify-content-around">
+                                    <p class="text-decoration-line-through prec-ant">
+                                        <span> S/. <span id="precio5">179.50</span></span>
+                                    </p>
+                                    <p class="prec-act">
+                                        <span> S/. <span id="precio1">100.00</span></span>
+                                    </p>
+                                </div>
+                                </p>
+                            </div>
+                            <div class="m-3" id="contenido2">
+                                <img src="https://cdn.shopify.com/s/files/1/0373/4513/2676/files/TX921W_137_01_b94fc058-723a-4bb7-974e-2a81e0a5a3dd_540x.jpg?v=1684351163"
+                                    alt="">
+                                <p class="text-center nombre_prod">POLERA INSIGNE HOODY</p>
+                                <div class="d-flex justify-content-around">
+                                    <p class="text-decoration-line-through prec-ant">
+                                        <span> S/. <span id="precio5">239.00</span></span>
+                                    </p>
+                                    <p class="prec-act">
+                                        <span> S/. <span id="precio2">167.30</span></span>
+                                    </p>
+
+                                </div>
+                            </div>
+                            <a href="detalle_prod_mujer.html">
+                                <div class="m-3" id="contenido3">
+                                    <img src="https://cdn.shopify.com/s/files/1/0373/4513/2676/products/ERJSW03523_KVJ0_1_54ffb0c5-6fa8-4035-b5fb-f989eeaca7cd_1024x1024@2x.jpg?v=1680100951"
+                                        alt="">
+                                    <p class="text-center nombre_prod">CHOMPA ROXY SWEATER</p>
+                                    <p class="prec-act">
+                                        <span> S/. <span id="precio3">199.20</span></span>
+                                    </p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="carousel-item">
+                <div class="container">
+                    <div class="row">
+                        <div class="img-prod d-flex flex-wrap justify-content-center w-100 ">
+                            <div class="m-3" id="contenido4">
+                                <img src="https://cdn.shopify.com/s/files/1/0373/4513/2676/products/ERJJK03508_KVJW_01_1024x1024_2x_32de7d3d-324d-499a-b456-896d5e09e253_540x.png?v=1671736646"
+                                    alt="">
+                                <p class="text-center nombre_prod">CASACA ROXY </p>
+                                <p class="prec-act">
+                                    <span> S/. <span id="precio4">378.00</span></span>
+                                </p>
+                            </div>
+                            <div class="m-3" id="contenido4">
+                                <img src="https://cdn.shopify.com/s/files/1/0373/4513/2676/products/T0022_029_1_540x.jpg?v=1660319798"
+                                    alt="">
+                                <p class="text-center nombre_prod">POLO CORE TEE</p>
+                                <p class="prec-act">
+                                    <span> S/. <span id="precio4">100.00</span></span>
+                                </p>
+                            </div>
+                            <div class="m-3" id="contenido5">
+                                <img src="https://cdn.shopify.com/s/files/1/0373/4513/2676/files/THE-BOX-JEANS-ABR-230265_540x.jpg?v=1682377675"
+                                    alt="">
+                                <p class="text-center nombre_prod">JEAN HUNTER IC</p>
+                                <p class="prec-act">
+                                    <span> S/. <span id="precio4">167.00</span></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controles -->
+        <a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"> </span>
+        </a>
+        <a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </a>
+    </div>
+    <div class="container">
+        <hr>
+    </div>
+    <div class="container-fluid pt-2 serv d-flex justify-content-around" data-aos="fade-up"
+    data-aos-anchor-placement="top-bottom">
+        <div class="row px-xl-5 pb-3">
+            <div class="col-sm-6 col-md-3  my-2 d-flex align-items-center justify-content-center">
+                <div class="card d-flex align-items-center justify-content-center"
+                    style="width: 18rem; border: none;">
+                    <img src="{{ url_for('static', filename='client/img/caja-de-devolucion.png') }}" class="card-img-top " alt="...">
+                    <div class="card-body serv-titu">
+                        <p class="card-text">DEVOLUCIONES</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3  my-2 d-flex align-items-center justify-content-center">
+                <div class="card d-flex align-items-center justify-content-center"
+                    style="width: 18rem; border: none;">
+                    <img src="{{ url_for('static', filename='client/img/pago-seguro.png') }}" class="card-img-top" alt="...">
+                    <div class="card-body serv-titu">
+                        <p class="card-text">PAGO SEGURO</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3  my-2 d-flex align-items-center justify-content-center">
+                <div class="card d-flex align-items-center justify-content-center"
+                    style="width: 18rem; border: none;">
+                    <img src="{{ url_for('static', filename='client/img/envio-gratis.png') }}" class="card-img-top" alt="...">
+                    <div class="card-body serv-titu">
+                        <p class="card-text">ENVIOS GRATIS</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3  my-2 d-flex align-items-center justify-content-center">
+                <div class="card d-flex align-items-center justify-content-center"
+                    style="width: 18rem; border: none;">
+                    <img src="{{ url_for('static', filename='client/img/telemarketing.png') }}" class="card-img-top" alt="...">
+                    <div class="card-body serv-titu">
+                        <p class="card-text">ATENCION AL CLIENTE</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}

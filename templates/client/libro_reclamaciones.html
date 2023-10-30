@@ -1,0 +1,275 @@
+{% extends "maestraUsuario.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='client/css/nosotros.css') }}">  
+{% endblock %}
+
+{% block titulo %}
+TORMENTA
+{% endblock %}
+
+{% block contenido %}
+<main>
+    <div class="card text-black mt-4  d-flex justify-content-center align-items-center">
+        <div class="zImagen">
+            <img src="{{url_for('static', filename='client/img/banner_reclamaciones.jpg')}}" class="card-img opacity-50" alt="...">
+            <div class="card-img-overlay d-flex justify-content-center align-items-center">
+                <p class="card-title text-center">LIBRO DE RECLAMACIONES</>
+            </div>
+        </div>
+    </div>
+    <div class="container mx-5 my-4 zPreguntas" id="accordionPanelsStayOpenExample">
+        <!--Datos-->
+        <div class=" frm_1 px-5 py-4 mb-5 rounded">
+            <h3 class="fs-4 mb-4">Datos de la persona que representa el reclamo</h3>
+            <form>
+                <div>
+                    <div class="row g-2 g-md-3 mb-3">
+                        <div class="col-lg col-md-12">
+                            <select class="form-select form-control " aria-label="Default select example">
+                                <option selected class="opcionSelect">Tipo Documento*</option>
+                                <option value="1">DNI</option>
+                                <option value="2">Pasaporte</option>
+                                <option value="3">Carnet de extranjería</option>
+                            </select>
+                        </div>
+                        <div class="col-lg col-md-12">
+                            <div class="form-floating">
+                                <input type="email" class="form-control" id="floatingInput" placeholder="9999999">
+                                <label for="floatingInput">N° Documento*</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-2 g-md-3 mb-3">
+                        <div class="col-lg col-md-12">
+                            <div class="form-floating">
+                                <input type="email" class="form-control" id="floatingInput" placeholder="NN">
+                                <label for="floatingInput">Nombres*</label>
+                            </div>
+                        </div>
+                        <div class="col-lg col-md-12">
+                            <div class="form-floating">
+                                <input type="email" class="form-control" id="floatingInput" placeholder="NN">
+                                <label for="floatingInput">Apellidos*</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-2 mb-3">
+                        <div class="col-lg">
+                            <select class="form-select form-control " aria-label="Default select example">
+                                <option selected class="opcionSelect">Tipo de Respuesta*</option>
+                                <option value="1">Correo Electrónico</option>
+                                <option value="2">Pasaporte</option>
+                                <option value="3">Carnet de extranjería</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--Departamentos-->
+                    <div class="row g-2 g-md-3 mb-3">
+                        <div class="col-lg col-md-12">
+                            <select class="form-select form-control " aria-label="Default select example">
+                                <option selected class="opcionSelect">Departamento*</option>
+                                <option value="1">Amazonas</option>
+                                <option value="2">Áncash</option>
+                                <option value="3">Lambayeque</option>
+                            </select>
+                        </div>
+                        <div class="col-lg col-md-12">
+                            <select class="form-select form-control " aria-label="Default select example">
+                                <option selected class="opcionSelect">Provincia*</option>
+                                <option value="1">Lambayeque</option>
+                                <option value="2">Ferreñafe</option>
+                                <option value="3">Chiclayo</option>
+                            </select>
+                        </div>
+                        <div class="col-lg col-md-12">
+                            <select class="form-select form-control " aria-label="Default select example">
+                                <option selected class="opcionSelect">Distrito*</option>
+                                <option value="1">Cayaltí</option>
+                                <option value="2">Chiclayo</option>
+                                <option value="3">Chongoyape</option>
+                                <option value="4">Eten</option>
+                                <option value="5">José Leonardo Ortiz</option>
+                                <option value="6">La Victoria</option>
+                                <option value="7">Lagunas</option>
+                                <option value="8">Monsefú</option>
+                                <option value="9">Nueva Arica</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--Contactos-->
+                    <div class="row g-2 mb-3">
+                        <div class="form-floating">
+                            <input type="email" class="form-control" id="floatingInput"
+                                placeholder="+00 000 000 000">
+                            <label for="floatingInput">Teléfono*</label>
+                        </div>
+                    </div>
+                    <div class="row g-2 mb-3">
+                        <div class="form-floating">
+                            <input type="email" class="form-control" id="floatingInput"
+                                placeholder="name@example.com">
+                            <label for="floatingInput">Email*</label>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!--Información general-->
+        <div class=" frm_1 px-5 py-4 mb-5 rounded">
+            <h3 class="fs-4 mb-4">Información general</h3>
+            <form>
+                <div>
+                    <div class="row g-2 mb-3">
+                        <div class="col-lg col-md-12">
+                            <select class="form-select form-control " aria-label="Default select example">
+                                <option selected class="opcionSelect">Tienda de compra*</option>
+                                <option value="1">Tienda Física</option>
+                                <option value="2">Tienda Online</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row g-2 mb-3">
+                        <div class="col-lg col-md-12">
+                            <div class="d-flex flex-column">
+                                <label>Información del bien contratado*</label>
+                                <div class="zRadio">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input p-2" type="radio" name="inlineRadioOptions"
+                                            id="inlineRadio1" value="option1">
+                                        <label class="form-check-label" for="inlineRadio1">Producto</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input p-2" type="radio" name="inlineRadioOptions"
+                                            id="inlineRadio2" value="option2">
+                                        <label class="form-check-label" for="inlineRadio2">Servicio</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg col-md-12">
+                            <div class="d-flex flex-column">
+                                <label>Monto reclamado*</label>
+                                <div>
+                                    <div class="form-floating">
+                                        <input type="email" class="form-control" id="floatingInput"
+                                            placeholder="+00 000 000 000">
+                                        <label for="floatingInput">Teléfono*</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2"
+                            style="height: 100px"></textarea>
+                        <label for="floatingTextarea2">Comentario</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!--Detalle de su reclamo-->
+        <div class=" frm_1 px-5 py-4 mb-5 rounded">
+            <h3 class="fs-4 mb-4">Detalle de su reclamo</h3>
+            <form>
+                <div>
+                    <div class="row g-2 mb-3">
+                        <div class="col-lg col-md-12">
+                            <div class="d-flex flex-column">
+                                <label>Información del bien contratado*</label>
+                                <div class="zRadio">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input p-2" type="radio" name="inlineRadioOptions"
+                                            id="inlineRadio1" value="option1">
+                                        <label class="form-check-label" for="inlineRadio1">Producto</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input p-2" type="radio" name="inlineRadioOptions"
+                                            id="inlineRadio2" value="option2">
+                                        <label class="form-check-label" for="inlineRadio2">Servicio</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-2 mb-3">
+                        <div class="col-lg col-md-12">
+                            <div class="d-flex flex-column">
+                                <label>Detalle del reclamo*</label>
+                                <div>
+                                    <div class="form-floating mb-3">
+                                        <textarea class="form-control" placeholder="Leave a comment here"
+                                            id="floatingTextarea2" style="height: 100px"></textarea>
+                                        <label for="floatingTextarea2">Indique su situación</label>
+                                    </div>
+                                </div>
+                                <label>Solicitud*</label>
+                                <div>
+                                    <div class="form-floating mb-3">
+                                        <textarea class="form-control" placeholder="Leave a comment here"
+                                            id="floatingTextarea2" style="height: 100px"></textarea>
+                                        <label for="floatingTextarea2">¿Cómo podemos ayudarte?</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!--TyC Enviar-->
+        <div class="container">
+            <div class="d-flex flex-column justify-content-center align-items-center">
+                <div class="form-check align-items-center">
+                    <input class="form-check-input p-2" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Al enviar este formulario acepto el flujo transfronterizo de mis datos personales, según la
+                        Ley
+                        de Protección de Datos Personales.
+                    </label>
+                </div>
+                <button type="submit" class=" btn-block my-4 px-5 btnSiguiente">Enviar</button>
+            </div>
+        </div>
+        <!--Tarjetas-->
+        <div class="container">
+            <div class="row mb-4">
+                <div class="col-sm-6 mb-3 mb-sm-0 p-0">
+                    <div class="card zDescripcion desc-1">
+                        <div class="card-body  d-flex justify-content-center align-items-center">
+                            <p class="card-text">
+                                <strong>Reclamo:</strong> Disconformidad relacionada a los productos o servicios
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 p-0">
+                    <div class="card zDescripcion">
+                        <div class="card-body">
+                            <p class="card-text">
+                                <strong>Queja:</strong> Disconformidad no relacionada a los productos o servicios o
+                                malestar o descontento respecto a la atención al público
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <ul>
+                    <li>La formulación del reclamo no impide acudir a otras vías de solución de controversias ni es
+                        requisito previo para interponer una denuncia ante el INDECOPI.﻿
+                    </li>
+                    <li> El proveedor deberá dar respuesta al reclamo en un plazo no mayor a quince (15) días
+                        hábiles
+                        improrrogables.
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+{% block js %}
+<script src="{{url_for('static', filename='client/js/cargarCantProductos.js')}}"> </script>
+{% endblock %}

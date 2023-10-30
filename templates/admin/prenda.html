@@ -1,0 +1,51 @@
+{% extends "vista_admin.html" %}
+{% block titulo %} Prenda {% endblock %}
+{% block content %}
+
+<section class="section" style="margin-left: 40px;">
+    <div class="columns">
+        <div class="column">
+            <img src="{{url_for('static', filename='admin/img/tipoRopa.png')}}" width='400' height ='300' />
+            <h3 class="is-size-3">Prendas</h3>
+            <a href="{{url_for('agregar_prenda')}}" class="button is-success">Agregar</a>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Prenda</th>
+                        <th>Descripcion</th>
+                        <th>Tipo</th>
+                        <th>Color</th>
+                        <th>Material</th>
+                        <th>Temporada</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for prenda in prendas %}
+                    <tr>
+                        <td>{{prenda[1]}}</td>
+                        <td>{{prenda[2]}}</td>
+                        <td>{{prenda[3]}}</td>
+                        <td>{{prenda[4]}}</td>
+                        <td>{{prenda[5]}}</td>
+                        <td>{{prenda[6]}}</td>
+                        <td>{{prenda[7]}}</td>
+                        <td>
+                            {# Pasar el id lo que hay en prenda[0] #}
+                            <a href="{{url_for('editar_prenda', id=prenda[0])}}" class="button is-info">Editar</a>
+                        </td>
+                        <td>
+                            <form action="{{url_for('eliminar_prenda')}}" method="POST">
+                                <input type="hidden" name="id" value="{{prenda[0]}}">
+                                <button class="button is-danger">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

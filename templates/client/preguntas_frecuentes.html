@@ -1,0 +1,195 @@
+{% extends "maestraUsuario.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='client/css/nosotros.css') }}">  
+{% endblock %}
+
+{% block titulo %}
+<title>TORMENTA</title>
+{% endblock %}
+
+{% block contenido %}
+<main>
+    <div class="card text-black mt-4  d-flex justify-content-center align-items-center">
+        <div class="zImagen">
+            <img src="{{url_for('static', filename='client/img/banner_preguntas_frecuentes.png')}}" class="card-img opacity-50" alt="...">
+            <div class="card-img-overlay d-flex justify-content-center align-items-center">
+                <p class="card-title text-center">PREGUNTAS FRECUENTES</>
+            </div>
+        </div>
+    </div>
+    <div class="accordion container mx-5 my-4 zPreguntas" style="width: 80%;" id="accordionPanelsStayOpenExample">
+        <div class="tituloZona">
+            <h3 class="fs-4">Pedidos</h3>
+        </div>
+        <!-- Pregunta 1_L-->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed px-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                    aria-controls="panelsStayOpen-collapseOne">
+                    ¿Puedo modificar mi pedido?
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    Comenzamos a procesar tu pedido rápidamente, lo que significa que no podremos hacer cambios una
+                    vez que haz comprado. Por este motivo, ¡Recuerda revisar los datos antes de comprar!
+                </div>
+            </div>
+        </div>
+        <!-- Pregunta 2_L-->
+        <div class="accordion-item pt-3">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed px-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseTwo">
+                    ¿Cuándo recibiré la confirmación de mi compra?
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    En el transcurso del día, mediante correo electrónico. Ten en cuenta que la aprobación del pago
+                    puede demorar hasta 24 horas. En el caso que tu pago sea rechazado, recibirás un e-mail con la
+                    cancelación.
+                </div>
+            </div>
+        </div>
+        <div class="tituloZona">
+            <h3 class="fs-4">Pagos</h3>
+        </div>
+        <!-- Pregunta 3_L-->
+        <div class="accordion-item ">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed px-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseThree">
+                    ¿Qué medios de pago se aceptan?
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    Aceptamos únicamente tarjetas de crédito y débito de Perú. El pago es procesado a través de la
+                    plataforma de Mercadopago S.A.
+                </div>
+            </div>
+        </div>
+        <!-- Pregunta 4_L-->
+        <div class="accordion-item pt-3">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed px-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseFour">
+                    No puedo finalizar el pedido
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    En caso de que veas un mensaje de error en el pago, asegúrate de haber ingresado bien los datos
+                    de tu tarjeta. El código de seguridad está al dorso para VISA y MASTERCARD, y en el frente para
+                    AMEX (y tiene 4 números en AMEX).
+                    <strong>Es muy probable que tengas que llamar a tu entidad bancaria para autorizar el
+                        pago.</strong> Verifica que
+                    tengas límite suficiente para hacer la compra.
+                </div>
+            </div>
+        </div>
+        <div class="tituloZona">
+            <h3 class="fs-4">Envios</h3>
+        </div>
+        <!-- Pregunta 5_L-->
+        <div class="accordion-item ">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed px-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseFive">
+                    ¿Puedo retirar mis productos en una tienda?
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    Por el momento, el envío de productos desde la tienda online, es solo es a domicilio a través de
+                    nuestro servicio transportista.
+                </div>
+            </div>
+        </div>
+        <!-- Pregunta 6_L-->
+        <div class="accordion-item pt-3">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed px-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseSix">
+                    ¿Cómo sé dónde está mi pedido?
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    Para saber dónde está tu pedido, revisa tu casilla de e-mail donde tendrás un link directo a tu
+                    seguimiento. El asunto del correo que enviamos comienza con “¡Tu Pedido #XXX.. fue enviado!
+                </div>
+            </div>
+        </div>
+        <!-- Pregunta 7_L-->
+        <div class="accordion-item pt-3">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed px-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseSeven" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseSeven">
+                    El correo hizo una visita, pero no pudo dejar el envío, ¿Qué debo hacer?
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseSeven" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    No te preocupes, el correo pasará una segunda vez por tu domicilio.
+                    Si el segundo intento de entrega es fallido, el producto volverá a nuestro depósito y
+                    procederemos con la devolución de tu dinero apenas recibamos el mismo.
+                </div>
+            </div>
+        </div>
+        <div class="tituloZona">
+            <h3 class="fs-4">Promociones</h3>
+        </div>
+        <!-- Pregunta 8_L-->
+        <div class="accordion-item ">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed px-4 px-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseEight" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseEight">
+                    Fashion News
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseEight" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    Ingresa a esta página para suscribirte exitosamente https://pe.tormenta.com/newsletter . Revisa
+                    que tu
+                    mail haya sido ingresado correctamente. Una vez suscrito, revisa tu correo y tu bandeja de Spam
+                    en caso de ser necesario. Ten en cuenta, que si no has recibido ningún mail en 24hs, quizás
+                    hayas ingresado mal el mismo, te recomendamos probar suscribirte de nuevo.
+                </div>
+            </div>
+        </div>
+        <!-- Pregunta 9_L-->
+        <div class="accordion-item pt-3">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed px-4" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseNine" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseNine">
+                    Uso de cupones
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseNine" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    Si tienes un cupón para utilizar, inicia sesión y agregalo en tu carrito.
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+{% block js %}
+<script src="{{url_for('static', filename='client/js/cargarCantProductos.js')}}"> </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+crossorigin="anonymous"></script>
+{% endblock %}

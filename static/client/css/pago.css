@@ -1,0 +1,144 @@
+.titulo {
+    font-family: "Lexend Exa", sans-serif;
+    font-weight: bold;
+}
+
+.metodoPrincipal,
+.vr {
+    margin-right: 2.5rem;
+}
+
+.metodoPrincipal input,
+.select {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+label,
+input,
+.select {
+    font-family: "Metrophobic";
+}
+
+input,
+.select {
+    color: #7a7a7a;
+}
+
+.titulo_check {
+    font-weight: bold;
+    color: #606060;
+}
+
+input[type="radio"]:checked {
+    background-color: #717fe0;
+    border: #717fe0;
+}
+
+.form-check i {
+    color: #7a7a7a;
+}
+
+.input-group input {
+    border-right: none;
+}
+
+.input-group i {
+    font-size: 1.5rem;
+    color: #7a7a7a;
+}
+
+.met_pago {
+    gap: 1rem;
+    font-size: 2rem;
+    color: #7a7a7a;
+}
+
+.seguridad {
+    font-family: "Metrophobic";
+    color: #606060;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    justify-content: flex-start;
+}
+
+.seguridad a {
+    color: #525252;
+}
+
+.seguridad a:hover {
+    color: #717fe0;
+}
+
+.seguridad p {
+    margin: 0;
+}
+
+.seguridad i {
+    font-size: 2rem;
+    color: #525252;
+}
+
+.item-total-monto {
+    width: 100%;
+}
+
+.resumen h4,
+.resumen p,
+.resumen h2 {
+    font-family: "Metrophobic" !important;
+    font-weight: bold;
+    padding: 0;
+    margin: 0;
+}
+
+.totales {
+    color: #606060;
+}
+
+.btnPago button, #btnFooter {
+    font-weight: bolder;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 60px;
+    color: white;
+    background-color: #717fe0;
+    font-family: "Lexend", sans-serif;
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.carrito img {
+    width: 100px;
+    height: 120px;
+    border-radius: 15%;
+}
+
+.carrito h5 {
+    font-family: "Lexend";
+}
+
+.detallePrenda span {
+    font-family: "Metrophobic";
+    color: #8f8585;
+    font-weight: bold;
+}
+
+.costo span {
+    font-family: "Metrophobic";
+    color: #333;
+    font-weight: bold;
+}
+
+@media (min-width: 0px) and (max-width:764px) {
+    #vlinea, .vr {
+        display: none;
+        height: 0px;
+    }
+
+    .metodoPrincipal {
+        margin-bottom: 4rem;
+    }
+}

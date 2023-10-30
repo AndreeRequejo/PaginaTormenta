@@ -1,0 +1,329 @@
+{% extends "maestraUsuario.html" %}
+
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='client/css/nosotros.css') }}">
+{% endblock %}
+
+{% block titulo %}
+<title>TORMENTA</title>
+{% endblock %}
+
+{% block contenido %}
+<main>
+    <div class="card text-black mt-4  d-flex justify-content-center align-items-center">
+        <div class="zImagen">
+            <img src="{{url_for('static', filename='client/img/banner_tyc.jpg')}}" class="card-img opacity-50" alt="...">
+            <div class="card-img-overlay d-flex justify-content-center align-items-center">
+                <p class="card-title text-center">TÉRMINOS Y CONDICIONES</>
+            </div>
+        </div>
+    </div>
+    <div class="accordion container mx-5 my-4" style="width: 80%;" id="accordionPanelsStayOpenExample">
+        <!-- Termino 1_L-->
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                    aria-controls="panelsStayOpen-collapseOne">
+                    General
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <strong>1.1</strong> Estos términos y condiciones se aplican cuando tu realizas un pedido a
+                    nosotros, por medio del sitio web pe.tormenta.com (denominado “tormennta.com”). <br>
+                    <strong>1.2</strong> Para realizar tu pedido, debes aceptar estar sujeto a estos términos y
+                    condiciones (los "Términos"). Por lo tanto, asegúrate de haberlos leído y comprendido antes de
+                    realizar tu pedido. <br>
+                    <strong>1.3</strong> Para realizar un pedido, debes tener al menos 18 años, no estar bajo tutela
+                    y no actuar en calidad de empresa. También debes tener una dirección de correo electrónico y una
+                    dirección de entrega en Perú. <br>
+                    <strong>1.4</strong> La versión de los Términos que se aplicará a tu pedido será la de
+                    tormenta.com en
+                    el momento en que realices tu pedido. Como no archivamos versiones anteriores de los Términos,
+                    te recomendamos que guardes una copia física o electrónica al realizar una compra.
+                </div>
+            </div>
+        </div>
+        <!-- Termino 2_L-->
+        <div class="accordion-item pt-3">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseTwo">
+                    Precios y costos de envío
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <strong>2.1 </strong>Los precios que se muestran en pe.tormenta.com incluyen el impuesto general
+                    a las ventas (IGV), pero no incluyen los gastos de envío. El gasto de envío será agregado al
+                    carrito de compras una vez indiques la zona de entrega. <br>
+                    <strong>2.2 </strong>Los precios en el sitio web pe.tormenta.com y en la tienda pueden variar.
+                    Tormenta se reserva el derecho a modificar los precios de los productos, hasta antes de la
+                    realización del pedido y procesamiento de pago. <br>
+                    <strong>2.3 </strong>El costo del envío dependerán del lugar y el peso de la entrega. El costo
+                    de cada método de envío se indica claramente durante el proceso de pago. Si no podemos entregar
+                    tu pedido en su totalidad y tenemos que realizar más de una entrega, no habrá un cargo adicional
+                    por las entregas posteriores.
+                </div>
+            </div>
+        </div>
+        <!-- Termino 3_L-->
+        <div class="accordion-item pt-3">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseThree">
+                    Pedidos/Conclusión del contrato
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <strong>3.1 </strong>Las opciones de pedido disponibles son sólo a través del sitio web
+                    pe.tormenta.com. Visita nuestras páginas de Servicio al cliente para obtener más información.
+                    <br>
+                    <strong>3.2 </strong>Usted puede agregar los artículos que desea comprar, en tu bolsa de
+                    compras. Cuando completas tu pedido en el proceso de pago utilizando la opción de pago
+                    seleccionada, estás haciendo una solicitud para comprar los productos en la bolsa de compras. Te
+                    enviaremos un correo electrónico automático de confirmación de que tu pedido ha sido realizado.
+                    Tenga en cuenta que un pedido realizado es una solicitud y no constituye un contrato vinculante
+                    hasta que el pedido haya sido aprobado por nosotros. Si aprobamos tu pedido, te enviaremos un
+                    correo electrónico de confirmación de envío con toda la información relevante sobre el pedido.
+                    El correo electrónico de confirmación de envío es nuestra aprobación de tu pedido. Nos
+                    reservamos el derecho de no aprobar tu pedido, siempre y cuando sean por razones justificadas.
+                    <br>
+                    <strong>3.3 </strong>Si por alguna razón no podemos cumplir con tu pedido, te lo haremos saber
+                    lo antes posible. Si ya hemos recibido el pago de dicho pedido, Tormenta procederá con el
+                    reembolso dentro de un plazo estimado de aproximadamente 30 días; sin embargo, el tiempo que
+                    tarda un reembolso puede variar dependiendo del método de pago utilizado por el usuario. Si, por
+                    cualquier motivo, son necesarias comunicaciones alternativas, nos comunicaremos contigo para
+                    liquidar el reembolso. Si se cancela tu pedido, recibirás un correo electrónico de cancelación.
+                    <br>
+                    <strong>3.4 </strong>Una vez que hayas realizado tu pedido, no hay posibilidad de cancelarlo.
+                    Sin embargo, cuando recibes tu pedido, tienes la opción de devolverlo de acuerdo con la sección
+                    5 (Política de devoluciones). Si el botón "Cancelar pedido" se muestra en relación con un pedido
+                    determinado en tu historial de pedidos en Mi cuenta, puedes optar por cancelar tu pedido. Si no
+                    se muestra este botón, no puedes cancelar el pedido. Sin embargo, cuando recibas el pedido,
+                    tienes la opción de devolverlo de acuerdo con la sección 5 (Política de devoluciones).
+                </div>
+            </div>
+        </div>
+        <!-- Termino 4_L-->
+        <div class="accordion-item pt-3">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseFour">
+                    Envios
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <strong>4.1 </strong>Tormenta ejerce la máxima diligencia en el procesamiento y aprobación de
+                    pedidos y se esforzará por entregar tu pedido a tu dirección de entrega de acuerdo con la opción
+                    de entrega seleccionada. <br>
+                    <strong>4.2 </strong>Antes de realizar tu pedido, se te informará de los detalles de entrega
+                    esperados. También recibirás un correo electrónico de confirmación de envío cuando hayamos
+                    enviado tu pedido. <br>
+                    <strong>4.3 </strong>Tormenta se esfuerza por enviar los pedidos en el menor tiempo posible y en
+                    el orden en que se realizan. El tiempo de envío será indicado durante el proceso de compra en el
+                    sitio web. <br>
+                    <strong>4.4 </strong>Aunque nuestro objetivo es entregar dentro del plazo comunicado, la entrega
+                    puede demorar más debido a eventos inesperados. Si tu pedido en línea no llega para la fecha de
+                    entrega estimada, comunícate con el Servicio al cliente de Tormenta por teléfono al (01)
+                    680-5800, chat o formulario web aquí y te ayudaremos. Coste de la llamada (cliente): Llamada
+                    local a Lima según tarifario de la empresa de telecomunicaciones. Para compras en nuestras
+                    tiendas, comunícate con el Servicio de atención al cliente de Tormenta a través de nuestro
+                    correo electrónico customerservice.pe@tormenta.com, y te asistiremos. <br>
+                    <strong>4.5 </strong>Las compras que no se hayan podido entregar hasta el segundo intento (por
+                    culpa imputable al consumidor, por ejemplo: no estar en el día y rango horario en el lugar de
+                    entrega) se considerarán como desistimiento del pedido. Para mayor información consulte la
+                    sección 5 (Política de devoluciones). En dicho supuesto, no se devolverá el costo de envío.
+                </div>
+            </div>
+        </div>
+        <!-- Termino 5_L-->
+        <div class="accordion-item pt-3">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseFive">
+                    Política de devolución
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <strong>5.1 </strong>Si cambia de opinión con respecto a un pedido, tiene derecho a rescindir su
+                    compra notificándonos y devolviendo los artículos dentro de hasta 30 días posteriores a la
+                    recepción del pedido. Tener en cuenta que los costos de envió no son reembolsables. <br>
+                    <strong>5.2 </strong>Preferiblemente, puede utilizar el formulario de devolución preimpreso que
+                    se incluye en el paquete y siga las instrucciones para devoluciones en la Sección 7
+                    (Devoluciones). <br>
+                    <strong>5.3 </strong>Si necesitas ayuda para solicitar tu devolución podrás contactar Servicio
+                    al cliente de Tormenta por teléfono al (01) 680-5800 o por correo electrónico a
+                    customerservice.pe@tormenta.com, chat o formulario web aquí. <br>
+                    <strong>5.4 </strong>El reembolso se realizará utilizando el mismo método que utilizó para
+                    realizar el pago lo antes posible y, a más tardar, dentro del plazo estimado de aproximadamente
+                    30 días posteriores a la recepción de los artículos o la evidencia de que ha devuelto los
+                    artículos. Tormenta no se hace responsable de los retrasos y otras circunstancias que puedan ser
+                    causados por terceros en el momento de proceder al reembolso del dinero pagado. <br>
+                    <strong>5.5 </strong>Tormenta garantiza un reembolso completo por cualquier artículo devuelto,
+                    siempre que se devuelva en las mismas condiciones en las que se encontraba al momento de su
+                    recepción. Si un artículo, de alguna manera ha sido dañado, sucio, lavado, alterado o desgastado
+                    (aparte de probar el artículo), o que las etiquetas o rótulos no están intactas, tenemos derecho
+                    a hacer una reducción en su reembolso con una cantidad correspondiente al valor atenuado del
+                    artículo o no hacer ningún reembolso rechazando la solicitud de reembolso. Por razones de
+                    protección de la salud e higiene, algunos productos que vendemos, como, calcetines, ropa
+                    interior, trajes de baño están excluidos de esta Política de devoluciones.
+                </div>
+            </div>
+        </div>
+        <!-- Termino 6_L-->
+        <div class="accordion-item pt-3">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseSix">
+                    Defectos
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <strong>6.1 </strong>De acuerdo con la legislación de consumo aplicable, todos los productos
+                    deben estar libres de defectos, lo que significa que los bienes, deben cumplir con la
+                    expectativa generada en razón a la oferta y, en consecuencia ser adecuados para el propósito y
+                    funcionamiento como cualquier otro producto del mismo tipo. Es importante recordar que usted
+                    puede presentar reclamos sobre productos no idóneos dentro de los dos años posteriores a la
+                    advertencia acreditada del defecto. Sin embargo, siempre debe notificarnos dentro de un tiempo
+                    razonable después de haber detectado que los productos no cumplen sus expectativas en razón a
+                    una causa debidamente acreditada. <br>
+                    <strong>6.2 </strong>Si un artículo que ha recibido esta defectuoso o notas el defecto, notifica
+                    a Servicio de atención cliente de Tormenta por teléfono al (01) 680-5800, por correo electrónico
+                    customerservice.pe@tormenta.com chat o formulario web y te ayudaremos. La llamada podría tener
+                    un costo adicional y cargos realizados por la compañía que le brinda el servicio. <br>
+                    <strong>6.3 </strong>Para cualquier artículo considerado defectuoso, dependiendo del artículo y
+                    el defecto, Tormenta ofrece reparar el artículo, reemplazar el artículo por uno nuevo o
+                    reembolso de dinero a través del mismo medio utilizado en la compra.
+                </div>
+            </div>
+        </div>
+        <!-- Termino 7_L-->
+        <div class="accordion-item pt-3">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseSeven" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseSeven">
+                    Devoluciones
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseSeven" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <strong>7.1 </strong>Para solicitar una devolución haz clic aquí, coloca el artículo que deseas
+                    devolver en el paquete en el que lo recibiste. Si necesitas ayuda comunícate con el Servicio al
+                    cliente de Tormenta por teléfono al (01) 680-5800, chat o formulario web aquí. La llamada podría
+                    tener un coste adicional y cargos realizados por la empresa que le presta el servicio.
+                </div>
+            </div>
+        </div>
+        <!-- Termino 8_L-->
+        <div class="accordion-item pt-3">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseEight" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseEight">
+                    Métodos de pago
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseEight" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <strong>8.1 </strong>Puedes ingresar tus detalles de pago al momento de realizar tu pedido
+                    utilizando una tarjeta de crédito o débito válida (VISA o Mastercard u otra). La cantidad
+                    aplicable se reservará inmediatamente en su tarjeta, pero no se cargará hasta que se envíen los
+                    productos. Podemos rechazar pedidos dependiendo del resultado de estos controles que han sido
+                    efectuados por el banco afiliado a la tarjeta. <br>
+                    <strong>8.2 </strong>Recibirás el comprobante de pago legalmente requerido (boleta electrónica)
+                    en el correo electrónico de confirmación de envío.
+                </div>
+            </div>
+        </div>
+        <!-- Termino 9_L-->
+        <div class="accordion-item pt-3">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseNine" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseNine">
+                    Nuestra responsabilidad
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseNine" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <strong>9.1 </strong>Tormenta no es responsable de las pérdidas indirectas que sean un efecto
+                    secundario de la pérdida o daño principal, por ejemplo, pérdida de beneficios o pérdida de
+                    oportunidades; o por no entregar los bienes o cumplir con cualquiera de nuestras otras
+                    obligaciones en virtud de estos Términos cuando dicho incumplimiento se deba a un evento que
+                    está fuera de nuestro control razonable, que incluye, entre otros, incendios, inundaciones,
+                    tormentas u otros desastres naturales, disturbios, medidas gubernamentales, huelgas, cierre
+                    patronales, bloqueos, disturbios civiles, guerras, accidentes nucleares, actividad terrorista,
+                    pandemia, epidemia, virus o eventos similares. <br>
+                    <strong>9.2 </strong>Nuestra responsabilidad máxima hacia usted por cualquier pérdida o daño que
+                    surja en relación con su pedido en tormenta.com se limitará a lo establecido el Código de
+                    Protección al Consumidor. <br>
+                    <strong>9.4 </strong>Hacemos todo lo posible para garantizar que la información sobre
+                    pe.tormenta.com sea completa, precisa y actual. Tormenta se hace únicamente responsable por las
+                    ofertas que aparezcan publicadas por pe.tormenta.com, las cuales se podrán modificar, incluyendo
+                    las relacionadas con mercadería, servicios, precios, stock y demás condiciones, en cualquier
+                    momento y sin previo aviso.
+                </div>
+            </div>
+        </div>
+        <!-- Termino 10_L-->
+        <div class="accordion-item pt-3">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseTen" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseTen">
+                    Quejas y resolución de disputas
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseTen" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <strong>10.1 </strong>Si tienes una queja con respecto a alguno de nuestros productos o
+                    servicios, háznoslo saber comunicándote con el Servicio al cliente de Tormenta por teléfono al
+                    (01) 680-5800, chat o formulario web aquí y te atenderemos.
+                    <strong>10.2 </strong>Nos adherimos a las regulaciones aplicables locales de resolución de
+                    disputas por medio de autoridades competentes para la resolución de posibles reclamos de
+                    clientes.
+                </div>
+            </div>
+        </div>
+        <!-- Termino 11_L-->
+        <div class="accordion-item pt-3">
+            <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#panelsStayOpen-collapseEleven" aria-expanded="false"
+                    aria-controls="panelsStayOpen-collapseEleven">
+                    ¿Como se hace el reembolso?
+                </button>
+            </h2>
+            <div id="panelsStayOpen-collapseEleven" class="accordion-collapse collapse">
+                <div class="accordion-body">
+                    <strong>11.1</strong>Si pagaste con PagoEfectivo, el reembolso de tu dinero se reflejará en la
+                    misma cuenta con la que hiciste la compra. En caso de que no tengas cuenta de Mercado Pago, no
+                    te preocupes, puedes crear una con el mismo correo que hiciste la compra. Una vez seleccionado
+                    el botón “Crea tu cuenta”, debes completar los datos con la información requerida. Finalizado
+                    ese proceso accede a “Tu dinero”, “Retirar dinero”, ingresa el monto, selecciona la opción
+                    Cuenta Bancaria y haz click en Continuar. (https://www.mercadopago.com.pe)
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+{% block js %}
+<script src="{{url_for('static', filename='client/js/cargarCantProductos.js')}}"> </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+crossorigin="anonymous"></script>
+{% endblock %}

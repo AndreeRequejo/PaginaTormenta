@@ -1,0 +1,40 @@
+{% extends "vista_admin.html" %}
+{% block titulo %} Tallas {% endblock %}
+{% block content %}
+
+<section class="section" style="margin-left: 40px;">
+    <div class="columns">
+        <div class="column">
+            <img src="{{url_for('static', filename='admin/img/tallaPrenda.jpg')}}" width='400' height ='300' />
+            <h3 class="is-size-3">Tallas</h3>
+            <a href="{{url_for('agregar_talla')}}" class="button is-success">Agregar</a>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Código de Talla de Prenda</th>
+                        <th>Talla</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for talla in talla_prendas %}
+                    <tr>
+                        <td>{{talla[0]}}</td>
+                        <td>{{talla[1]}}</td>
+                        <td>
+                            {# Pasar el id lo que hay en color[0] #}
+                            <a href="{{url_for('editar_talla', id=talla[0])}}" class="button is-info">Editar</a>
+                        </td>
+                        <td>
+                            <form action="{{url_for('eliminar_talla')}}" method="POST">
+                                  <input type="hidden" name="id" value="{{talla[0]}}">
+                                <button class="button is-danger">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+{% endblock %}

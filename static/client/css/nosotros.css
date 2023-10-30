@@ -1,0 +1,129 @@
+main {
+    max-width: 1920px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+h2,
+.zImagen p {
+    text-transform: uppercase;
+    font-weight: bolder;
+    font-family: "Lexend Exa", sans-serif !important;
+}
+
+.card,
+.card img {
+    border: none;
+    border-radius: 0 !important;
+}
+
+.contenido {
+    font-family: "Metrophobic", sans-serif !important;
+    text-align: justify;
+}
+
+.cont-img img {
+    border-radius: 10px !important;
+}
+
+h3 {
+    font-family: "Lexend Exa", sans-serif !important;
+    text-align: center;
+}
+
+h5 {
+    font-family: "Lexend Exa", sans-serif !important;
+    font-weight: bold;
+}
+
+.zPreguntas h3,
+.card-title h3 {
+    font-family: "Lexend", sans-serif !important;
+}
+
+.tituloZona {
+    display: flex;
+    align-items: start;
+    color: #717fe0;
+    padding: 10px 0;
+}
+
+.btnSiguiente {
+    background-color: #717fe0;
+    color: #fff;
+    font-weight: bold;
+    border-radius: 50px;
+    border: none;
+    padding: 10px 0;
+}
+
+.accordion-button {
+    border-radius: 50px !important;
+    background-color: #ebebeb;
+}
+
+.accordion-item {
+    border: none;
+}
+
+.accordion-item button {
+    font-family: "Lexend", sans-serif !important;
+    font-weight: bold !important;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: #7180e038;
+    color: #717fe0;
+    box-shadow: none;
+    outline: rgb(113, 127, 224);
+}
+
+.zImagen div p {
+    font-size: 50px;
+}
+
+.frm_1 {
+    box-shadow: rgba(113, 127, 224, 0.27) 0px 0px 0.25em,
+        rgba(113, 127, 224, 0.05) 0px 0.25em 1em;
+
+}
+
+@media (min-width: 300px) and (max-width: 750px) {
+    .zImagen img {
+        width: 100%;
+        height: 150px;
+    }
+
+    .zImagen div p {
+        font-size: 30px;
+        margin: 10px;
+    }
+}
+
+.zRadio,
+.form-select {
+    padding: 16px 12px;
+}
+
+.opcionSelect {
+    padding: 0;
+}
+
+.zDescripcion {
+    border: #7a7a7a solid;
+    text-align: center;
+    height: 100%;
+}
+
+.desc-1 {
+    border-right: none;
+}
+
+@media (min-width: 300px) and (max-width: 576px) {
+    .desc-1 {
+        border: #7a7a7a solid;
+    }
+}
