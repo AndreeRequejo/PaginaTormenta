@@ -15,7 +15,7 @@ Editar Prenda
                 <label for="nom_prenda">Nombre:</label>
                 <input type="text" class="input" value="{{prendas[2]}}" placeholder="Nombre Prenda" name="nom_prenda" id="nom_prenda">
                 <label for="desc_prenda">Descripción:</label>
-                <textarea class="form-control" value="{{prendas[3]}}" name="desc_prenda" id="desc_prenda" cols="65" rows="5"></textarea>
+                <textarea class="form-control" name="desc_prenda" id="desc_prenda" cols="65" rows="5">{{prendas[3]}}</textarea>
                 <label for="tipo_prenda">Tipo de Prenda:</label>
                 <select class="form-select" name="tipo_prenda" id="tipo_prenda">
                     {% for tipo in tipo_prendas %}
