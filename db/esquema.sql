@@ -40,7 +40,8 @@ CREATE TABLE prenda (
     id_tipo_prenda SMALLINT UNSIGNED NOT NULL REFERENCES tipo_prenda(id_tipo_prenda),
     id_color_prenda SMALLINT UNSIGNED NOT NULL REFERENCES color_prenda(id_color_prenda),
     id_tipo_material SMALLINT UNSIGNED NOT NULL  REFERENCES tipo_material(id_tipo_material),
-    id_prenda_temporada SMALLINT UNSIGNED NOT NULL REFERENCES prenda_temporada(id_prenda_temporada)
+    id_prenda_temporada SMALLINT UNSIGNED NOT NULL REFERENCES prenda_temporada(id_prenda_temporada),
+    imagen VARCHAR(100) NOT NULL,
 );
 
 CREATE TABLE talla_prenda (

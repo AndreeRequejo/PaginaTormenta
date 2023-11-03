@@ -10,6 +10,8 @@ import controllers.controlador_prenda as controlador_prenda
 import controllers.controlador_disponibilidad as controlador_disponibilidad
 import hashlib
 import random
+import os
+from werkzeug.utils import secure_filename 
 
 app = Flask(__name__)
 
@@ -115,11 +117,9 @@ def indexUsuario():
 
 #! Lógica Login/Logout Usuario
 
-
 @app.route("/signup")
 def signup():
     return render_template("admin/agregar_usuario.html")
-
 
 @app.route("/procesar_login", methods=["POST"])
 def procesar_login():
@@ -433,8 +433,9 @@ def guardar_prenda():
     color_prenda = int(request.form["color_prenda"])
     temporada_prenda = int(request.form["temporada_prenda"])
     material_prenda = int(request.form["material_prenda"])
+    imagen = request.form["imagen"]
     controlador_prenda.insertar_prenda(
-        codigo, nomPrenda, descripcion, tipo_prenda, color_prenda, material_prenda, temporada_prenda)
+        codigo, nomPrenda, descripcion, tipo_prenda, color_prenda, material_prenda, temporada_prenda, imagen)
     # De cualquier modo, y si todo fue bien, redireccionar
     return redirect("/prenda")
 
@@ -459,8 +460,9 @@ def actualizar_prenda():
     color_prenda = int(request.form["color_prenda"])
     temporada_prenda = int(request.form["temporada_prenda"])
     material_prenda = int(request.form["material_prenda"])
+    imagen = request.form["imagen"]
     controlador_prenda.actualizar_prenda(
-        codigo, nomPrenda, descripcion, tipo_prenda, color_prenda, material_prenda, temporada_prenda, id)
+        codigo, nomPrenda, descripcion, tipo_prenda, color_prenda, material_prenda, temporada_prenda, imagen, id)
     return redirect("/prenda")
 
 
