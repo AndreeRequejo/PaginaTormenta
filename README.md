@@ -7,3 +7,5 @@
 > Clonar Repositorio:
 
 [Consola] (git clone https://github.com/AndreeRequejo/PaginaTormenta.git)
+
+pip install flask-paginate

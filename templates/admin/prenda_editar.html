@@ -7,7 +7,7 @@ Editar Prenda
     <div class="columns">
         <div class="column">
             <h3 class="is-size-3">Editar Prenda</h3>
-            <form action="{{url_for('actualizar_prenda')}}" method="post">
+            <form action="{{url_for('actualizar_prenda')}}" method="post" enctype="multipart/form-data">
                 {# Enviar el id en un campo oculto #}
                 <input type="hidden" name="id" value="{{prendas[0]}}">
                 <label for="cod_prenda">Código de Prenda:</label>
@@ -55,7 +55,9 @@ Editar Prenda
                             <option value="{{temporada[0]}}">{{temporada[1]}}</option>
                         {% endif %}
                     {% endfor %}
-                </select>                
+                </select>
+                <label for="imagen">Imagen</label>
+                <input type="file" class="input" placeholder="Imagen" name="imagen" id="imagen">                
                 <button type="submit" class="button is-success mt-2">Guardar</button>
                 <a href="{{url_for('prenda')}}" class="button is-primary mt-2">Volver</a>
             </form>

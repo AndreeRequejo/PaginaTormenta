@@ -42,7 +42,7 @@ def obtener_prenda_id(id_prenda):
     conexion.close()
     return prenda
 
-def actualizar_prenda(codigo, nombre, descripcion, id_tipo, id_color, id_material, id_temporada, id_prenda, imagen):
+def actualizar_prenda(codigo, nombre, descripcion, id_tipo, id_color, id_material, id_temporada, imagen,id_prenda ):
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
         cursor.execute("UPDATE prenda SET codigo = %s, nomPrenda = %s, descripcion = %s, id_tipo_prenda = %s, id_color_prenda = %s, id_tipo_material = %s, id_prenda_temporada = %s, imagen = %s WHERE id_prenda = %s", (codigo, nombre, descripcion, id_tipo, id_color, id_material, id_temporada, imagen, id_prenda,))

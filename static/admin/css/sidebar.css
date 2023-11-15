@@ -310,3 +310,10 @@ body.dark .home .text{
 .menu-links {
     padding-left: 0px;
 }
+table{
+    text-align: center !important;
+    font-size: 14px !important;
+}
+.section, .text{
+    padding-left: 35px !important;
+}

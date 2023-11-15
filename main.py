@@ -11,7 +11,8 @@ import controllers.controlador_disponibilidad as controlador_disponibilidad
 import hashlib
 import random
 import os
-from werkzeug.utils import secure_filename 
+from werkzeug.utils import secure_filename
+from flask_paginate import Pagination
 
 app = Flask(__name__)
 
@@ -45,7 +46,11 @@ def principal():
 @app.route("/login")
 def login():
     if validar_token():
-        return redirect("vista_admin")
+        username = request.cookies.get('username')
+        if username == 'admin':
+            return redirect("vista_admin")
+        else:
+            return redirect("/index")
     return render_template("client/login.html")
 
 
@@ -136,7 +141,10 @@ def procesar_login():
             a = hashlib.new('sha256')
             a.update(bytes(str(numale), encoding="utf-8"))
             encnumale = a.hexdigest()
-            resp = make_response(redirect("/vista_admin"))
+            if username == 'admin':
+                resp = make_response(redirect("/vista_admin"))
+            else:
+                resp = make_response(redirect("/login"))
             resp.set_cookie('token', encnumale)
             resp.set_cookie('username', username)
             controlador_usuarios.actualizar_token_usuario(username, encnumale)
@@ -433,7 +441,8 @@ def guardar_prenda():
     color_prenda = int(request.form["color_prenda"])
     temporada_prenda = int(request.form["temporada_prenda"])
     material_prenda = int(request.form["material_prenda"])
-    imagen = request.form["imagen"]
+    file = request.files["imagen"]
+    imagen = recibeFoto(file, codigo)
     controlador_prenda.insertar_prenda(
         codigo, nomPrenda, descripcion, tipo_prenda, color_prenda, material_prenda, temporada_prenda, imagen)
     # De cualquier modo, y si todo fue bien, redireccionar
@@ -449,7 +458,6 @@ def editar_prenda(id):
     material_prendas = controlador_material.obtener_material()
     return render_template("admin/prenda_editar.html", prendas=prendas, tipo_prendas=tipo_prendas, color_prendas=color_prendas, temporada_prendas=temporada_prendas, material_prendas=material_prendas)
 
-
 @app.route("/actualizar_prenda", methods=["POST"])
 def actualizar_prenda():
     id = request.form["id"]
@@ -460,7 +468,8 @@ def actualizar_prenda():
     color_prenda = int(request.form["color_prenda"])
     temporada_prenda = int(request.form["temporada_prenda"])
     material_prenda = int(request.form["material_prenda"])
-    imagen = request.form["imagen"]
+    file = request.files["imagen"]
+    imagen = recibeFoto(file, codigo)
     controlador_prenda.actualizar_prenda(
         codigo, nomPrenda, descripcion, tipo_prenda, color_prenda, material_prenda, temporada_prenda, imagen, id)
     return redirect("/prenda")
@@ -531,6 +540,20 @@ def eliminar_disponibilidad():
         id_prenda, id_talla)
     return redirect("/disponibilidad_prenda")
 
+#! Guardar imágenes
+
+def recibeFoto(file, codProd):
+    print(file)
+    basepath = os.path.dirname (__file__) #La ruta donde se encuentra el archivo actual
+    filename = secure_filename(file.filename) #Nombre original del archivo
+
+    #capturando extensión del archivo ejemplo: (.png, .jpg)
+    extension           = os.path.splitext(filename)[1]
+    nuevoNombreFile     = codProd + extension
+    upload_path = os.path.join (basepath, 'static/products', nuevoNombreFile) 
+    file.save(upload_path)
+
+    return nuevoNombreFile
 
 #! Iniciar el servidor
 if __name__ == "__main__":
