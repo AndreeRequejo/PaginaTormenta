@@ -10,12 +10,11 @@ Editar Prenda
             <form action="{{url_for('actualizar_prenda')}}" method="post" enctype="multipart/form-data">
                 {# Enviar el id en un campo oculto #}
                 <input type="hidden" name="id" value="{{prendas[0]}}">
-                <label for="cod_prenda">Código de Prenda:</label>
-                <input type="text" class="input" value="{{prendas[1]}}" placeholder="Código Prenda" name="cod_prenda" id="cod_prenda">
+                <input type="hidden" name="codigo" value="{{prendas[8]}}">
                 <label for="nom_prenda">Nombre:</label>
-                <input type="text" class="input" value="{{prendas[2]}}" placeholder="Nombre Prenda" name="nom_prenda" id="nom_prenda">
+                <input type="text" class="input" value="{{prendas[1]}}" placeholder="Nombre Prenda" name="nom_prenda" id="nom_prenda">
                 <label for="desc_prenda">Descripción:</label>
-                <textarea class="form-control" name="desc_prenda" id="desc_prenda" cols="65" rows="5">{{prendas[3]}}</textarea>
+                <textarea class="form-control" name="desc_prenda" id="desc_prenda" cols="65" rows="5">{{prendas[2]}}</textarea>
                 <label for="tipo_prenda">Tipo de Prenda:</label>
                 <select class="form-select" name="tipo_prenda" id="tipo_prenda">
                     {% for tipo in tipo_prendas %}
@@ -64,4 +63,5 @@ Editar Prenda
         </div>
     </div>
 </section>
+
 {% endblock %}

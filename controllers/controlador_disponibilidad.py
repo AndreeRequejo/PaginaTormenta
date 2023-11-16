@@ -30,11 +30,23 @@ def obtener_disponibilidad_id(id_prenda, id_talla_prenda):
     conexion = obtener_conexion()
     prenda = None
     with conexion.cursor() as cursor:
-        cursor.execute("SELECT P.nomPrenda, T.tipo_talla, DP.precio, DP.stock, DP.id_prenda, DP.id_talla_prenda stock FROM disponibilidad_prenda AS DP "
+        cursor.execute("SELECT P.nomPrenda, T.tipo_talla, DP.precio, DP.stock, DP.id_prenda, DP.id_talla_prenda FROM disponibilidad_prenda AS DP "
                         + "INNER JOIN prenda AS P ON DP.id_prenda = P.id_prenda "
                         + "INNER JOIN talla_prenda AS T ON DP.id_talla_prenda = T.id_talla_prenda "
                         + "WHERE DP.id_prenda = %s and DP.id_talla_prenda = %s", (id_prenda,id_talla_prenda,))
         prenda = cursor.fetchone()
+    conexion.close()
+    return prenda
+
+
+def obtener_tallas_prenda(id_prenda):
+    conexion = obtener_conexion()
+    prenda = None
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT T.tipo_talla FROM disponibilidad_prenda AS DP "
+                        + "INNER JOIN talla_prenda AS T ON DP.id_talla_prenda = T.id_talla_prenda "
+                        + "WHERE DP.id_prenda = %s ", (id_prenda,))
+        prenda = cursor.fetchall()
     conexion.close()
     return prenda
 

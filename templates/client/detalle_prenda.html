@@ -1,0 +1,180 @@
+{% extends "maestraUsuario.html" %}
+
+{% block titulo %}
+TORMENTA
+{% endblock %}
+
+{% block contenido %}
+    <main>
+
+        <div class="container d-block d-sm-flex d-dm-flex d-lg-flex d-xl-flex  w-100 mt-5">
+            <div class="contenedor">
+                <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{url_for('catalogoFemenino')}}">Todas las prendas</a></li>
+                        <li class="breadcrumb-item"><a href="{{url_for('catalogoFemenino')}}">Mujeres</a></li>
+                    </ol>
+                </nav>
+                <div class="col-12 d-block d-sm-flex d-dm-flex d-lg-flex d-xl-flex  ">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                        <div class="det-bordr">
+                            <img src="{{ url_for('static', filename='products/' + prenda[3]) }}" alt={{prenda[0]}} id="imgPrincipal" style="width: 70%;">
+                            <div class="det det-bordr my-3 d-flex flex-wrap">
+                                <img src="{{ url_for('static', filename='products/' + prenda[3]) }}" 
+                                    alt="">
+                                <img src="{{ url_for('static', filename='products/' + prenda[3]) }}" 
+                                    alt="" class="mx-4">
+                                <img src="{{ url_for('static', filename='products/' + prenda[3]) }}" 
+                                    alt="">
+                            </div>
+                            <p class="descrip" style="width: 94%;">{{prenda[2]}}</p>
+                        </div>
+
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                        <h3 id="nombreProducto">{{prenda[1]}}</h3>
+                        <div class="d-flex mt-4 fs-5 califica">
+                            <div>
+                                <div class="rating">
+                                    <span class="fa fa-star checked "></span>
+                                    <span class="fa fa-star checked "></span>
+                                    <span class="fa fa-star checked "></span>
+                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star"></span>
+                                </div>
+                            </div>
+                            <p>1 valoracion</p>
+                        </div>
+                        <hr class="container-fluid">
+                        <div class="d-flex ">
+
+                            <p class="prec-act"> <span> S/. <span id="precioOferta">{{prenda[7]}}</span></span>
+                            </p>
+                        </div>
+                        <p style="font-family :Lexend, sans-serif; color: #606060;">Color</p>
+                        <div class="d-flex color">
+                            <p class="color" style="background-color: {{}};"></p>
+                        </div>
+                        <div class="talla">
+                            <p style="font-family :Lexend, sans-serif; color: #606060;">Talla</p>
+                            <select class="form-select combox " aria-label="Combo box" id="talla" name="talla">
+                                <option selected>Selecciona el modelo</option>
+                                {% for talla in tallas %}
+                                <option value={{talla[0]}}>{{talla[0]}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="cantidad mt-4">
+                            <p style="font-family :Lexend, sans-serif; color: #606060;">Cantidad</p>
+
+                            <input type="number" class="inpt" id="cantidad" value="1" min="1">
+                        </div>
+                        <div class="agregar mt-4 d-flex align-items-center ">
+                            <button type="button" class="addCarrito"><i class='bx bx-cart-add'></i> Agregar al
+                                Carrito</button>
+                        </div>
+
+                        <div class="informa-adicio mt-5">
+                            <div class="infor-adi my-3">
+                                <div class="align-items-center">
+                                    <a class="" role="button" href="#inf-ad" data-bs-toggle="collapse"
+                                        aria-controls="inf-ad" aria-expanded="false">
+                                        <div class="d-flex align-items-center justify-content-between ">
+                                            <span>Informacion Adicional</span> <span class="triangle"></span>
+
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class="collapse  mt-2" id="inf-ad">
+                                    <p>
+                                    <ul>
+                                        <li>Categoría de Prenda: {{prenda[4]}}</li>
+                                        <li>Material: {{prenda[5]}}</li>
+                                        <li>Temporada: {{prenda[6]}}</li>
+                                    </ul>
+                                    </p>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <hr class="container-fluid">
+                        <div class="informa-envio mt-1">
+                            <div class="infor-env my-3">
+                                <div class="align-items-center">
+                                    <a class="" role="button" href="#inf-en" data-bs-toggle="collapse"
+                                        aria-controls="inf-en" aria-expanded="false">
+                                        <div class="d-flex align-items-center justify-content-between ">
+                                            <span>Informacion de envio</span> <span class="triangle"></span>
+
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class="collapse  mt-2" id="inf-en">
+                                    <p>
+                                        Para los pedidos con "Recojo en Tienda" los tiempos pueden variar. Se notificará
+                                        vía email cuando su pedido esté listo para recojo.
+                                    </p>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="div-resenia my-3">
+                    <h3>Reseñas(1)</h3>
+                    <div class="d-flex flex-wrap mt-4 comentario">
+                        <div
+                            class="usuario-rese d-flex align-items-center justify-content-center col-12 col-sm-12 col-dm-6 col-lg-3 col-xl-3 ">
+                            <div>
+                                <i class='bx bxs-user-circle'></i>
+                            </div>
+                            <div>
+                                <p class="usu-name">MARTHA ESTELA</p>
+                                <p>Mayo 02,2023</p>
+                                <div>
+                                    <div class="rating">
+                                        <span class="fa fa-star checked "></span>
+                                        <span class="fa fa-star checked "></span>
+                                        <span class="fa fa-star checked "></span>
+                                        <span class="fa fa-star"></span>
+                                        <span class="fa fa-star"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-rese col-12 col-sm-12 col-dm-6 col-lg-9 col-xl-9 mt-4">
+                            <p>Compré esta chompa y tengo muchas opiniones. Me encanta el estilo de
+                                hombros caídos y el escote redondo, le da un rollo relajado y fácil de llevar. El
+                                detalle del tejido de jersey inverso también es chévere. Pero, las costuras
+                                alrededor de las costillas no son tan buenas, se ven un poco desaliñadas. Y la calidad
+                                del material no es wow, se desgasta rápidamente. La mezcla de algodón y acrílico no es
+                                tan suave ni cálida como esperaba. En resumen, es una chompa con sus altos y bajos, pero
+                                no estoy segura de si la recomendaría.</p>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    {% endblock %}
+
+    {% block js %}
+    <script src="js/carritoCompras.js"></script>
+    <script src="js/paginacion.js"></script>
+    <script src="js/corazon.js"></script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    {% endblock %}

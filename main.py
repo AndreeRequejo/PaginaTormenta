@@ -122,6 +122,12 @@ def catalogoFemenino():
     return render_template("client/catalogo_femenino.html", prendas = prendas, pagination = pagination)
 
 
+@app.route("/detalle-prenda/<int:id>")
+def detallePrenda(id):
+    prenda = controlador_prenda.obtener_prenda_id(id)
+    tallas = controlador_disponibilidad.obtener_tallas_prenda(id)
+    return render_template("client/detalle_prenda.html", prenda = prenda, tallas = tallas)
+
 @app.route("/catalogo-masculino")
 def catalogoMasculino():
     return render_template("client/catalogo_masculino.html")
@@ -482,7 +488,7 @@ def editar_prenda(id):
 @app.route("/actualizar_prenda", methods=["POST"])
 def actualizar_prenda():
     id = request.form["id"]
-    codigo = request.form["cod_prenda"]
+    codigo = request.form["codigo"]
     nomPrenda = request.form["nom_prenda"]
     descripcion = request.form["desc_prenda"]
     tipo_prenda = int(request.form["tipo_prenda"])
@@ -492,7 +498,7 @@ def actualizar_prenda():
     file = request.files["imagen"]
     imagen = recibeFoto(file, codigo)
     controlador_prenda.actualizar_prenda(
-        codigo, nomPrenda, descripcion, tipo_prenda, color_prenda, material_prenda, temporada_prenda, imagen, id)
+        nomPrenda, descripcion, tipo_prenda, color_prenda, material_prenda, temporada_prenda, imagen, id)
     return redirect("/prenda")
 
 

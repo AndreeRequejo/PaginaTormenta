@@ -32,9 +32,8 @@ def obtener_prenda_id(id_prenda):
     conexion = obtener_conexion()
     prenda = None
     with conexion.cursor() as cursor:
-        cursor.execute("SELECT id_prenda, codigo, nomPrenda, descripcion, tp.tipo, c.color, m.material, t.temporada, imagen FROM prenda AS p "
+        cursor.execute("SELECT id_prenda, nomPrenda, descripcion, imagen, tp.tipo, m.material, t.temporada, (SELECT precio FROM disponibilidad_prenda WHERE id_prenda = P.id_prenda LIMIT 1) as precio, codigo FROM prenda AS p "
                         + "INNER JOIN tipo_prenda AS tp ON p.id_tipo_prenda = tp.id_tipo_prenda "
-                        + "INNER JOIN color_prenda AS c ON p.id_color_prenda = c.id_color_prenda "
                         + "INNER JOIN tipo_material AS m ON p.id_tipo_material = m.id_tipo_material "
                         + "INNER JOIN prenda_temporada AS t ON p.id_prenda_temporada = t.id_prenda_temporada "
                         + " WHERE id_prenda = %s", (id_prenda,))
@@ -42,10 +41,10 @@ def obtener_prenda_id(id_prenda):
     conexion.close()
     return prenda
 
-def actualizar_prenda(codigo, nombre, descripcion, id_tipo, id_color, id_material, id_temporada, imagen,id_prenda ):
+def actualizar_prenda(nombre, descripcion, id_tipo, id_color, id_material, id_temporada, imagen,id_prenda ):
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
-        cursor.execute("UPDATE prenda SET codigo = %s, nomPrenda = %s, descripcion = %s, id_tipo_prenda = %s, id_color_prenda = %s, id_tipo_material = %s, id_prenda_temporada = %s, imagen = %s WHERE id_prenda = %s", (codigo, nombre, descripcion, id_tipo, id_color, id_material, id_temporada, imagen, id_prenda,))
+        cursor.execute("UPDATE prenda SET nomPrenda = %s, descripcion = %s, id_tipo_prenda = %s, id_color_prenda = %s, id_tipo_material = %s, id_prenda_temporada = %s, imagen = %s WHERE id_prenda = %s", (nombre, descripcion, id_tipo, id_color, id_material, id_temporada, imagen, id_prenda,))
     conexion.commit()
     conexion.close() 
 

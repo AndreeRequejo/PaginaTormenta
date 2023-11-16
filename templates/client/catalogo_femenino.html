@@ -293,7 +293,7 @@ TORMENTA
                 
 
                 {% for prenda in prendas %}
-                    <a href="">
+                    <a href="{{url_for('detallePrenda', id=prenda[0])}}">
                         <div class="m-3 contenedor-descuento-promo" id="">
                             <img src="{{ url_for('static', filename='products/' + prenda[3]) }}" alt={{prenda[1]}}>
                             <input type="hidden" name="id" value="{{prenda[0]}}">

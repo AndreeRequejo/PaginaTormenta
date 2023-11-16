@@ -41,23 +41,13 @@
   color: #717fe0;
 }
 
-.color1 {
+.color {
   border-radius: 50%;
   padding: 15px;
-  background-color: #0844a4;
   transition: 1s;
 }
 
-.color2 {
-  margin-left: 20px;
-  border-radius: 50%;
-  padding: 15px;
-  background-color: #231f1c;
-  transition: 1s;
-}
-
-.color1:hover,
-.color2:hover {
+.color:hover {
   transform: scale(1.1);
 }
 
