@@ -98,7 +98,28 @@ def catalogoNovedades():
 
 @app.route("/catalogo-femenino")
 def catalogoFemenino():
-    return render_template("client/catalogo_femenino.html")
+    #! Contar el número total de registros
+    registros = controlador_prenda.obtener_total_registros()
+
+    #! Obtener el número de página actual y la cantidad de resultados por página
+    page_num = request.args.get('page', 1, type=int)
+    per_page = 6
+
+    #! Calcular el índice del primer registro y limitar la consulta a un rango de registros
+    start_index = (page_num - 1) * per_page + 1
+
+    prendas = controlador_prenda.prendas_paginacion(per_page, start_index)
+
+    #! Calcular el índice del último registro
+    end_index = min(start_index + per_page, registros)
+    # end_index = start_index + per_page - 1
+    if end_index > registros:
+        end_index = registros
+
+    #! Crear objeto paginable
+    pagination = Pagination(page = page_num, total=registros, per_page = per_page, css_framework='bootstrap')
+    
+    return render_template("client/catalogo_femenino.html", prendas = prendas, pagination = pagination)
 
 
 @app.route("/catalogo-masculino")

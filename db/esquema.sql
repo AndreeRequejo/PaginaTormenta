@@ -11,6 +11,11 @@ CREATE TABLE usuarios (
 );
 
 INSERT INTO usuarios VALUES (1,'admin','root@gmail.com',SHA2('admin',256),'', '', '', '','');
+INSERT INTO usuarios VALUES (2,'andree','andree@gmail.com',SHA2('andree',256),'', '', '', '','');
+INSERT INTO usuarios VALUES (3,'juan','juan@gmail.com',SHA2('juan',256),'', '', '', '','');
+INSERT INTO usuarios VALUES (4,'edu','edu@gmail.com',SHA2('edu',256),'', '', '', '','');
+INSERT INTO usuarios VALUES (5,'juana','juana@gmail.com',SHA2('juana',256),'', '', '', '','');
+INSERT INTO usuarios VALUES (6,'claudio','claudio@gmail.com',SHA2('claudio',256),'', '', '', '','');
 
 CREATE TABLE tipo_prenda (
     id_tipo_prenda SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -41,7 +46,7 @@ CREATE TABLE prenda (
     id_color_prenda SMALLINT UNSIGNED NOT NULL REFERENCES color_prenda(id_color_prenda),
     id_tipo_material SMALLINT UNSIGNED NOT NULL  REFERENCES tipo_material(id_tipo_material),
     id_prenda_temporada SMALLINT UNSIGNED NOT NULL REFERENCES prenda_temporada(id_prenda_temporada),
-    imagen VARCHAR(100) NOT NULL,
+    imagen VARCHAR(100) NOT NULL
 );
 
 CREATE TABLE talla_prenda (
@@ -97,8 +102,27 @@ CREATE TABLE detalle_venta (
 );
 
 
-INSERT INTO prenda (codigo, nomPrenda, descripcion, id_tipo_prenda, id_color_prenda, id_tipo_material, id_prenda_temporada)
-VALUES ('PD001', 'Blusa Coral', '', 1, 1, 1, 1);
+INSERT INTO prenda (codigo, nomPrenda, descripcion, id_tipo_prenda, id_color_prenda, id_tipo_material, id_prenda_temporada, imagen)
+VALUES ('PD0001', 'Blusa Coral', '', 1, 5, 1, 4,'PD0001.jpg');
+
+INSERT INTO prenda (codigo, nomPrenda, descripcion, id_tipo_prenda, id_color_prenda, id_tipo_material, id_prenda_temporada, imagen)
+VALUES ('PD0002', 'POLERA INSIGNE HOODY', '', 5, 4, 1, 1,'PD0002.webp');
+
+INSERT INTO prenda (codigo, nomPrenda, descripcion, id_tipo_prenda, id_color_prenda, id_tipo_material, id_prenda_temporada, imagen)
+VALUES ('PD0003', 'CASACA ROXY', '', 4, 6, 1, 1,'PD0003.webp');
+
+INSERT INTO prenda (codigo, nomPrenda, descripcion, id_tipo_prenda, id_color_prenda, id_tipo_material, id_prenda_temporada, imagen)
+VALUES ('PD0004', 'JEAN HUNTER IC', '', 1, 7, 1, 4,'PD0004.webp');
+
+INSERT INTO prenda (codigo, nomPrenda, descripcion, id_tipo_prenda, id_color_prenda, id_tipo_material, id_prenda_temporada, imagen)
+VALUES ('PD0005', 'CHOMPA ROXY SWEATER', '', 4, 6, 1, 1,'PD0005.webp');
+
+INSERT INTO prenda (codigo, nomPrenda, descripcion, id_tipo_prenda, id_color_prenda, id_tipo_material, id_prenda_temporada, imagen)
+VALUES ('PD0006', 'POLERA LIPPI', '', 5, 8, 1, 3,'PD0006.webp');
+
+INSERT INTO prenda (codigo, nomPrenda, descripcion, id_tipo_prenda, id_color_prenda, id_tipo_material, id_prenda_temporada, imagen)
+VALUES ('PD0007', 'LESEM TOP STASSIE', '', 6, 9, 1, 2,'PD0007.webp');
+
 
 /*
 SELECT id_prenda, codigo, nomPrenda, descripcion, tp.tipo, c.color, m.material, t.temporada

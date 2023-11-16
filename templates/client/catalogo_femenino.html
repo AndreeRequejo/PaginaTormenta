@@ -286,132 +286,42 @@ TORMENTA
                 </select>
             </div>
 
+            <!--###################################### CONTENEDOR DE PRENDAS ######################################-->
+
             <div class="img-prod d-flex flex-wrap justify-content-center w-100 ">
 
-                <div class="m-3 contenedor-descuento-promo" id="contenido1">
-                    <div class="descuento-promo"> <span class="desc">44%</span> </div>
+                
 
-                    <img src="https://cdn.shopify.com/s/files/1/0373/4513/2676/files/TX926W_055_01_50f0a74f-2c99-4583-b7ae-c5a8867f4166_540x.jpg?v=1684351202"
-                        alt="">
-                    <p class="text-center nombre_prod">POLERA PARA MUJER <br>LIPPI</p>
-                    <div class="d-flex justify-content-around">
-                        <p class="text-decoration-line-through prec-ant"> <span> S/. <span
-                                    id="precio5">179.50</span></span>
-                        </p>
-                        <p class="prec-act"> <span> S/. <span id="precio1">100.00</span></span>
-                        </p>
+                {% for prenda in prendas %}
+                    <a href="">
+                        <div class="m-3 contenedor-descuento-promo" id="">
+                            <img src="{{ url_for('static', filename='products/' + prenda[3]) }}" alt={{prenda[1]}}>
+                            <input type="hidden" name="id" value="{{prenda[0]}}">
+                            <p class="text-center nombre_prod">{{prenda[2]}}</p>
+                            <p class="prec-act"> <span> S/. <span id="precio3">{{prenda[4]}}</span></span>
+                            </p>
+                            <i class='bx bxs-heart cora1'></i>
+                        </div>
+                    </a>
+                {% endfor %}
 
-                    </div>
-                    </p>
-                    <i class='bx bxs-heart cora2'></i>
+            </div>
 
-                </div>
-                <div class="m-3 contenedor-descuento-promo" id="contenido2">
-                    <div class="descuento-promo"> <span class="desc">30%</span> </div>
+            <!--###################################### FIN CONTENEDOR DE PRENDAS ######################################-->
 
-                    <img src="https://cdn.shopify.com/s/files/1/0373/4513/2676/files/TX921W_137_01_b94fc058-723a-4bb7-974e-2a81e0a5a3dd_540x.jpg?v=1684351163"
-                        alt="">
-                    <p class="text-center nombre_prod">POLERA PARA MUJER <br>INSIGNE FULL HOODY</p>
-                    <div class="d-flex justify-content-around">
-                        <p class="text-decoration-line-through prec-ant"> <span> S/. <span
-                                    id="precio5">239.00</span></span>
-                        </p>
-                        <p class="prec-act"> <span> S/. <span id="precio2">167.30</span></span>
-                        </p>
+            <!--###################################### PAGINACIÓN INICIO ######################################-->
 
-                    </div>
-                    <i class='bx bxs-heart cora2'></i>
-
-                </div>
-
-                <a href="detalle_prod_mujer.html">
-                    <div class="m-3 contenedor-descuento-promo" id="contenido3">
-                        <img src="https://cdn.shopify.com/s/files/1/0373/4513/2676/products/ERJSW03523_KVJ0_1_54ffb0c5-6fa8-4035-b5fb-f989eeaca7cd_1024x1024@2x.jpg?v=1680100951"
-                            alt="">
-                        <p class="text-center nombre_prod">CHOMPA PARA MUJER <br>ROXY SWEATER LOFT</p>
-                        <p class="prec-act"> <span> S/. <span id="precio3">199.20</span></span>
-                        </p>
-                        <i class='bx bxs-heart cora1'></i>
-
-                    </div>
-                    
-                </a>
-
-                <div class="m-3 contenedor-descuento-promo" id="contenido4">
-                    <img src="https://cdn.shopify.com/s/files/1/0373/4513/2676/products/ERJJK03508_KVJW_01_1024x1024_2x_32de7d3d-324d-499a-b456-896d5e09e253_540x.png?v=1671736646"
-                        alt="">
-                    <p class="text-center nombre_prod">CASACA PARA MUJER <br>ROXY PATH TO PARADISE </p>
-                    <p class="prec-act"> <span> S/. <span id="precio4">378.00</span></span>
-                    </p>
-                    <i class='bx bxs-heart cora2'></i>
-
-                </div>
-
-                <div class="m-3 contenedor-descuento-promo" id="contenido5" style="display: none;">
-                    <img src="https://cdn.shopify.com/s/files/1/0373/4513/2676/files/THE-BOX-JEANS-ABR-230265_540x.jpg?v=1682377675"
-                        alt="">
-                    <p class="text-center nombre_prod">JEAN PARA MUJER <br>HUNTER IC</p>
-                    <p class="prec-act"> <span> S/. <span id="precio4">167.00</span></span>
-                    </p>
-                    <i class='bx bxs-heart cora'></i>
-
-                </div>
-                <div class="m-3 contenedor-descuento-promo" id="contenido6" style="display: none;">
-                    <img src="https://cdn.shopify.com/s/files/1/0373/4513/2676/products/DV-00016_OFWH_2_1024x1024@2x.jpg?v=1656022408"
-                        alt="">
-                        <div class="descuento-promo"> <span class="desc">30%</span> </div>
-
-                    <p class="text-center nombre_prod">POLO PARA MUJER <br>AZUCENA OFWH</p>
-                    <div class="d-flex justify-content-around">
-                        <p class="text-decoration-line-through prec-ant"> <span> S/. <span
-                                    id="precio5">89.90</span></span>
-                        </p>
-                        <p class="prec-act"> <span> S/. <span id="precio2">62.93</span></span>
-                        </p>
-
-                    </div>
-                    <i class='bx bxs-heart cora'></i>
-
-                </div>
-                <div class="m-3 contenedor-descuento-promo" id="contenido7" style="display: none;">
-                    <img src="https://cdn.shopify.com/s/files/1/0373/4513/2676/files/CAMIMEH25706_540x.jpg?v=1682377608"
-                        alt="">
-                    <p class="text-center nombre_prod">JEAN PARA MUJER <br>HUNTER BLUE</p>
-                    <p class="prec-act"> <span> S/. <span id="precio4">217.00</span></span>
-                    </p>
-                    <i class='bx bxs-heart cora'></i>
-
-                </div>
-                <div class="m-3 contenedor-descuento-promo" id="contenido8" style="display: none;">
-                    <div class="descuento-promo"> <span class="desc">20%</span> </div>
-
-                    <img src="https://cdn.shopify.com/s/files/1/0373/4513/2676/products/DV-TO-00014_RSD_2_bf32deee-3036-4c65-944c-a62b8a588435_540x.jpg?v=1657646433"
-                        alt="">
-                    <p class="text-center nombre_prod">POLO PARA MUJER <br>AMPARO RSD</p>
-                    <div class="d-flex justify-content-around">
-                        <p class="text-decoration-line-through prec-ant"> <span> S/. <span
-                                    id="precio5">89.90</span></span>
-                        </p>
-                        <p class="prec-act"> <span> S/. <span id="precio2">71.92</span></span>
-                        </p>
-
-                    </div>
-                    <i class='bx bxs-heart cora'></i>
-
+            <div class="btn-toolbar justify-content-center m-3 " role="toolbar" aria-label="Toolbar with button groups">
+                <div class="btn-group me-2 d-flex flex-wrap" role="group" aria-label="First group">
+                          {{ pagination.links }}
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="btn-toolbar justify-content-center m-3 " role="toolbar" aria-label="Toolbar with button groups">
-        <div class="btn-group me-2 d-flex flex-wrap" role="group" aria-label="First group">
-            <button type="button" class="btn btn btn-custom" onclick="retroceder()"><span>
-                    << </span> </button>
-            <button type="button" class="btn btn btn-custom" onclick="cambiarContenido('uno')">1</button>
-            <button type="button" class="btn btn btn-custom" onclick="cambiarContenido('dos')">2</button>
-            <button type="button" class="btn btn btn-custom" onclick="avanzar()"><span>>></span></button>
+
+            <!--###################################### PAGINACIÓN FIN ######################################-->
 
         </div>
     </div>
+    
 </main>
 {% endblock %}
 

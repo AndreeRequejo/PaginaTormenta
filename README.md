@@ -8,4 +8,9 @@
 
 [Consola] (git clone https://github.com/AndreeRequejo/PaginaTormenta.git)
 
-pip install flask-paginate
+> py -3 -m venv .venv
+> .venv\Scripts\activate
+
+### pip install Flask
+### pip install pymysql
+### pip install flask-paginate
