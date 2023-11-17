@@ -32,7 +32,7 @@ def obtener_prenda_id(id_prenda):
     conexion = obtener_conexion()
     prenda = None
     with conexion.cursor() as cursor:
-        cursor.execute("SELECT id_prenda, nomPrenda, descripcion, imagen, tp.tipo, m.material, t.temporada, (SELECT precio FROM disponibilidad_prenda WHERE id_prenda = P.id_prenda LIMIT 1) as precio, codigo FROM prenda AS p "
+        cursor.execute("SELECT id_prenda, nomPrenda, descripcion, imagen, tp.tipo, m.material, t.temporada, (SELECT precio FROM disponibilidad_prenda WHERE id_prenda = p.id_prenda LIMIT 1) as precio, codigo FROM prenda AS p "
                         + "INNER JOIN tipo_prenda AS tp ON p.id_tipo_prenda = tp.id_tipo_prenda "
                         + "INNER JOIN tipo_material AS m ON p.id_tipo_material = m.id_tipo_material "
                         + "INNER JOIN prenda_temporada AS t ON p.id_prenda_temporada = t.id_prenda_temporada "
