@@ -85,25 +85,18 @@ def libro_reclamaciones():
 def politicas_privacidad():
     return render_template("client/politicas_privacidad.html")
 
-
-@app.route("/catalogo-ropa")
-def catalogoRopa():
-    return render_template("client/catalogo_ropa.html")
-
-
 @app.route("/catalogo-novedades")
 def catalogoNovedades():
     return render_template("client/catalogo_novedades.html")
 
-
-@app.route("/catalogo-femenino")
-def catalogoFemenino():
+@app.route("/catalogo-prendas")
+def catalogoPrendas():
     #! Contar el número total de registros
     registros = controlador_prenda.obtener_total_registros()
 
     #! Obtener el número de página actual y la cantidad de resultados por página
     page_num = request.args.get('page', 1, type=int)
-    per_page = 6
+    per_page = 8
 
     #! Calcular el índice del primer registro y limitar la consulta a un rango de registros
     start_index = (page_num - 1) * per_page + 1
@@ -119,7 +112,7 @@ def catalogoFemenino():
     #! Crear objeto paginable
     pagination = Pagination(page = page_num, total=registros, per_page = per_page, css_framework='bootstrap')
     
-    return render_template("client/catalogo_femenino.html", prendas = prendas, pagination = pagination)
+    return render_template("client/catalogo_prendas.html", prendas = prendas, pagination = pagination)
 
 
 @app.route("/detalle-prenda/<int:id>")
@@ -127,11 +120,6 @@ def detallePrenda(id):
     prenda = controlador_prenda.obtener_prenda_id(id)
     tallas = controlador_disponibilidad.obtener_tallas_prenda(id)
     return render_template("client/detalle_prenda.html", prenda = prenda, tallas = tallas)
-
-@app.route("/catalogo-masculino")
-def catalogoMasculino():
-    return render_template("client/catalogo_masculino.html")
-
 
 @app.route("/carrito-compras")
 def carritoCompras():
