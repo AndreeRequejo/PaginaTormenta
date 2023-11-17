@@ -12,6 +12,7 @@ import hashlib
 import random
 import os
 from werkzeug.utils import secure_filename
+from flask_jwt import JWT, jwt_required, current_identity
 from flask_paginate import Pagination
 
 app = Flask(__name__)
