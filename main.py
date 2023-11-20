@@ -1036,48 +1036,95 @@ def api_eliminar_prenda():
 
 # ? APIS Talla de Prenda
 
-
 @app.route("/api_obtener_talla_prenda")
 @jwt_required()
 def api_obtener_talla_prenda():
+    response = dict()
+    datos = []
     talla_prendas = controlador_talla_prenda.obtener_talla_prenda()
-    return jsonify(talla_prendas)
-
+    for talla in talla_prendas:
+        objTalla = clase_talla_prenda.Prenda(talla[0], talla[1])
+        datos.append(objTalla.obtenerObjetoSerializable())
+    response["data"] = datos
+    response["code"] = 1
+    response["message"] = "Listado correcto de las tallas."
+    return jsonify(response)
 
 @app.route("/api_obtener_talla_prenda_por_id", methods=["POST"])
 @jwt_required()
 def api_obtener_talla_prenda_por_id():
+    response = dict()
+    datos = []
     id_talla_prenda = request.json["id_talla_prenda"]
-    talla_prendas_por_id = controlador_talla_prenda.obtener_talla_por_id(
-        id_talla_prenda)
-    return jsonify(talla_prendas_por_id)
-
+    if not controlador_talla_prenda.talla_existe_por_id(id_talla_prenda):
+        response["code"] = 2
+        response["message"] = "Error: La talla con el ID proporcionado no fue encontrada."
+    else:
+        talla = controlador_talla_prenda.obtener_talla_por_id(id_talla_prenda)
+        objTalla = clase_talla_prenda.Prenda(talla[0], talla[1])
+        datos.append(objTalla.obtenerObjetoSerializable())
+        response["code"] = 1
+        response["message"] = "Talla encontrada correctamente."
+    response["data"] = datos
+    return jsonify(response)
 
 @app.route("/api_guardar_talla_prenda", methods=["POST"])
 @jwt_required()
 def api_guardar_talla_prenda():
+    response = dict()
+    datos = []
+    id_talla_prenda = request.json["id_talla_prenda"]
     tipo_talla = request.json["tipo_talla"]
-    controlador_talla_prenda.insertar_talla_prenda(tipo_talla)
-    return jsonify({"codigo": "1", "mensaje": "Talla de prenda agregado correctamente."})
 
+    if not controlador_talla_prenda.talla_existe_por_id(id_talla_prenda):
+        if not controlador_talla_prenda.talla_existe(tipo_talla):
+            controlador_talla_prenda.insertar_talla_prenda(id_talla_prenda,tipo_talla)
+            response["code"] = 1
+            response["message"] = "Talla de prenda guardada correctamente."
+        else:
+            response["code"] = 2
+            response["message"] = "Error: La talla de prenda ya existe."
+    else:
+        response["code"] = 3
+        response["message"] = "Error: El talla de prenda con el ID proporcionado ya existe."        
+    response["data"] = datos
+    return jsonify(response)
 
 @app.route("/api_actualizar_talla_prenda", methods=["POST"])
 @jwt_required()
 def api_actualizar_talla_prenda():
+    response = dict()
+    datos = []
     id_talla_prenda = request.json["id_talla_prenda"]
     tipo_talla = request.json["tipo_talla"]
-    controlador_talla_prenda.actualizar_talla_prenda(
-        tipo_talla, id_talla_prenda)
-    return jsonify({"codigo": "1", "mensaje": "Talla de prenda actualizado correctamente."})
-
+    if not controlador_talla_prenda.talla_existe_por_id(id_talla_prenda):
+        response["code"] = 3
+        response["message"] = "Error: La talla con el ID proporcionado no existe."
+    else:
+        if not controlador_talla_prenda.talla_existe(tipo_talla):
+            controlador_talla_prenda.actualizar_talla_prenda(tipo_talla, id_talla_prenda)
+            response["code"] = 1
+            response["message"] = "Talla actualizada correctamente"
+        else:
+            response["code"] = 2
+            response["message"] = "Error: La talla ya existe"
+    return jsonify(response)
 
 @app.route("/api_eliminar_talla_prenda", methods=["POST"])
 @jwt_required()
 def api_eliminar_talla_prenda():
+    response = dict()
+    datos = []
     id_talla_prenda = request.json["id_talla_prenda"]
-    controlador_talla_prenda.eliminar_talla_prenda(id_talla_prenda)
-    return jsonify({"codigo": "1", "mensaje": "Talla de prenda dado de baja correctamente."})
-
+    if controlador_talla_prenda.talla_existe_por_id(id_talla_prenda):
+        controlador_talla_prenda.eliminar_talla_prenda(id_talla_prenda)
+        response["code"] = 1
+        response["message"] = "Talla eliminada correctamente."
+    else:
+        response["code"] = 2
+        response["message"] = "Error: La Talla con el ID proporcionado no fue encontrada."
+        response["data"] = datos
+    return jsonify(response)
 
 # ? APIS Temporada
 
@@ -1173,9 +1220,7 @@ def api_eliminar_temporada():
     response["data"] = datos
     return jsonify(response)
 
-
 # ? APIS Tipo de Prenda
-
 
 @app.route("/api_obtener_tipo_prenda")
 @jwt_required()
@@ -1192,29 +1237,84 @@ def api_obtener_tipo_prenda():
     return jsonify(response)
 
 
+@app.route("/api_obtener_tipo_prenda_por_id", methods=["POST"])
+@jwt_required()
+def api_obtener_tipo_prenda_por_id():
+    response = dict()
+    datos = []
+    id_tipo_prenda = request.json["id_tipo_prenda"]
+    if not controlador_tipo_prenda.tipo_prenda_existe_por_id(id_tipo_prenda):
+        response["code"] = 2
+        response["message"] = "Error: El Tipo de prenda con el ID proporcionado no fue encontrada."
+    else:
+        tipo = controlador_tipo_prenda.obtener_tipo_prenda_por_id(id_tipo_prenda)
+        objTemporada = clase_tipoPrenda.TipoPrenda(tipo[0], tipo[1])
+        datos.append(objTemporada.obtenerObjetoSerializable())
+        response["code"] = 1
+        response["message"] = "Tipo de prenda encontrada correctamente."
+    response["data"] = datos
+    return jsonify(response)
+
+
 @app.route("/api_guardar_tipo_prenda", methods=["POST"])
 @jwt_required()
 def api_guardar_tipo_prenda():
-    nombre_tipo = request.json["nombre_tipo"]
-    controlador_tipo_prenda.insertar_tipo_prenda(nombre_tipo)
-    return jsonify({"codigo": "1", "mensaje": "Tipo de prenda guardado correctamente."})
+    response = dict()
+    datos = []
+    id_tipo_prenda = request.json["id_tipo_prenda"]
+    tipo = request.json["tipo"]
+    if not controlador_tipo_prenda.tipo_prenda_existe_por_id(id_tipo_prenda):
+        if not controlador_tipo_prenda.tipo_prenda_existe(tipo):
+            controlador_tipo_prenda.insertar_tipo_prenda(id_tipo_prenda,tipo)
+            response["code"] = 1
+            response["message"] = "Tipo de prenda guardada correctamente."
+        else:
+            response["code"] = 2
+            response["message"] = "Error: El tipo de prenda ya existe."
+    else:
+        response["code"] = 3
+        response["message"] = "Error: El tipo de prenda con el ID proporcionado ya existe."        
+    response["data"] = datos
+    return jsonify(response)
 
 
 @app.route("/api_actualizar_tipo_prenda", methods=["POST"])
 @jwt_required()
 def api_actualizar_tipo_prenda():
-    id = request.json["id"]
-    nombre_tipo = request.json["nombre_tipo"]
-    controlador_tipo_prenda.actualizar_tipo_prenda(nombre_tipo, id)
-    return jsonify({"codigo": "1", "mensaje": "Tipo de prenda actualizado correctamente."})
+    response = dict()
+    datos = []
+    id_tipo_prenda = request.json["id_tipo_prenda"]
+    tipo = request.json["tipo"]
+    if not controlador_tipo_prenda.tipo_prenda_existe_por_id(id_tipo_prenda):
+        response["code"] = 3
+        response["message"] = "Error: El tipo de prenda con el ID proporcionado no existe."
+    else:
+        if not controlador_tipo_prenda.tipo_prenda_existe(tipo):
+            controlador_tipo_prenda.actualizar_tipo_prenda(tipo,id_tipo_prenda)
+            response["code"] = 1
+            response["message"] = "Tipo de prenda actualizada correctamente"
+        else:
+            response["code"] = 2
+            response["message"] = "Error: El tipo de prenda ya existe"
+    return jsonify(response)
 
 
 @app.route("/api_eliminar_tipo_prenda", methods=["POST"])
 @jwt_required()
 def api_eliminar_tipo_prenda():
-    controlador_tipo_prenda.eliminar_tipo_prenda(request.json["id"])
-    return jsonify({"codigo": "1", "mensaje": "Tipo de prenda eliminada correctamente."})
+    response = dict()
+    datos = []
+    id_tipo_prenda = request.json["id_tipo_prenda"]
 
+    if controlador_tipo_prenda.tipo_prenda_existe_por_id(id_tipo_prenda):
+        controlador_tipo_prenda.eliminar_tipo_prenda(id_tipo_prenda)
+        response["code"] = 1
+        response["message"] = "Tipo de prenda eliminada correctamente."
+    else:
+        response["code"] = 2
+        response["message"] = "Error: El tipo de prenda con el ID proporcionado no fue encontrada."
+        response["data"] = datos
+    return jsonify(response)
 
 #! Iniciar el servidor
 if __name__ == "__main__":
