@@ -1,286 +1,142 @@
-<!DOCTYPE html>
-<html lang="es">
+{% extends "maestraUsuario.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/datos.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="icon" type="image/x-icon" href="img/icono.ico" />
-    <title>TORMENTA</title>
-</head>
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='client/css/datos.css') }}">{% endblock %}
 
-<body>
-    <header class="m-0 mx-2 align-items-center">
-        <nav class="navbar navbar-expand-lg navbar-light white-light d-flex ">
-            <div class="container-fluid">
-                <a class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2" href="index.html"><img src="img/logo.jpg"
-                        alt=""></a>
-                <input type="text" placeholder="Buscar" class=" col-12  col-sm-4 col-md-5 col-lg-5">
-                <div class=" col-12  col-sm-3 col-md-3 col-lg-3 col-xl-2 my-4 m-sm-0 m-md-0 m-lg-0 m-xl-0 d-flex justify-content-center align-items-center text-center"
-                    id="usu-gus-car">
-                    <a href="#" style="text-decoration: none; color: black;"><i class='bx bx-user '></i></a>
-                    <div class="position-relative">
+{% block titulo %} MI CUENTA - TORMENTA {% endblock %}
 
-                        <a href="Lista_de_deseos.html" style="text-decoration: none; color: black;"><i
-                                class='bx bx-heart'></i></a>
+{% block contenido %}
+<div class="container mt-4">
 
-                        <span class="notification-badge">4</span>
-                    </div>
-
-                    <div class="position-relative">
-                        <a href="carrito.html" style="text-decoration: none; color: black;">
-                            <i class='bx bx-cart'></i></a>
-
-                        <span class="notification-badge" id="totalCarrito">0</span>
-                    </div>
-                </div>
-            </div>
-
-
-
-        </nav>
+    <div class="d-sm-block d-md-flex d-lg-flex d-xl-flex align-items-center">
+        <div class="d-flex justify-content-center mx-4">
+            <img src="{{ url_for('static', filename='client/img/f1.jpg') }}" alt="...">
+        </div>
         <div
-            class="container-fluid  d-flex flex-wrap  justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between">
-
-            <div class="btn-group m-0 m-sm-0 m-md-0 m-lg-0 m-xl-0" role="group">
-                <a href="catalogo_masculino.html">
-                    <button type="button" class="btn btn-outline-secondary btn-no-border">Varon</button>
-
-                </a>
-                <a href="catalogo_femenino.html">
-                    <button type="button" class="btn btn-outline-secondary btn-no-border2">Mujer</button>
-
-                </a>
-            </div>
-
-
-
-            <div class="btn-group  m-3 m-sm-3 m-md-0 m-lg-0 m-xl-0" role="group">
-                <a href="catalogo_novedades.html">
-                    <button type="button" class="btn btn-outline-secondary btn-no-border">Novedades</button>
-                </a>
-                <a href="catalogo_ropa.html">
-                    <button type="button" class="btn btn-outline-secondary btn-no-border3">Ropa</button>
-
-                </a>
-                <a href="catalogo_ropa.html">
-                    <button type="button" class="btn btn-outline-secondary btn-no-border2">Ofertas</button>
-
-                </a>
-
-
-            </div>
-
+            class=" text-center text-sm-center text-md-start text-lg-start text-xl-start info-usuario mt-3 mt-sm-3 mt-md-0 mt-lg-0 mt-xl-0 ">
+            <h3>BIENVENIDO/A</h3>
+            <h1 class="m-0">JUAN DAVID CHISCOL PATAZCA</h1>
         </div>
-    </header>
+    </div>
 
-    <main>
-        <div class="container mt-4">
+    <hr class="container">
+</div>
 
-            <div class="d-sm-block d-md-flex d-lg-flex d-xl-flex align-items-center">
-                <div class="d-flex justify-content-center mx-4">
-                    <img src="img/f1.jpg" alt="...">
-                </div>
-                <div
-                    class=" text-center text-sm-center text-md-start text-lg-start text-xl-start info-usuario mt-3 mt-sm-3 mt-md-0 mt-lg-0 mt-xl-0 ">
-                    <h3>BIENVENIDO/A</h3>
-                    <h1 class="m-0">JUAN DAVID CHISCOL PATAZCA</h1>
-                </div>
-            </div>
+<div class="container mt-4 d-block d-sm-block d-md-block d-lg-flex d-xl-flex ">
+    <div class="col-12 col-sm-12 col-dm-3 col-lg-3 col-xl-3 naveg ">
+        <a class="d-flex justify-content-between align-items-center mb-4" aria-current="page" href="#">
+            <span class="d-flex align-items-center">
+                <i class='bx bxs-user-circle text-body-secondary'></i>
+                Mi cuenta
+            </span>
+            <i class='bx bx-chevron-right'></i>
+        </a>
 
-            <hr class="container">
-        </div>
+        <a class="d-flex justify-content-between align-items-center mb-4" aria-current="page" href="{{url_for('direcciones')}}">
+            <span class="d-flex align-items-center">
+                <i class='bx bxs-map text-body-secondary'></i> Direcciones
+            </span>
+            <i class='bx bx-chevron-right'></i>
+        </a>
 
-        <div class="container mt-4 d-block d-sm-block d-md-block d-lg-flex d-xl-flex ">
-            <div class="col-12 col-sm-12 col-dm-3 col-lg-3 col-xl-3 naveg ">
-                <a class="d-flex justify-content-between align-items-center mb-4" aria-current="page" href="#">
-                    <span class="d-flex align-items-center">
-                        <i class='bx bxs-user-circle text-body-secondary'></i>
-                        Mi cuenta
-                    </span>
-                    <i class='bx bx-chevron-right'></i>
-                </a>
+        <a class="d-flex justify-content-between align-items-center mb-4" aria-current="page" href="{{url_for('misCompras')}}">
+            <span class="d-flex align-items-center">
+                <i class='bx bxs-cart text-body-secondary'></i> Mis compras
+            </span>
+            <i class='bx bx-chevron-right'></i>
+        </a>
 
-                <a class="d-flex justify-content-between align-items-center mb-4" aria-current="page"
-                    href="direcciones.html">
-                    <span class="d-flex align-items-center">
-                        <i class='bx bxs-map text-body-secondary'></i> Direcciones
-                    </span>
-                    <i class='bx bx-chevron-right'></i>
-                </a>
+        <a class="d-flex justify-content-between align-items-center mb-4" aria-current="page" href="{{url_for('mediosPago')}}">
+            <span class="d-flex align-items-center">
+                <i class='bx bxs-dollar-circle text-body-secondary'></i> Medios de pago
+            </span>
+            <i class='bx bx-chevron-right'></i>
+        </a>
 
-                <a class="d-flex justify-content-between align-items-center mb-4" aria-current="page"
-                    href="misCompras.html">
-                    <span class="d-flex align-items-center">
-                        <i class='bx bxs-cart text-body-secondary'></i> Mis compras
-                    </span>
-                    <i class='bx bx-chevron-right'></i>
-                </a>
+        <a class="d-flex justify-content-between align-items-center mb-4" aria-current="page" href="{{url_for('procesar_logout')}}">
+            <span class="d-flex align-items-center">
+                <i class='bx bx-x-circle text-body-secondary'></i> Cerrar sesión
+            </span>
+            <i class='bx bx-chevron-right'></i>
+        </a>
+    </div>
 
-                <a class="d-flex justify-content-between align-items-center mb-4" aria-current="page"
-                    href="mediosPago.html">
-                    <span class="d-flex align-items-center">
-                        <i class='bx bxs-dollar-circle text-body-secondary'></i> Medios de pago
-                    </span>
-                    <i class='bx bx-chevron-right'></i>
-                </a>
-
-                <a class="d-flex justify-content-between align-items-center mb-4" aria-current="page" href="#">
-                    <span class="d-flex align-items-center">
-                        <i class='bx bx-x-circle text-body-secondary'></i> Cerrar sesión
-                    </span>
-                    <i class='bx bx-chevron-right'></i>
-                </a>
-            </div>
-
-            <div class="col-12 col-sm-12 col-dm-9 col-lg-9 col-xl-9 mx-xl-5 toda-infor">
-                <div>
-                    <h1 class="">Datos personales</h1>
-                    <hr class="container">
-                    <div class="d-flex nombre-apelllidos flex-wrap">
-                        <div class="col-12 col-sm-4 col-dm-4 col-lg-4 col-xl-4 mt-3">
-                            <h3>Nombres completos:</h3>
-                            <h4>Juan David</h4>
-                        </div>
-                        <div class="col-12 col-sm-4 col-dm-4 col-lg-4 col-xl-4 mt-3">
-                            <h3>Apellido Paterno:</h3>
-                            <h4>Chiscol</h4>
-                        </div>
-                        <div class=" col-12 col-sm-4 col-dm-4 col-lg-4 col-xl-4 mt-3">
-                            <h3>Apellido Materno:</h3>
-                            <h4>Patazca</h4>
-                        </div>
-                    </div>
-                    <div class="d-flex nombre-apelllidos  flex-wrap">
-                        <div class="col-6 col-sm-4 col-dm-4 col-lg-4 col-xl-4 mt-3 mt-sm-3 mt-md-3 mt-lg-5 mt-xl-5">
-                            <h3>Tipo de documento:</h3>
-                            <h4>DNI: 75136511</h4>
-                        </div>
-                        <div class=" col-6 col-sm-4 col-dm-4 col-lg-4 col-xl-4 mt-3 mt-sm-3 mt-md-3 mt-lg-5 mt-xl-5">
-                            <h3>Numero de celular:</h3>
-                            <h4>+51 972035988</h4>
-                        </div>
-                        <div class="col-12 col-sm-4 col-dm-4 col-lg-4 col-xl-4 mt-3 mt-sm-3 mt-md-3 mt-lg-5 mt-xl-5">
-                            <h3>Correo electrónico:</h3>
-                            <h4>chiscolpatazcajuandavid <br>@gmail.com</h4>
-                        </div>
-                    </div>
-                </div>
-
-                <div class=" my-4 ">
-                    <h1 class="">Configurar mi cuenta</h1>
-                    <hr class="container">
-                    <div class="d-flex mt-4">
-                        <div class="col-6 contras">
-                            <h3 class="mb-4">Contraseña actual:</h3>
-                            <div class="border-bottom border-secondary ingreso-contras d-flex align-items-center ">
-                                <input class="linea" style="border: none;" placeholder="Ingresa tu contraseña actual">
-                                </input>
-                                <i class='bx bx-low-vision rounded float-end'></i>
-                            </div>
-                        </div>
-
-                        <div class="col-6 contras">
-                            <h3 class="mb-4">Tu nueva contraseña:</h3>
-                            <div class="border-bottom border-secondary ingreso-contras d-flex align-items-center">
-                                <input class="linea" style="border: none;" placeholder="Ingresa tu nueva actual">
-                                </input>
-                                <i class='bx bx-low-vision rounded float-end'></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="requisito-contra mt-5">
-                    <h6>Debes usar al menos:</h6>
-                    <ul class="list-inline text-center ">
-                        <li class="list-inline-item">Mínimo 8 caracteres</li>
-                        <li class="list-inline-item">1 mayúscula</li>
-                        <li class="list-inline-item">1 minúscula</li>
-                        <li class="list-inline-item">1 número</li>
-                        <li class="list-inline-item">Ningún espacio en blanco</li>
-                    </ul>
-                </div>
-                <div class="d-flex justify-content-md-end justify-content-center align-items-center guardar my-5">
-                    <button type="button">Guardar</button>
-                </div>
-
-
-            </div>
-
-        </div>
-    </main>
-
-
-
-    <footer class="container-fluid pt-4">
-        <div class="d-flex flex-wrap">
-            <div class="contact d-flex col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
-                <div class="lo-red ">
-
-                    <a href="index.html"><img src="img/logo-nube.png " alt="" class="lo"></a>
-
-                    <div class="redes-sociales">
-                        <a href="#"><i class='bx bxl-facebook'></i></a>
-                        <a href="#"><i class='bx bxl-instagram'></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="nosotros col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3 ">
-                <h4
-                    class="d-flex  justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between">
-                    Nosotros</h4>
-                <a href="quienes_somos.html"
-                    class="d-flex  justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between ">¿Quiénes
-                    somos?</a>
-                <a href="contactanos.html"
-                    class="d-flex justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between ">Contactanos!</a>
-                <a href="terminos_condiciones.html"
-                    class="d-flex  justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between">Terminos
-                    y condiciones</a>
-            </div>
-            <div class="atencion col-12  col-sm-6 col-md-3 col-lg-3 col-xl-3">
-                <h4
-                    class="d-flex  justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between">
-                    Atencion al Cliente</h4>
-                <a href="preguntas_frecuentes.html"
-                    class="d-flex justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between">Preguntas
-                    frecuentes</a>
-                <a href="libro_reclamaciones.html"
-                    class="d-flex justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between">Libro
-                    de Reclamaciones</a>
-                <a href="politicas_privacidad.html"
-                    class="d-flex justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between">Política
-                    de Privacidad</a>
-            </div>
-            <div class="mapa justify-content-center col-12  col-sm-6 col-md-12 col-lg-3 col-xl-3">
-                <img src="img/mapa.jpg" alt="" class="mx-auto d-block ">
-                <p class="text-center">
-                    D' Ángelo Galeria Comercial,<br>
-                    Avenida José Balta, Chiclayo
-                </p>
-            </div>
-        </div>
+    <div class="col-12 col-sm-12 col-dm-9 col-lg-9 col-xl-9 mx-xl-5 toda-infor">
         <div>
-            <div>
-                <hr>
-                <p> &copy; Tormenta, 30/06/2023 - 12/07/2023</p>
-                <div style="display: flex; justify-content: center;">
-                    <hr style="width: 50%;">
-
+            <h1 class="">Datos personales</h1>
+            <hr class="container">
+            <div class="d-flex nombre-apelllidos flex-wrap">
+                <div class="col-12 col-sm-4 col-dm-4 col-lg-4 col-xl-4 mt-3">
+                    <h3>Nombres completos:</h3>
+                    <h4>Juan David</h4>
                 </div>
-                <a href="creadores.html" target="_blank">
-                    <p> Creador por: TrimWeb</p>
-                </a>
+                <div class="col-12 col-sm-4 col-dm-4 col-lg-4 col-xl-4 mt-3">
+                    <h3>Apellido Paterno:</h3>
+                    <h4>Chiscol</h4>
+                </div>
+                <div class=" col-12 col-sm-4 col-dm-4 col-lg-4 col-xl-4 mt-3">
+                    <h3>Apellido Materno:</h3>
+                    <h4>Patazca</h4>
+                </div>
+            </div>
+            <div class="d-flex nombre-apelllidos  flex-wrap">
+                <div class="col-6 col-sm-4 col-dm-4 col-lg-4 col-xl-4 mt-3 mt-sm-3 mt-md-3 mt-lg-5 mt-xl-5">
+                    <h3>Tipo de documento:</h3>
+                    <h4>DNI: 75136511</h4>
+                </div>
+                <div class=" col-6 col-sm-4 col-dm-4 col-lg-4 col-xl-4 mt-3 mt-sm-3 mt-md-3 mt-lg-5 mt-xl-5">
+                    <h3>Numero de celular:</h3>
+                    <h4>+51 972035988</h4>
+                </div>
+                <div class="col-12 col-sm-4 col-dm-4 col-lg-4 col-xl-4 mt-3 mt-sm-3 mt-md-3 mt-lg-5 mt-xl-5">
+                    <h3>Correo electrónico:</h3>
+                    <h4>chiscolpatazcajuandavid <br>@gmail.com</h4>
+                </div>
             </div>
         </div>
 
-    </footer>
+        <div class=" my-4 ">
+            <h1 class="">Configurar mi cuenta</h1>
+            <hr class="container">
+            <div class="d-flex mt-4">
+                <div class="col-6 contras">
+                    <h3 class="mb-4">Contraseña actual:</h3>
+                    <div class="border-bottom border-secondary ingreso-contras d-flex align-items-center ">
+                        <input class="linea" style="border: none;" placeholder="Ingresa tu contraseña actual">
+                        </input>
+                        <i class='bx bx-low-vision rounded float-end'></i>
+                    </div>
+                </div>
 
-    <script src="js/cargarCantProductos.js"></script>
-</body>
+                <div class="col-6 contras">
+                    <h3 class="mb-4">Tu nueva contraseña:</h3>
+                    <div class="border-bottom border-secondary ingreso-contras d-flex align-items-center">
+                        <input class="linea" style="border: none;" placeholder="Ingresa tu nueva actual">
+                        </input>
+                        <i class='bx bx-low-vision rounded float-end'></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="requisito-contra mt-5">
+            <h6>Debes usar al menos:</h6>
+            <ul class="list-inline text-center ">
+                <li class="list-inline-item">Mínimo 8 caracteres</li>
+                <li class="list-inline-item">1 mayúscula</li>
+                <li class="list-inline-item">1 minúscula</li>
+                <li class="list-inline-item">1 número</li>
+                <li class="list-inline-item">Ningún espacio en blanco</li>
+            </ul>
+        </div>
+        <div class="d-flex justify-content-md-end justify-content-center align-items-center guardar my-5">
+            <button type="button">Guardar</button>
+        </div>
 
-</html>
+
+    </div>
+
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="js/cargarCantProductos.js"></script> {% endblock %}

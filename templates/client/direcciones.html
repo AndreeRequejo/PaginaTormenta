@@ -1,188 +1,111 @@
-<!DOCTYPE html>
-<html lang="es">
+{% extends "maestraUsuario.html" %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/index.css">
-    <link rel="stylesheet" href="css/datos.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="icon" type="image/x-icon" href="img/icono.ico" />
-    <title>TORMENTA</title>
-</head>
+{% block css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='client/css/datos.css') }}">{% endblock %}
 
-<body>
-    <header class="m-0 mx-2 align-items-center">
-        <nav class="navbar navbar-expand-lg navbar-light white-light d-flex ">
-            <div class="container-fluid">
-                <a class="col-12 col-sm-3 col-md-3 col-lg-2 col-xl-2" href="index.html"><img src="img/logo.jpg"
-                        alt=""></a>
-                <input type="text" placeholder="Buscar" class=" col-12  col-sm-4 col-md-5 col-lg-5">
-                <div class=" col-12  col-sm-3 col-md-3 col-lg-3 col-xl-2 my-4 m-sm-0 m-md-0 m-lg-0 m-xl-0 d-flex justify-content-center align-items-center text-center"
-                    id="usu-gus-car">
-                    <a href="mi_cuenta.html" style="text-decoration: none; color: black;"><i
-                            class='bx bx-user '></i></a>
-                    <div class="position-relative">
+{% block titulo %} MI CUENTA - TORMENTA {% endblock %}
 
-                        <a href="Lista_de_deseos.html" style="text-decoration: none; color: black;"><i
-                                class='bx bx-heart'></i></a>
+{% block contenido %}
+<div class="container mt-4">
 
-                        <span class="notification-badge">4</span>
-                    </div>
-
-                    <div class="position-relative">
-                        <a href="carrito.html" style="text-decoration: none; color: black;">
-                            <i class='bx bx-cart'></i></a>
-
-                        <span class="notification-badge" id="totalCarrito">0</span>
-                    </div>
-                </div>
-            </div>
-
-
-
-        </nav>
+    <div class="d-sm-block d-md-flex d-lg-flex d-xl-flex align-items-center">
+        <div class="d-flex justify-content-center mx-4">
+            <img src="{{ url_for('static', filename='client/img/f1.jpg') }}" alt="...">
+        </div>
         <div
-            class="container-fluid  d-flex flex-wrap  justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between">
+            class=" text-center text-sm-center text-md-start text-lg-start text-xl-start info-usuario mt-3 mt-sm-3 mt-md-0 mt-lg-0 mt-xl-0 ">
+            <h3>BIENVENIDO/A</h3>
+            <h1 class="m-0">JUAN DAVID CHISCOL PATAZCA</h1>
+        </div>
+    </div>
 
-            <div class="btn-group m-0 m-sm-0 m-md-0 m-lg-0 m-xl-0" role="group">
-                <a href="catalogo_masculino.html">
-                    <button type="button" class="btn btn-outline-secondary btn-no-border">Varon</button>
+    <hr class="container">
+</div>
 
-                </a>
-                <a href="catalogo_femenino.html">
-                    <button type="button" class="btn btn-outline-secondary btn-no-border2">Mujer</button>
+<div class="container mt-4 d-block d-sm-block d-md-block d-lg-flex d-xl-flex ">
+    <div class="col-12 col-sm-12 col-dm-3 col-lg-3 col-xl-3 naveg ">
+        <a class="d-flex justify-content-between align-items-center mb-4" aria-current="page" href="{{url_for('mi_cuenta')}}">
+            <span class="d-flex align-items-center">
+                <i class='bx bxs-user-circle text-body-secondary'></i>
+                Mi cuenta
+            </span>
+            <i class='bx bx-chevron-right'></i>
+        </a>
 
-                </a>
+        <a class="d-flex justify-content-between align-items-center mb-4" aria-current="page" href="#">
+            <span class="d-flex align-items-center">
+                <i class='bx bxs-map text-body-secondary'></i> Direcciones
+            </span>
+            <i class='bx bx-chevron-right'></i>
+        </a>
+
+        <a class="d-flex justify-content-between align-items-center mb-4" aria-current="page" href="{{url_for('misCompras')}}">
+            <span class="d-flex align-items-center">
+                <i class='bx bxs-cart text-body-secondary'></i> Mis compras
+            </span>
+            <i class='bx bx-chevron-right'></i>
+        </a>
+
+        <a class="d-flex justify-content-between align-items-center mb-4" aria-current="page" href="{{url_for('mediosPago')}}">
+            <span class="d-flex align-items-center">
+                <i class='bx bxs-dollar-circle text-body-secondary'></i> Medios de pago
+            </span>
+            <i class='bx bx-chevron-right'></i>
+        </a>
+
+        <a class="d-flex justify-content-between align-items-center mb-4" aria-current="page" href="{{url_for('procesar_logout')}}">
+            <span class="d-flex align-items-center">
+                <i class='bx bx-x-circle text-body-secondary'></i> Cerrar sesión
+            </span>
+            <i class='bx bx-chevron-right'></i>
+        </a>
+    </div>
+
+    <div class="col-12 col-sm-12 col-dm-9 col-lg-9 col-xl-9 mx-xl-5 mb-4">
+        <div class="d-flex justify-content-between align-items-center titulo-direcciones">
+            <h1 class="m-2">Direcciones</h1>
+        </div>
+
+        <div class="form-check direcciones-local d-flex my-5 flex-wrap">
+            <div class=" d-flex align-items-center col-sm-12 col-md-8 col-lg-8 col-xl-8 dire ">
+                <input class="form-check-input " type="radio" name="flexRadioDefault" id="flexRadioDefault2"
+                    checked>
+                <label class="form-check-label" for="flexRadioDefault2">
+                    450, Av. Balta, CHICLAYO, CHICLAYO, LAMBAYEQUE
+                </label>
             </div>
 
-
-
-            <div class="btn-group  m-3 m-sm-3 m-md-0 m-lg-0 m-xl-0" role="group">
-                <a href="catalogo_novedades.html">
-                    <button type="button" class="btn btn-outline-secondary btn-no-border">Novedades</button>
-                </a>
-                <a href="catalogo_ropa.html">
-                    <button type="button" class="btn btn-outline-secondary btn-no-border3">Ropa</button>
-
-                </a>
-                <a href="catalogo_ropa.html">
-                    <button type="button" class="btn btn-outline-secondary btn-no-border2">Ofertas</button>
-
+            <div
+                class="d-flex col-sm-12 col-md-4 col-lg-4 col-xl-4  justify-content-around align-items-center ">
+                <a href="" class="text-decoration-none editar " data-bs-toggle="modal"
+                    data-bs-target="#estatico">
+                    <i class='bx bxs-pencil align-self-center'></i>Editar
                 </a>
 
-
+                <a href="" class="text-decoration-none eliminar">
+                    <i class='bx bx-x'></i>Eliminar
+                </a>
             </div>
 
         </div>
-    </header>
-
-    <main>
-        <div class="container mt-4">
-
-            <div class="d-sm-block d-md-flex d-lg-flex d-xl-flex align-items-center">
-                <div class="d-flex justify-content-center mx-4">
-                    <img src="img/f1.jpg" alt="...">
-                </div>
-                <div
-                    class=" text-center text-sm-center text-md-start text-lg-start text-xl-start info-usuario mt-3 mt-sm-3 mt-md-0 mt-lg-0 mt-xl-0 ">
-                    <h3>BIENVENIDO/A</h3>
-                    <h1 class="m-0">JUAN DAVID CHISCOL PATAZCA</h1>
-                </div>
-            </div>
-
-            <hr class="container">
-        </div>
-
-        <div class="container mt-4 d-block d-sm-block d-md-block d-lg-flex d-xl-flex ">
-            <div class="col-12 col-sm-12 col-dm-3 col-lg-3 col-xl-3 naveg ">
-                <a class="d-flex justify-content-between align-items-center mb-4" aria-current="page"
-                    href="mi_cuenta.html">
-                    <span class="d-flex align-items-center">
-                        <i class='bx bxs-user-circle text-body-secondary'></i>
-                        Mi cuenta
-                    </span>
-                    <i class='bx bx-chevron-right'></i>
-                </a>
-
-                <a class="d-flex justify-content-between align-items-center mb-4" aria-current="page" href="#">
-                    <span class="d-flex align-items-center">
-                        <i class='bx bxs-map text-body-secondary'></i> Direcciones
-                    </span>
-                    <i class='bx bx-chevron-right'></i>
-                </a>
-
-                <a class="d-flex justify-content-between align-items-center mb-4" aria-current="page"
-                    href="misCompras.html">
-                    <span class="d-flex align-items-center">
-                        <i class='bx bxs-cart text-body-secondary'></i> Mis compras
-                    </span>
-                    <i class='bx bx-chevron-right'></i>
-                </a>
-
-                <a class="d-flex justify-content-between align-items-center mb-4" aria-current="page"
-                    href="mediosPago.html">
-                    <span class="d-flex align-items-center">
-                        <i class='bx bxs-dollar-circle text-body-secondary'></i> Medios de pago
-                    </span>
-                    <i class='bx bx-chevron-right'></i>
-                </a>
-
-                <a class="d-flex justify-content-between align-items-center mb-4" aria-current="page" href="#">
-                    <span class="d-flex align-items-center">
-                        <i class='bx bx-x-circle text-body-secondary'></i> Cerrar sesión
-                    </span>
-                    <i class='bx bx-chevron-right'></i>
-                </a>
-            </div>
-
-            <div class="col-12 col-sm-12 col-dm-9 col-lg-9 col-xl-9 mx-xl-5 mb-4">
-                <div class="d-flex justify-content-between align-items-center titulo-direcciones">
-                    <h1 class="m-2">Direcciones</h1>
-                </div>
-
-                <div class="form-check direcciones-local d-flex my-5 flex-wrap">
-                    <div class=" d-flex align-items-center col-sm-12 col-md-8 col-lg-8 col-xl-8 dire ">
-                        <input class="form-check-input " type="radio" name="flexRadioDefault" id="flexRadioDefault2"
-                            checked>
-                        <label class="form-check-label" for="flexRadioDefault2">
-                            450, Av. Balta, CHICLAYO, CHICLAYO, LAMBAYEQUE
-                        </label>
-                    </div>
-
-                    <div
-                        class="d-flex col-sm-12 col-md-4 col-lg-4 col-xl-4  justify-content-around align-items-center ">
-                        <a href="" class="text-decoration-none editar " data-bs-toggle="modal"
-                            data-bs-target="#estatico">
-                            <i class='bx bxs-pencil align-self-center'></i>Editar
-                        </a>
-
-                        <a href="" class="text-decoration-none eliminar">
-                            <i class='bx bx-x'></i>Eliminar
-                        </a>
-                    </div>
-
-                </div>
 
 
 
 
-                <div
-                    class="d-flex flex-wrap justify-content-center justify-content-sm-between justify-content-md-between justify-content-lg-between justify-content-xl-between">
-                    <button class=" bt btn-block" type="button" data-bs-toggle="modal"
-                        data-bs-target="#nuevaDir">Agregar
-                        Dirección</button>
+        <div
+            class="d-flex flex-wrap justify-content-center justify-content-sm-between justify-content-md-between justify-content-lg-between justify-content-xl-between">
+            <button class=" bt btn-block" type="button" data-bs-toggle="modal"
+                data-bs-target="#nuevaDir">Agregar
+                Dirección</button>
 
-                    <button type="button" class="bp mt-3 mt-sm-0  mt-dm-0 mt-lg-0 mt-xl-0">Guardar</button>
-
-                </div>
-
-
-            </div>
+            <button type="button" class="bp mt-3 mt-sm-0  mt-dm-0 mt-lg-0 mt-xl-0">Guardar</button>
 
         </div>
+
+
+    </div>
+
+</div>
 
         <!-- Ventana modal -->
         <div class="modal fade" id="estatico" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -309,78 +232,7 @@
                 </div>
             </div>
         </div>
+{% endblock %}
 
-    </main>
-
-
-    <footer class="container-fluid pt-4">
-        <div class="d-flex flex-wrap">
-            <div class="contact d-flex col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3">
-                <div class="lo-red ">
-
-                    <a href="index.html"><img src="img/logo-nube.png " alt="" class="lo"></a>
-
-                    <div class="redes-sociales">
-                        <a href="#"><i class='bx bxl-facebook'></i></a>
-                        <a href="#"><i class='bx bxl-instagram'></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="nosotros col-12 col-sm-6 col-md-3 col-lg-3 col-xl-3 ">
-                <h4
-                    class="d-flex  justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between">
-                    Nosotros</h4>
-                <a href="quienes_somos.html"
-                    class="d-flex  justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between ">¿Quiénes
-                    somos?</a>
-                <a href="contactanos.html"
-                    class="d-flex justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between ">Contactanos!</a>
-                <a href="terminos_condiciones.html"
-                    class="d-flex  justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between">Terminos
-                    y condiciones</a>
-            </div>
-            <div class="atencion col-12  col-sm-6 col-md-3 col-lg-3 col-xl-3">
-                <h4
-                    class="d-flex  justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between">
-                    Atencion al Cliente</h4>
-                <a href="preguntas_frecuentes.html"
-                    class="d-flex justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between">Preguntas
-                    frecuentes</a>
-                <a href="libro_reclamaciones.html"
-                    class="d-flex justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between">Libro
-                    de Reclamaciones</a>
-                <a href="politicas_privacidad.html"
-                    class="d-flex justify-content-center justify-content-sm-center justify-content-md-between justify-content-lg-between justify-content-xl-between">Política
-                    de Privacidad</a>
-            </div>
-            <div class="mapa justify-content-center col-12  col-sm-6 col-md-12 col-lg-3 col-xl-3">
-                <img src="img/mapa.jpg" alt="" class="mx-auto d-block ">
-                <p class="text-center">
-                    D' Ángelo Galeria Comercial,<br>
-                    Avenida José Balta, Chiclayo
-                </p>
-            </div>
-        </div>
-        <div>
-            <div>
-                <hr>
-                <p> &copy; Tormenta, 30/06/2023 - 12/07/2023</p>
-                <div style="display: flex; justify-content: center;">
-                    <hr style="width: 50%;">
-
-                </div>
-                <a href="creadores.html" target="_blank">
-                    <p> Creador por: TrimWeb</p>
-                </a>
-            </div>
-        </div>
-
-    </footer>
-    <script src="js/cargarCantProductos.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
-</body>
-
-</html>
+{% block js %}
+<script src="js/cargarCantProductos.js"></script> {% endblock %}

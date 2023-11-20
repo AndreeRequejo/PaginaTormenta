@@ -7,6 +7,24 @@ def insertar_prenda(codigo, nombre, descripcion, id_tipo, id_color, id_material,
     conexion.commit()
     conexion.close()
 
+def prenda_existe(codigo):
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT COUNT(*) FROM prenda WHERE codigo = %s", (codigo,))
+        resultado = cursor.fetchone()
+        existe = resultado[0] > 0
+    conexion.close()
+    return existe
+
+def prenda_existe_por_id(prenda_id):
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT COUNT(*) FROM prenda WHERE id_prenda = %s", (prenda_id,))
+        resultado = cursor.fetchone()
+        existe = resultado[0] > 0
+    conexion.close()
+    return existe
+
 def obtener_prenda():
     conexion = obtener_conexion()
     prenda = []

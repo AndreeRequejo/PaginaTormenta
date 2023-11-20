@@ -1,5 +1,23 @@
 from bd import obtener_conexion
 
+def temporada_existe(temporada):
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT COUNT(*) FROM prenda_temporada WHERE temporada = %s", (temporada,))
+        resultado = cursor.fetchone()
+        existe = resultado[0] > 0
+    conexion.close()
+    return existe
+
+def temporada_existe_por_id(temp_id):
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT COUNT(*) FROM prenda_temporada WHERE id_prenda_temporada = %s", (temp_id,))
+        resultado = cursor.fetchone()
+        existe = resultado[0] > 0
+    conexion.close()
+    return existe
+
 def insertar_temporada(temporada):
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:

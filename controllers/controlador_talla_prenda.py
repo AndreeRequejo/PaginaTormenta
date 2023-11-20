@@ -24,7 +24,7 @@ def eliminar_talla_prenda(id_talla_prenda):
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
         cursor.execute(
-            "DELETE FROM talla_prenda WHERE id_talla_prenda = %s", (id_talla_prenda,))
+            "UPDATE talla_prenda SET estado = false WHERE id_talla_prenda = %s", (id_talla_prenda,))
     conexion.commit()
     conexion.close()
 

@@ -8,6 +8,14 @@ import controllers.controlador_usuarios as controlador_usuarios
 import controllers.controlador_talla_prenda as controlador_talla_prenda
 import controllers.controlador_prenda as controlador_prenda
 import controllers.controlador_disponibilidad as controlador_disponibilidad
+import clases.clase_color as clase_color
+import clases.clase_disponibilidad as clase_disponibilidad
+import clases.clase_material as clase_material
+import clases.clase_prenda as clase_prenda
+import clases.clase_talla_prenda as clase_talla_prenda
+import clases.clase_temporada as clase_temporada
+import clases.clase_tipoPrenda as clase_tipoPrenda
+import clases.clase_usuario as clase_usuario
 import hashlib
 import random
 import os
@@ -15,7 +23,30 @@ from werkzeug.utils import secure_filename
 from flask_jwt import JWT, jwt_required, current_identity
 from flask_paginate import Pagination
 
+
+###### SEGURIDAD - INICIO ######################################################
+
+def authenticate(username, password):
+    usuario = controlador_usuarios.obtener_usuario(username)
+    user = clase_usuario.Usuario(usuario[0], usuario[1], usuario[2])
+    if user and (user.password == password):
+        return user
+
+
+def identity(payload):
+    user_id = payload['identity']
+    usuario = controlador_usuarios.obtener_usuario_por_id(user_id)
+    user = clase_usuario.Usuario(usuario[0], usuario[1], usuario[2])
+    return user
+
+
 app = Flask(__name__)
+app.debug = True
+app.config['SECRET_KEY'] = 'super-secret'
+
+jwt = JWT(app, authenticate, identity)
+
+###### SEGURIDAD - FIN #########################################################
 
 #! Lógica Token y Principal
 
@@ -57,6 +88,27 @@ def login():
 
 #! Redireccion entre vistaUsuario
 
+#! Redireccion entre vistaUsuario
+@app.route("/mi_cuenta")
+def mi_cuenta():
+    return render_template("client/mi_cuenta.html")
+
+
+@app.route("/direcciones")
+def direcciones():
+    return render_template("client/direcciones.html")
+
+
+@app.route("/misCompras")
+def misCompras():
+    return render_template("client/misCompras.html")
+
+
+@app.route("/mediosPago")
+def mediosPago():
+    return render_template("client/mediosPago.html")
+
+
 @app.route("/quienes_somos")
 def quienes_somos():
     return render_template("client/quienes_somos.html")
@@ -86,9 +138,11 @@ def libro_reclamaciones():
 def politicas_privacidad():
     return render_template("client/politicas_privacidad.html")
 
+
 @app.route("/catalogo-novedades")
 def catalogoNovedades():
     return render_template("client/catalogo_novedades.html")
+
 
 @app.route("/catalogo-prendas")
 def catalogoPrendas():
@@ -111,16 +165,18 @@ def catalogoPrendas():
         end_index = registros
 
     #! Crear objeto paginable
-    pagination = Pagination(page = page_num, total=registros, per_page = per_page, css_framework='bootstrap')
-    
-    return render_template("client/catalogo_prendas.html", prendas = prendas, pagination = pagination)
+    pagination = Pagination(page=page_num, total=registros,
+                            per_page=per_page, css_framework='bootstrap')
+
+    return render_template("client/catalogo_prendas.html", prendas=prendas, pagination=pagination)
 
 
 @app.route("/detalle-prenda/<int:id>")
 def detallePrenda(id):
     prenda = controlador_prenda.obtener_prenda_id(id)
     tallas = controlador_disponibilidad.obtener_tallas_prenda(id)
-    return render_template("client/detalle_prenda.html", prenda = prenda, tallas = tallas)
+    return render_template("client/detalle_prenda.html", prenda=prenda, tallas=tallas)
+
 
 @app.route("/carrito-compras")
 def carritoCompras():
@@ -138,9 +194,11 @@ def indexUsuario():
 
 #! Lógica Login/Logout Usuario
 
+
 @app.route("/signup")
 def signup():
     return render_template("admin/agregar_usuario.html")
+
 
 @app.route("/procesar_login", methods=["POST"])
 def procesar_login():
@@ -474,6 +532,7 @@ def editar_prenda(id):
     material_prendas = controlador_material.obtener_material()
     return render_template("admin/prenda_editar.html", prendas=prendas, tipo_prendas=tipo_prendas, color_prendas=color_prendas, temporada_prendas=temporada_prendas, material_prendas=material_prendas)
 
+
 @app.route("/actualizar_prenda", methods=["POST"])
 def actualizar_prenda():
     id = request.form["id"]
@@ -558,64 +617,583 @@ def eliminar_disponibilidad():
 
 #! Guardar imágenes
 
+
 def recibeFoto(file, codProd):
     print(file)
-    basepath = os.path.dirname (__file__) #La ruta donde se encuentra el archivo actual
-    filename = secure_filename(file.filename) #Nombre original del archivo
+    # La ruta donde se encuentra el archivo actual
+    basepath = os.path.dirname(__file__)
+    filename = secure_filename(file.filename)  # Nombre original del archivo
 
-    #capturando extensión del archivo ejemplo: (.png, .jpg)
-    extension           = os.path.splitext(filename)[1]
-    nuevoNombreFile     = codProd + extension
-    upload_path = os.path.join (basepath, 'static/products', nuevoNombreFile) 
+    # capturando extensión del archivo ejemplo: (.png, .jpg)
+    extension = os.path.splitext(filename)[1]
+    nuevoNombreFile = codProd + extension
+    upload_path = os.path.join(basepath, 'static/products', nuevoNombreFile)
     file.save(upload_path)
 
     return nuevoNombreFile
 
-#! Iniciar el servidor
-if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=8000, debug=True)
-
 # -------------------------------------------- APIS -------------------------------------------- #
+
+# ? APIS Color de Prenda
+
+
+@app.route("/api_obtener_color_prenda")
+@jwt_required()
+def api_obtener_color_prenda():
+    response = dict()
+    datos = []
+    color_prendas = controlador_color_prenda.obtener_color_prenda()
+    for color in color_prendas:
+        objColor = clase_color.Color(color[0], color[1])
+        datos.append(objColor.obtenerObjetoSerializable())
+    response["data"] = datos
+    response["code"] = 1
+    response["message"] = "Listado correcto de colores."
+    return jsonify(response)
+
+
+@app.route("/api_obtener_color_por_id", methods=["POST"])
+@jwt_required()
+def api_obtener_color_por_id():
+    response = dict()
+    datos = []
+    id = request.json["id"]
+    if not controlador_color_prenda.color_existe_por_id(id):
+        response["code"] = 2
+        response["message"] = "Error: El color con el ID proporcionado no fue encontrado."
+    else:
+        color_prendas = controlador_color_prenda.obtener_color_por_id(id)
+        objColor = clase_color.Color(color_prendas[0], color_prendas[1])
+        datos.append(objColor.obtenerObjetoSerializable())
+        response["code"] = 1
+        response["message"] = "Color encontrado correctamente."
+    response["data"] = datos
+    return jsonify(response)
+
+
+@app.route("/api_guardar_color_prenda", methods=["POST"])
+@jwt_required()
+def api_guardar_color_prenda():
+    response = dict()
+    datos = []
+    nombre_color = request.json["nombre_color"]
+    if not controlador_color_prenda.color_existe(nombre_color):
+        controlador_color_prenda.insertar_color_prenda(nombre_color)
+        response["code"] = 1
+        response["message"] = "Color guardado correctamente."
+    else:
+        response["code"] = 2
+        response["message"] = "Error: El color ya existe."
+
+    response["data"] = datos
+    return jsonify(response)
+
+
+@app.route("/api_actualizar_color_prenda", methods=["POST"])
+@jwt_required()
+def api_actualizar_color_prenda():
+    response = dict()
+    datos = []
+    id = request.json["id"]
+    nombre_color = request.json["nombre_color"]
+    if not controlador_color_prenda.color_existe_por_id(id):
+        response["code"] = 3
+        response["message"] = "Error: El color con el ID proporcionado no existe."
+    else:
+        if not controlador_color_prenda.color_existe(nombre_color):
+            controlador_color_prenda.actualizar_color_prenda(nombre_color, id)
+            response["code"] = 1
+            response["message"] = "Color actualizado correctamente."
+        else:
+            response["code"] = 2
+            response["message"] = "Error: El color ya existe."
+    response["data"] = datos
+    return jsonify(response)
+
+
+@app.route("/api_eliminar_color_prenda", methods=["POST"])
+@jwt_required()
+def api_eliminar_color_prenda():
+    response = dict()
+    datos = []
+    color_id = request.json["id"]
+    if controlador_color_prenda.color_existe_por_id(color_id):
+        controlador_color_prenda.eliminar_color_prenda(color_id)
+        response["code"] = 1
+        response["message"] = "Color eliminado correctamente."
+    else:
+        response["code"] = 2
+        response["message"] = "Error: El color con el ID proporcionado no fue encontrado."
+    response["data"] = datos
+    return jsonify(response)
+
+# ? APIS Disponibilidad de Prenda
+
+
+@app.route("/api_obtener_disponibilidad")
+@jwt_required()
+def api_obtener_disponibilidad():
+    response = dict()
+    datos = []
+    disponibilidad_prendas = controlador_disponibilidad.obtener_disponibilidad_prenda()
+    for disponibilidad in disponibilidad_prendas:
+        objDisp = clase_disponibilidad.Disponibilidad(
+            disponibilidad[0], disponibilidad[1], disponibilidad[2], disponibilidad[3], disponibilidad[4], disponibilidad[5])
+        datos.append(objDisp.obtenerObjetoSerializable())
+    response["data"] = datos
+    response["code"] = 1
+    response["message"] = "Listado correcto de colores."
+    return jsonify(response)
+
+
+@app.route("/api_obtener_disponibilidad_por_ids", methods=["POST"])
+@jwt_required()
+def api_obtener_disponibilidad_por_ids():
+    response = dict()
+    datos = []
+    id_prenda = request.json["id_prenda"]
+    id_talla = request.json["id_talla_prenda"]
+    if not controlador_disponibilidad.disponibilidad_existe(id_prenda, id_talla):
+        response["code"] = 2
+        response["message"] = "Error: La disponibilidad con la talla y prenda proporcionado no fue encontrado."
+    else:
+        disponibilidad = controlador_disponibilidad.obtener_disponibilidad_id(
+            id_prenda, id_talla)
+        objDisp = clase_disponibilidad.Disponibilidad(
+            disponibilidad[0], disponibilidad[1], disponibilidad[2], disponibilidad[3], disponibilidad[4], disponibilidad[5])
+        datos.append(objDisp.obtenerObjetoSerializable())
+        response["code"] = 1
+        response["message"] = "Disponibilidad encontrada correctamente."
+    response["data"] = datos
+    return jsonify(response)
+
+
+@app.route("/api_guardar_disponibilidad", methods=["POST"])
+@jwt_required()
+def api_guardar_disponibilidad():
+    response = dict()
+    datos = []
+    id_prenda = request.json["id_prenda"]
+    id_talla = request.json["id_talla"]
+    precio = request.json["precio"]
+    stock = request.json["stock"]
+    if controlador_disponibilidad.disponibilidad_existe(id_prenda, id_talla):
+        response["code"] = 2
+        response["message"] = "Error: Esta disponibilidad ya existe."
+    else:
+        if not controlador_disponibilidad.prenda_talla_existen(id_prenda, id_talla):
+            response["code"] = 3
+            response["message"] = "Error: La prenda o la talla no existen."
+        else:
+            controlador_disponibilidad.insertar_disponibilidad_prenda(
+                id_prenda, id_talla, precio, stock)
+            response["code"] = 1
+            response["message"] = "Disponibilidad guardada correctamente."
+    response["data"] = datos
+    return jsonify(response)
+
+
+@app.route("/api_actualizar_disponibilidad", methods=["POST"])
+@jwt_required()
+def api_actualizar_disponibilidad():
+    response = dict()
+    datos = []
+    id_prenda = request.json["id_prenda"]
+    id_talla = request.json["id_talla"]
+    precio = request.json["precio"]
+    stock = request.json["stock"]
+    if not controlador_disponibilidad.obtener_disponibilidad_id(id_prenda, id_talla):
+        response["code"] = 2
+        response["message"] = "Error: La disponibilidad con los ID proporcionado no existe."
+    else:
+        controlador_disponibilidad.actualizar_disponibilidad_prenda(
+            precio, stock, id_prenda, id_talla)
+        response["code"] = 1
+        response["message"] = "Disponibilidad actualizada exitosamente"
+    response["data"] = datos
+    return jsonify(response)
+
+
+@app.route("/api_eliminar_disponibilidad", methods=["POST"])
+@jwt_required()
+def api_eliminar_disponibilidad_():
+    response = dict()
+    datos = []
+    id_prenda = request.json["id_prenda"]
+    id_talla = request.json["id_talla"]
+    if controlador_disponibilidad.disponibilidad_existe(id_prenda, id_talla):
+        controlador_disponibilidad.eliminar_disponibilidad_prenda(
+            id_prenda, id_talla)
+        response["code"] = 1
+        response["message"] = "Disponibilidad de prenda eliminada exitosamente."
+    else:
+        response["code"] = 2
+        response["message"] = "Error: El color con el ID proporcionado no fue encontrado."
+    response["data"] = datos
+    return jsonify(response)
+
+# ? APIS Material de Prenda
+
+
+@app.route("/api_material_prenda")
+@jwt_required()
+def api_material_prenda():
+    response = dict()
+    datos = []
+    material_prendas = controlador_material.obtener_material()
+    for material in material_prendas:
+        objMaterial = clase_material.Material(material[0], material[1])
+        datos.append(objMaterial.obtenerObjetoSerializable())
+    response["data"] = datos
+    response["code"] = 1
+    response["message"] = "Listado correcto de materiales."
+    return jsonify(response)
+
+
+@app.route("/api_material_prenda_por_id", methods=["POST"])
+@jwt_required()
+def api_material_prenda_por_id():
+    response = dict()
+    datos = []
+    id = request.json["id"]
+    if not controlador_material.material_existe_por_id(id):
+        response["code"] = 2
+        response["message"] = "Error: El material con el ID proporcionado no fue encontrado."
+    else:
+        material = controlador_material.obtener_material_id(id)
+        objMaterial = clase_material.Material(material[0], material[1])
+        datos.append(objMaterial.obtenerObjetoSerializable())
+        response["code"] = 1
+        response["message"] = "Material encontrado correctamente."
+    response["data"] = datos
+    return jsonify(response)
+
+
+@app.route("/api_guardar_material", methods=["POST"])
+@jwt_required()
+def api_guardar_material():
+    response = dict()
+    datos = []
+    nomMat = request.json["nombre_material"]
+    if not controlador_material.material_existe(nomMat):
+        controlador_material.insertar_material(nomMat)
+        response["code"] = 1
+        response["message"] = "Material guardado correctamente."
+    else:
+        response["code"] = 2
+        response["message"] = "Error: El material ya existe."
+
+    response["data"] = datos
+    return jsonify(response)
+
+
+@app.route("/api_actualizar_material", methods=["POST"])
+@jwt_required()
+def api_actualizar_material():
+    response = dict()
+    datos = []
+    id = request.json["id"]
+    nomMaterial = request.json["nombre_material"]
+    if not controlador_material.material_existe_por_id(id):
+        response["code"] = 3
+        response["message"] = "Error: El Material con el ID proporcionado no existe."
+    else:
+        if not controlador_material.material_existe(nomMaterial):
+            controlador_material.actualizar_material(nomMaterial, id)
+            response["code"] = 1
+            response["message"] = "Material actualizado correctamente."
+        else:
+            response["code"] = 2
+            response["message"] = "Error: El material ya existe."
+    response["data"] = datos
+    return jsonify(response)
+
+
+@app.route("/api_eliminar_material", methods=["POST"])
+@jwt_required()
+def api_eliminar_material():
+    response = dict()
+    datos = []
+    material_id = request.json["id"]
+    if controlador_material.material_existe_por_id(material_id):
+        controlador_material.eliminar_material(material_id)
+        response["code"] = 1
+        response["message"] = "Material eliminado correctamente."
+    else:
+        response["code"] = 2
+        response["message"] = "Error: El material con el ID proporcionado no fue encontrado."
+    response["data"] = datos
+    return jsonify(response)
+
+
+# ? APIS Prenda
+
+@app.route("/api_obtener_prenda")
+@jwt_required()
+def api_obtener_prenda():
+    response = dict()
+    datos = []
+    prendas = controlador_prenda.obtener_prenda()
+    for prenda in prendas:
+        objPrenda = clase_prenda.Prenda(
+            prenda[0], prenda[1], prenda[2], prenda[3], prenda[4], prenda[5], prenda[6], prenda[7], prenda[8])
+        datos.append(objPrenda.obtenerObjetoSerializable())
+    response["data"] = datos
+    response["code"] = 1
+    response["message"] = "Listado correcto de prendas."
+    return jsonify(response)
+
+
+@app.route("/api_prenda_por_id", methods=["POST"])
+@jwt_required()
+def api_prenda_por_id():
+    response = dict()
+    datos = []
+    id = request.json["id"]
+    if not controlador_prenda.prenda_existe_por_id(id):
+        response["code"] = 2
+        response["message"] = "Error: La prenda con el ID proporcionado no fue encontrada."
+    else:
+        prenda = controlador_prenda.obtener_prenda_id2(id)
+        objPrenda = clase_prenda.Prenda(
+            prenda[0], prenda[1], prenda[2], prenda[3], prenda[4], prenda[5], prenda[6], prenda[7], prenda[8])
+        datos.append(objPrenda.obtenerObjetoSerializable())
+        response["code"] = 1
+        response["message"] = "Prenda encontrada correctamente."
+    response["data"] = datos
+    return jsonify(response)
+
+
+@app.route("/api_guardar_prenda", methods=["POST"])
+@jwt_required()
+def api_guardar_prenda():
+    response = dict()
+    datos = []
+    codigo = request.json["cod_prenda"]
+    nomPrenda = request.json["nom_prenda"]
+    descripcion = request.json["desc_prenda"]
+    tipo_prenda = int(request.json["tipo_prenda"])
+    color_prenda = int(request.json["color_prenda"])
+    temporada_prenda = int(request.json["temporada_prenda"])
+    material_prenda = int(request.json["material_prenda"])
+    imagen = request.json["imagen"]
+    if not controlador_prenda.prenda_existe(codigo):
+        controlador_prenda.insertar_prenda(
+            codigo, nomPrenda, descripcion, tipo_prenda, color_prenda, material_prenda, temporada_prenda, imagen)
+        response["code"] = 1
+        response["message"] = "Prenda guardada correctamente."
+    else:
+        response["code"] = 2
+        response["message"] = "Error: La prenda ya existe."
+    response["data"] = datos
+    return jsonify(response)
+
+
+@app.route("/api_actualizar_prenda", methods=["POST"])
+@jwt_required()
+def api_actualizar_prenda():
+    response = dict()
+    datos = []
+    id = request.json["id"]
+    codigo = request.json["codigo"]
+    nomPrenda = request.json["nom_prenda"]
+    descripcion = request.json["desc_prenda"]
+    tipo_prenda = int(request.json["tipo_prenda"])
+    color_prenda = int(request.json["color_prenda"])
+    temporada_prenda = int(request.json["temporada_prenda"])
+    material_prenda = int(request.json["material_prenda"])
+    imagen = request.json["imagen"]
+    if not controlador_prenda.prenda_existe_por_id(id):
+        response["code"] = 3
+        response["message"] = "Error: La prenda con el ID proporcionado no existe."
+    else:
+        if controlador_prenda.prenda_existe(codigo):
+            controlador_prenda.actualizar_prenda(
+                nomPrenda, descripcion, tipo_prenda, color_prenda, material_prenda, temporada_prenda, imagen, id)
+            response["code"] = 1
+            response["message"] = "Prenda actualizada correctamente"
+        else:
+            response["code"] = 2
+            response["message"] = "Error: la prenda ya existe"
+    return jsonify(response)
+
+
+@app.route("/api_eliminar_prenda", methods=["POST"])
+@jwt_required()
+def api_eliminar_prenda():
+    response = dict()
+    datos = []
+    id = request.json["id"]
+    if controlador_prenda.prenda_existe_por_id(id):
+        controlador_prenda.eliminar_prenda(id)
+        response["code"] = 1
+        response["message"] = "Prenda eliminada correctamente."
+    else:
+        response["code"] = 2
+        response["message"] = "Error: La prenda con el ID proporcionado no fue encontrada."
+        response["data"] = datos
+    return jsonify(response)
+
+# ? APIS Talla de Prenda
+
+
+@app.route("/api_obtener_talla_prenda")
+@jwt_required()
+def api_obtener_talla_prenda():
+    talla_prendas = controlador_talla_prenda.obtener_talla_prenda()
+    return jsonify(talla_prendas)
+
+
+@app.route("/api_obtener_talla_prenda_por_id", methods=["POST"])
+@jwt_required()
+def api_obtener_talla_prenda_por_id():
+    id_talla_prenda = request.json["id_talla_prenda"]
+    talla_prendas_por_id = controlador_talla_prenda.obtener_talla_por_id(
+        id_talla_prenda)
+    return jsonify(talla_prendas_por_id)
+
+
+@app.route("/api_guardar_talla_prenda", methods=["POST"])
+@jwt_required()
+def api_guardar_talla_prenda():
+    tipo_talla = request.json["tipo_talla"]
+    controlador_talla_prenda.insertar_talla_prenda(tipo_talla)
+    return jsonify({"codigo": "1", "mensaje": "Talla de prenda agregado correctamente."})
+
+
+@app.route("/api_actualizar_talla_prenda", methods=["POST"])
+@jwt_required()
+def api_actualizar_talla_prenda():
+    id_talla_prenda = request.json["id_talla_prenda"]
+    tipo_talla = request.json["tipo_talla"]
+    controlador_talla_prenda.actualizar_talla_prenda(
+        tipo_talla, id_talla_prenda)
+    return jsonify({"codigo": "1", "mensaje": "Talla de prenda actualizado correctamente."})
+
+
+@app.route("/api_eliminar_talla_prenda", methods=["POST"])
+@jwt_required()
+def api_eliminar_talla_prenda():
+    id_talla_prenda = request.json["id_talla_prenda"]
+    controlador_talla_prenda.eliminar_talla_prenda(id_talla_prenda)
+    return jsonify({"codigo": "1", "mensaje": "Talla de prenda dado de baja correctamente."})
+
 
 # ? APIS Temporada
 
-
 @app.route("/api_obtener_temporada_prenda")
+@jwt_required()
 def api_obtener_temporada_prenda():
+    response = dict()
+    datos = []
     temporada_prendas = controlador_temporadas.obtener_temporada()
-    return jsonify(temporada_prendas)
+    for temporada in temporada_prendas:
+        objTemporada = clase_temporada.Temporada(temporada[0], temporada[1])
+        datos.append(objTemporada.obtenerObjetoSerializable())
+    response["data"] = datos
+    response["code"] = 1
+    response["message"] = "Listado de temporadas correcto."
+    return jsonify(response)
+
+
+@app.route("/api_obtener_temporada_por_id", methods=["POST"])
+@jwt_required()
+def api_obtener_temporada_por_id():
+    response = dict()
+    datos = []
+    id = request.json["id"]
+    if not controlador_temporadas.temporada_existe_por_id(id):
+        response["code"] = 2
+        response["message"] = "Error: La temporada con el ID proporcionado no fue encontrado."
+    else:
+        temporadas_prendas = controlador_temporadas.obtener_temporada_id(id)
+        objTemporada = clase_temporada.Temporada(
+            temporadas_prendas[0], temporadas_prendas[1])
+        datos.append(objTemporada.obtenerObjetoSerializable())
+        response["code"] = 1
+        response["message"] = "Color encontrado correctamente."
+
+    response["data"] = datos
+    return jsonify(response)
 
 
 @app.route("/api_guardar_temporada", methods=["POST"])
+@jwt_required()
 def api_guardar_temporada():
+    response = dict()
+    datos = []
     nomTemp = request.json["nombre_temporada"]
-    controlador_temporadas.insertar_temporada(nomTemp)
-    return jsonify({"codigo": "1", "mensaje": "Temporada guardado correctamente."})
+    if not controlador_temporadas.temporada_existe(nomTemp):
+        controlador_temporadas.insertar_temporada(nomTemp)
+        response["code"] = 1
+        response["message"] = "Temporada guardada correctamente."
+    else:
+        response["code"] = 2
+        response["message"] = "Error: La temporada ya existe."
+
+    response["data"] = datos
+    return jsonify(response)
 
 
 @app.route("/api_actualizar_temporada", methods=["POST"])
+@jwt_required()
 def api_actualizar_temporada():
+    response = dict()
+    datos = []
     id = request.json["id"]
     nomTemporada = request.json["nombre_temporada"]
-    controlador_temporadas.actualizar_temporada(nomTemporada, id)
-    return jsonify({"codigo": "1", "mensaje": "Temporada actualizada correctamente."})
+    if not controlador_temporadas.temporada_existe_por_id(id):
+        response["code"] = 3
+        response["message"] = "Error: La temporada con el ID proporcionado no existe."
+    else:
+        if not controlador_temporadas.temporada_existe(nomTemporada):
+            controlador_temporadas.actualizar_temporada(nomTemporada, id)
+            response["code"] = 1
+            response["message"] = "Temporada actualizada correctamente."
+        else:
+            response["code"] = 2
+            response["message"] = "Error: La temporada ya existe."
+    response["data"] = datos
+    return jsonify(response)
 
 
 @app.route("/api_eliminar_temporada", methods=["POST"])
+@jwt_required()
 def api_eliminar_temporada():
-    controlador_temporadas.eliminar_temporada(request.json["id"])
-    return jsonify({"codigo": "1", "mensaje": "Temporada eliminada correctamente."})
+    response = dict()
+    datos = []
+    temporada_id = request.json["id"]
+    if controlador_temporadas.temporada_existe_por_id(temporada_id):
+        controlador_temporadas.eliminar_temporada(temporada_id)
+        response["code"] = 1
+        response["message"] = "Temporada eliminada correctamente."
+    else:
+        response["code"] = 2
+        response["message"] = "Error: La temporada con el ID proporcionado no fue encontrada."
+    response["data"] = datos
+    return jsonify(response)
 
 
 # ? APIS Tipo de Prenda
 
+
 @app.route("/api_obtener_tipo_prenda")
+@jwt_required()
 def api_obtener_tipo_prenda():
+    response = dict()
+    datos = []
     tipo_prendas = controlador_tipo_prenda.obtener_tipo_prenda()
-    return jsonify(tipo_prendas)
+    for tipo in tipo_prendas:
+        objTemporada = clase_tipoPrenda.TipoPrenda(tipo[0], tipo[1])
+        datos.append(objTemporada.obtenerObjetoSerializable())
+    response["data"] = datos
+    response["code"] = 1
+    response["message"] = "Listado de temporadas correcto."
+    return jsonify(response)
 
 
 @app.route("/api_guardar_tipo_prenda", methods=["POST"])
+@jwt_required()
 def api_guardar_tipo_prenda():
     nombre_tipo = request.json["nombre_tipo"]
     controlador_tipo_prenda.insertar_tipo_prenda(nombre_tipo)
@@ -623,6 +1201,7 @@ def api_guardar_tipo_prenda():
 
 
 @app.route("/api_actualizar_tipo_prenda", methods=["POST"])
+@jwt_required()
 def api_actualizar_tipo_prenda():
     id = request.json["id"]
     nombre_tipo = request.json["nombre_tipo"]
@@ -631,65 +1210,12 @@ def api_actualizar_tipo_prenda():
 
 
 @app.route("/api_eliminar_tipo_prenda", methods=["POST"])
+@jwt_required()
 def api_eliminar_tipo_prenda():
     controlador_tipo_prenda.eliminar_tipo_prenda(request.json["id"])
     return jsonify({"codigo": "1", "mensaje": "Tipo de prenda eliminada correctamente."})
 
 
-# ? APIS Material de Prenda
-
-@app.route("/api_material_prenda")
-def api_material_prenda():
-    material_prendas = controlador_material.obtener_material()
-    return jsonify(material_prendas)
-
-
-@app.route("/api_guardar_material", methods=["POST"])
-def api_guardar_material():
-    nomMat = request.json["nombre_material"]
-    controlador_material.insertar_material(nomMat)
-    # De cualquier modo, y si todo fue bien, redireccionar
-    return jsonify({"Codigo": "1", "Mensaje": "Material guardado correctamente."})
-
-
-@app.route("/api_actualizar_material", methods=["POST"])
-def api_actualizar_material():
-    id = request.json["id"]
-    nomMaterial = request.json["nombre_material"]
-    controlador_material.actualizar_material(nomMaterial, id)
-    return jsonify({"Codigo": "1", "Mensaje": "Material actualizado correctamente."})
-
-
-@app.route("/api_eliminar_material", methods=["POST"])
-def api_eliminar_material():
-    controlador_material.eliminar_material(request.json["id"])
-    return jsonify({"Codigo": "1", "Mensaje": "Material eliminado correctamente."})
-
-
-# ? APIS Color de Prenda
-
-@app.route("/api_obtener_color_prenda")
-def api_obtener_color_prenda():
-    color_prendas = controlador_color_prenda.obtener_color_prenda()
-    return jsonify(color_prendas)
-
-
-@app.route("/api_guardar_color_prenda", methods=["POST"])
-def api_guardar_color_prenda():
-    nombre_color = request.json["nombre_color"]
-    controlador_color_prenda.insertar_color_prenda(nombre_color)
-    return jsonify({"codigo": "1", "mensaje": "Color de prenda agregado correctamente."})
-
-
-@app.route("/api_actualizar_color_prenda", methods=["POST"])
-def api_actualizar_color_prenda():
-    id = request.json["id"]
-    nombre_color = request.json["nombre_color"]
-    controlador_color_prenda.actualizar_color_prenda(nombre_color, id)
-    return jsonify({"codigo": "1", "mensaje": "Color de prenda actualizado correctamente."})
-
-
-@app.route("/api_eliminar_color_prenda", methods=["POST"])
-def api_eliminar_color_prenda():
-    controlador_color_prenda.eliminar_color_prenda(request.json["id"])
-    return jsonify({"codigo": "1", "mensaje": "Color de prenda eliminado correctamente."})
+#! Iniciar el servidor
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=8000, debug=True)

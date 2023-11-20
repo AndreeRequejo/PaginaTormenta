@@ -14,6 +14,8 @@
 ### pip install Flask
 ### pip install pymysql
 ### pip install flask-paginate
+### pip install Flask-JWT
+### pip install Flask==2.3.3
 
 > Configuración de BD:
 ## XAMPP
@@ -25,7 +27,7 @@ def obtener_conexion():
                                 password='',
                                 db='bdproyectofinal')
 
-## Local
+## Local (MySQL WorkBench)
 
 def obtener_conexion():
     return pymysql.connect(host='127.0.0.1',

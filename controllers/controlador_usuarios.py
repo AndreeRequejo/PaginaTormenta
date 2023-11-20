@@ -44,9 +44,9 @@ def quitar_token_usuario(username):
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
         cursor.execute("UPDATE usuarios SET token ='' WHERE username = %s",
-                       (username))
+                        (username))
     conexion.commit()
-    conexion.close()    
+    conexion.close()
 
 def insertar_usuario(username,email,contraseña):
     conexion = obtener_conexion()
@@ -55,6 +55,16 @@ def insertar_usuario(username,email,contraseña):
     encpass = h.hexdigest()
     with conexion.cursor() as cursor:
         cursor.execute("INSERT INTO usuarios (username, email, password) VALUES (%s, %s, %s)",
-                       (username,email,encpass))
+                        (username,email,encpass))
     conexion.commit()
     conexion.close()
+
+def obtener_usuario_por_id(id):
+    conexion = obtener_conexion()
+    usuario = None
+    with conexion.cursor() as cursor:
+        cursor.execute(
+            "SELECT id, username, password, token FROM usuarios WHERE id = %s", (id,))
+        usuario = cursor.fetchone()
+    conexion.close()
+    return usuario
