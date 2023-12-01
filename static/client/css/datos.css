@@ -254,8 +254,10 @@ input#flexRadioDefault2 {
 }
 
 .img-prod img {
-  width: 100px;
+  width: 150px;
   border-radius: 5px;
+  height: 200px !important;
+  margin-bottom: 25px;
 }
 
 .detalle-compra-estado h4,

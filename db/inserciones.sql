@@ -1,11 +1,9 @@
 -- INSERCIONES DE USUARIOS
 
-INSERT INTO usuarios VALUES (1,'admin','root@gmail.com',SHA2('admin',256),'', '', '', '','');
-INSERT INTO usuarios VALUES (2,'andree','andree@gmail.com',SHA2('andree',256),'', '', '', '','');
-INSERT INTO usuarios VALUES (3,'juan','juan@gmail.com',SHA2('juan',256),'', '', '', '','');
-INSERT INTO usuarios VALUES (4,'edu','edu@gmail.com',SHA2('edu',256),'', '', '', '','');
-INSERT INTO usuarios VALUES (5,'juana','juana@gmail.com',SHA2('juana',256),'', '', '', '','');
-INSERT INTO usuarios VALUES (6,'claudio','claudio@gmail.com',SHA2('claudio',256),'', '', '', '','');
+INSERT INTO usuarios VALUES (1,'admin','root@gmail.com',SHA2('admin',256),'','Administrador', 'Tormenta', 'Website', '987654321','00000000');
+INSERT INTO usuarios VALUES (2,'andree','andree@gmail.com',SHA2('andree',256),'','Andree', 'Requejo', 'Diaz', '92820528','74020421');
+INSERT INTO usuarios VALUES (3,'edu','edu@gmail.com',SHA2('edu',256),'','Davist Edu', 'Bustamante', 'Sánchez', '999658213','72956821');
+INSERT INTO usuarios VALUES (4,'juana','juana@gmail.com',SHA2('juana',256),'','Juana', 'Isique', 'Aurazo', '971114200','74152384');
 
 -- INSERCIONES DE TIPOS DE PRENDAS
 

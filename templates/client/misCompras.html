@@ -56,28 +56,13 @@
         </div>
 
         <div class="container mt-4 p-0 ">
-            <div class="d-flex col-12 justify-content-between busqueda-selecccion flex-wrap">
-                <input type="text" placeholder="Buscar por N° Compra"
-                    class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-3 ">
 
-                <div
-                    class="d-flex col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6 mt-3 mt-sm-3 mt-md-0 mt-lg-0  mt-xl-0  filtrar justify-content-end align-items-center">
-                    <h4 class="">Filtrar Por:</h4>
-                    <select class="form-select " aria-label="Combo box">
-                        <option selected>Seleccionar</option>
-                        <option value="opcion1">Últimos 6 meses</option>
-                        <option value="opcion2">Última Semana</option>
-                        <option value="opcion3">Este mes</option>
-                    </select>
-                </div>
-
-            </div>
             <div class="col-12 detalle-compra mt-5 px-2">
 
                 {% for venta in ventas %}
 
                 <div class="col-12 num-compra-estado">
-                    <h4>Venta N° {{venta[0]}}</h4>
+                    <h4>Código de Venta: {{venta[0]}}</h4>
                     <h5>Entregado:</h5>
 
                 </div>

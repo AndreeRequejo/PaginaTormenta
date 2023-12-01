@@ -1,9 +1,9 @@
 from bd import obtener_conexion
 
-def insertar_tipo_prenda(id_tipo_prenda,tipo):
+def insertar_tipo_prenda(tipo):
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
-        cursor.execute("INSERT INTO tipo_prenda (id_tipo_prenda,tipo) VALUES (%s,%s)", (id_tipo_prenda,tipo,))
+        cursor.execute("INSERT INTO tipo_prenda (tipo) VALUES (%s)", (tipo,))
     conexion.commit()
     conexion.close()
 

@@ -5,53 +5,106 @@ btnAgregar.forEach(btn => {
     btn.addEventListener('click', addToCarritoItem);
 })
 
+function getCookie(cookieName) {
+    var name = cookieName + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var cookieArray = decodedCookie.split(';');
+    
+    for(var i = 0; i < cookieArray.length; i++) {
+        var cookie = cookieArray[i].trim();
+        if (cookie.indexOf(name) == 0) {
+            return cookie.substring(name.length, cookie.length);
+        }
+    }
+    
+    return "";
+}
+
+function validarCookie() {
+    // Verificar si la cookie 'username' existe
+    var usernameCookie = getCookie('username');
+
+    if (usernameCookie !== "") {
+        return true
+    } else {
+        return false;
+    }
+}
+
 function addToCarritoItem(e) {
     const talla = document.getElementById('talla').value;
 
-    if (talla != 'Selecciona el modelo') {
-        Toastify({
-            text: "Producto agregado",
-            duration: 3000,
-            close: true,
-            gravity: "top", // `top` or `bottom`
-            position: "right", // `left`, `center` or `right`
-            stopOnFocus: true, // Prevents dismissing of toast on hover
-            style: {
-                background: "linear-gradient(to right, #717fe0, #f7f5f5)",
-                borderRadius: "2rem",
-                textTransform: "uppercase",
-                fontSize: ".75rem",
-                display: "flex",
-                fontWeight: "bold",
-                justifyContent: "center",
-                alignItems: "center"
-            },
-            offset: {
-                x: '1.5rem', // horizontal axis - can be a number or a string indicating unity. eg: '2em'
-                y: '1.5rem' // vertical axis - can be a number or a string indicating unity. eg: '2em'
-            },
-            onClick: function () { } // Callback after click
-        }).showToast();
-
-        const button = e.target
-        const item = button.closest('.contenedor')
-        const itemNombre = item.querySelector('#nombreProducto').textContent;
-        const talla = item.querySelector('#talla');
-        const itemTalla = talla.options[talla.selectedIndex].textContent;
-        const itemPrecio = item.querySelector('#precioOferta').textContent;
-        const itemImg = item.querySelector('#imgPrincipal').src;
-        const itemCant = item.querySelector('#cantidad').value;
-
-        const newProducto = {
-            title: itemNombre,
-            precio: parseFloat(itemPrecio),
-            talla: itemTalla,
-            color: "Azul",
-            cantidad: parseInt(itemCant),
-            img: itemImg,
+    if (talla != 'Selecciona el modelo')  {
+        if (validarCookie() == true) {
+            Toastify({
+                text: "Producto agregado",
+                duration: 3000,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                style: {
+                    background: "linear-gradient(to right, #717fe0, #f7f5f5)",
+                    borderRadius: "2rem",
+                    textTransform: "uppercase",
+                    fontSize: ".75rem",
+                    display: "flex",
+                    fontWeight: "bold",
+                    justifyContent: "center",
+                    alignItems: "center"
+                },
+                offset: {
+                    x: '1.5rem', // horizontal axis - can be a number or a string indicating unity. eg: '2em'
+                    y: '1.5rem' // vertical axis - can be a number or a string indicating unity. eg: '2em'
+                },
+                onClick: function () { } // Callback after click
+            }).showToast();
+    
+            const button = e.target
+            const item = button.closest('.contenedor')
+            const itemNombre = item.querySelector('#nombreProducto').textContent;
+            const talla = item.querySelector('#talla');
+            const itemTalla = talla.options[talla.selectedIndex].textContent;
+            const itemPrecio = item.querySelector('#precioOferta').textContent;
+            const itemImg = item.querySelector('#imgPrincipal').src;
+            const itemCant = item.querySelector('#cantidad').value;
+    
+            const newProducto = {
+                title: itemNombre,
+                precio: parseFloat(itemPrecio),
+                talla: itemTalla,
+                color: "Azul",
+                cantidad: parseInt(itemCant),
+                img: itemImg,
+            }
+    
+            addItemCarrito(newProducto)
+        } else {
+            Toastify({
+                text: "Inicie Sesión",
+                duration: 3000,
+                close: true,
+                gravity: "top", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                style: {
+                    background: "linear-gradient(to right, #717fe0, #f7f5f5)",
+                    borderRadius: "2rem",
+                    textTransform: "uppercase",
+                    fontSize: ".75rem",
+                    display: "flex",
+                    fontWeight: "bold",
+                    justifyContent: "center",
+                    alignItems: "center"
+                },
+                offset: {
+                    x: '1.5rem', // horizontal axis - can be a number or a string indicating unity. eg: '2em'
+                    y: '1.5rem' // vertical axis - can be a number or a string indicating unity. eg: '2em'
+                },
+                onClick: function () { } // Callback after click
+            }).showToast();
         }
-
-        addItemCarrito(newProducto)
+        
     } else {
         Toastify({
             text: "Seleccione una talla",

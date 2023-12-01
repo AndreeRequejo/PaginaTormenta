@@ -64,10 +64,15 @@ def validar_token():
         return False
     return False
 
+def validar_admin():
+    username = request.cookies.get('username')
+    if username == 'admin':
+        return True
+    return False
 
 @app.route("/vista_admin")
 def vista_admin():
-    if validar_token():
+    if validar_token() and validar_admin():
         tipo_prendas = controlador_tipo_prenda.obtener_tipo_prenda()
         return render_template("vista_admin.html", tipo_prendas=tipo_prendas, esSesionIniciada=True)
     return redirect("/login")
@@ -98,14 +103,6 @@ def mi_cuenta():
     usuario = controlador_usuarios.obtener_usuario(valor_cookie)
     return render_template("/client/mi_cuenta.html", usuario=usuario)
 
-
-@app.route("/direcciones")
-def direcciones():
-    valor_cookie = request.cookies.get('username')
-    usuario = controlador_usuarios.obtener_usuario(valor_cookie)
-    return render_template("client/direcciones.html", usuario=usuario)
-
-
 @app.route("/misCompras")
 def misCompras():
     valor_cookie = request.cookies.get('username')
@@ -132,13 +129,6 @@ def misCompras():
     pagination = Pagination(page=page_num, total=registros,
                             per_page=per_page, css_framework='bootstrap')
     return render_template("client/misCompras.html", usuario=usuario, ventas=ventas,pagination=pagination)
-
-
-@app.route("/mediosPago")
-def mediosPago():
-    valor_cookie = request.cookies.get('username')
-    usuario = controlador_usuarios.obtener_usuario(valor_cookie)
-    return render_template("client/mediosPago.html", usuario=usuario)
 
 
 @app.route("/quienes_somos")
@@ -202,8 +192,6 @@ def catalogoPrendas():
 
     return render_template("client/catalogo_prendas.html", prendas=prendas, pagination=pagination)
 
-
-
 @app.route("/detalle-prenda/<int:id>")
 def detallePrenda(id):
     prenda = controlador_prenda.obtener_prenda_id(id)
@@ -240,23 +228,15 @@ def entregaCompras():
 def pagoCompras():
     return render_template("client/pago.html")
 
-@app.route("/listaDeseados")
-def listaDeseados():
-    return render_template("client/Lista_de_deseos.html")
-
-
-
 @app.route("/index")
 def indexUsuario():
     return render_template("client/pagPrincipal.html")
 
 #! Lógica Login/Logout Usuario
 
-
 @app.route("/signup")
 def signup():
     return render_template("admin/agregar_usuario.html")
-
 
 @app.route("/procesar_login", methods=["POST"])
 def procesar_login():
@@ -266,24 +246,22 @@ def procesar_login():
     h = hashlib.new('sha256')
     h.update(bytes(password, encoding="utf-8"))
     encpass = h.hexdigest()
-    if usuario is not None:
-        if encpass == usuario[2]:
-            # Calculando el hash del entero aleatorio
-            numale = random.randint(1, 1024)
-            a = hashlib.new('sha256')
-            a.update(bytes(str(numale), encoding="utf-8"))
-            encnumale = a.hexdigest()
-            if username == 'admin':
-                resp = make_response(redirect("/vista_admin"))
-            else:
-                resp = make_response(redirect("/login"))
-            resp.set_cookie('token', encnumale)
-            resp.set_cookie('username', username)
-            controlador_usuarios.actualizar_token_usuario(username, encnumale)
-            return resp
-    # De cualquier modo, y si todo fue bien, redireccionar
-    return redirect("client/login")
-
+    if usuario is not None and encpass == usuario[2]:
+        numale = random.randint(1, 1024)
+        a = hashlib.new('sha256')
+        a.update(bytes(str(numale), encoding="utf-8"))
+        encnumale = a.hexdigest()
+        if username == 'admin':
+            resp = make_response(redirect("/vista_admin"))
+        else:
+            resp = make_response(redirect("/login"))
+        resp.set_cookie('token', encnumale)
+        resp.set_cookie('username', username)
+        controlador_usuarios.actualizar_token_usuario(username, encnumale)
+        return resp
+    else:
+        flash('Ingrese los campos de acceso nuevamente.', 'danger')
+        return redirect("/login")
 
 @app.route("/procesar_cambio_con", methods=["POST"])
 def procesar_cambio_con():
@@ -301,8 +279,10 @@ def procesar_cambio_con():
                 controlador_usuarios.actualizar_contrasena_usuario(request.cookies.get("username"), contraseña_hash_nueva)
                 return redirect("/procesar_logout")
             else:
+                flash('La nueva contraseña es idéntica a la contraseña anterior', 'warning')
                 return redirect("/mi_cuenta")
         else:
+            flash('La contraseña actual ingresada es incorrecta', 'danger')
             return redirect("/mi_cuenta")
     else:
         return redirect("/login")
@@ -348,7 +328,7 @@ def guardar_usuario():
 
 @app.route("/tipo_prenda")
 def tipo_prenda():
-    if validar_token():
+    if validar_token() and validar_admin():
         tipo_prendas = controlador_tipo_prenda.obtener_tipo_prenda()
         return render_template("admin/tipo_prenda.html", tipo_prendas=tipo_prendas)
     return redirect("/login")
@@ -356,7 +336,7 @@ def tipo_prenda():
 
 @app.route("/agregar_tipo_prenda")
 def agregar_tipo_prenda():
-    if validar_token():
+    if validar_token() and validar_admin():
         return render_template("admin/tipo_agregar.html")
     return redirect("/login")
 
@@ -393,7 +373,7 @@ def eliminar_tipo_prenda():
 
 @app.route("/color_prenda")
 def color_prenda():
-    if validar_token():
+    if validar_token() and validar_admin():
         color_prendas = controlador_color_prenda.obtener_color_prenda()
         return render_template("admin/color_prenda.html", color_prendas=color_prendas)
     return redirect("/login")
@@ -401,7 +381,7 @@ def color_prenda():
 
 @app.route("/agregar_color_prenda")
 def agregar_color_prenda():
-    if validar_token():
+    if validar_token() and validar_admin():
         return render_template("admin/color_agregar.html")
     return redirect("/login")
 
@@ -438,7 +418,7 @@ def eliminar_color_prenda():
 
 @app.route("/temporada_prenda")
 def temporada_prenda():
-    if validar_token():
+    if validar_token() and validar_admin():
         temporada_prendas = controlador_temporadas.obtener_temporada()
         return render_template("admin/temporada.html", temporada_prendas=temporada_prendas)
     return redirect("/login")
@@ -446,7 +426,7 @@ def temporada_prenda():
 
 @app.route("/agregar_temporada")
 def agregar_temporada():
-    if validar_token():
+    if validar_token() and validar_admin():
         return render_template("admin/temporada_agregar.html")
     return redirect("/login")
 
@@ -483,7 +463,7 @@ def eliminar_temporada():
 
 @app.route("/material_prenda")
 def material_prenda():
-    if validar_token():
+    if validar_token() and validar_admin():
         material_prendas = controlador_material.obtener_material()
         return render_template("admin/material.html", material_prendas=material_prendas)
     return redirect("/login")
@@ -491,7 +471,7 @@ def material_prenda():
 
 @app.route("/agregar_material")
 def agregar_material():
-    if validar_token():
+    if validar_token() and validar_admin():
         return render_template("admin/material_agregar.html")
     return redirect("/login")
 
@@ -528,7 +508,7 @@ def eliminar_material():
 
 @app.route("/talla_prenda")
 def talla_prenda():
-    if validar_token():
+    if validar_token() and validar_admin():
         talla_prendas = controlador_talla_prenda.obtener_talla_prenda()
         return render_template("admin/talla.html", talla_prendas=talla_prendas)
     return redirect("/login")
@@ -536,7 +516,7 @@ def talla_prenda():
 
 @app.route("/agregar_talla")
 def agregar_talla():
-    if validar_token():
+    if validar_token() and validar_admin():
         return render_template("admin/talla_agregar.html")
     return redirect("/login")
 
@@ -573,7 +553,7 @@ def eliminar_talla():
 
 @app.route("/prenda")
 def prenda():
-    if validar_token():
+    if validar_token() and validar_admin():
         prendas = controlador_prenda.obtener_prenda()
         return render_template("admin/prenda.html", prendas=prendas)
     return redirect("/login")
@@ -581,7 +561,7 @@ def prenda():
 
 @app.route("/agregar_prenda")
 def agregar_prenda():
-    if validar_token():
+    if validar_token() and validar_admin():
         tipo_prendas = controlador_tipo_prenda.obtener_tipo_prenda()
         color_prendas = controlador_color_prenda.obtener_color_prenda()
         temporada_prendas = controlador_temporadas.obtener_temporada()
@@ -627,7 +607,7 @@ def guardar_venta():
         for i in range(cantidad_productos):
             nomPrenda = request.form.get(f"producto_{i}_nomPrenda")
             id_prenda = controlador_prenda.obtener_nombre_prenda(nomPrenda)
-            
+
             if id_prenda:
                 id_prenda = id_prenda[0][0]  # Extraer el valor correcto de la tupla
             else:
@@ -657,7 +637,7 @@ def guardar_venta():
         # Devolver una respuesta JSON indicando éxito
                 # Activar la ventana modal en el lado del cliente antes de la redirección
         return redirect("/index")
-    
+
     except Exception as e:
         # Manejar excepciones (puedes imprimir el error o realizar alguna acción específica)
         print(f"Error al procesar la venta: {e}")
@@ -703,7 +683,7 @@ def eliminar_prenda():
 
 @app.route("/disponibilidad_prenda")
 def disponibilidad_prenda():
-    if validar_token():
+    if validar_token() and validar_admin():
         disponibilidad_prendas = controlador_disponibilidad.obtener_disponibilidad_prenda()
         return render_template("admin/disponibilidad_prenda.html", disponibilidad_prendas=disponibilidad_prendas)
     return redirect("/login")
@@ -711,7 +691,7 @@ def disponibilidad_prenda():
 
 @app.route("/agregar_disponibilidad")
 def agregar_disponibilidad():
-    if validar_token():
+    if validar_token() and validar_admin():
         prendas = controlador_prenda.obtener_prenda()
         talla_prendas = controlador_talla_prenda.obtener_talla_prenda()
         return render_template("admin/disponibilidad_agregar.html", prendas=prendas, talla_prendas=talla_prendas)

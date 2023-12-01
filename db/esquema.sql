@@ -8,27 +8,31 @@ CREATE TABLE usuarios (
     apellido_paterno VARCHAR(60),
     apellido_materno varchar(60),
     telefono VARCHAR(9),
-    docid VARCHAR(11),
+    docid VARCHAR(11)
 );
 
 CREATE TABLE tipo_prenda (
     id_tipo_prenda SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    tipo varchar(40) NOT NULL
+    tipo varchar(40) NOT NULL,
+    estado boolean NOT NULL DEFAULT TRUE
 );
 
 CREATE TABLE color_prenda (
     id_color_prenda SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    color varchar(40) NOT NULL
+    color varchar(40) NOT NULL,
+    estado boolean NOT NULL DEFAULT TRUE
 );
 
 CREATE TABLE tipo_material (
     id_tipo_material SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    material varchar(40) NOT NULL
+    material varchar(40) NOT NULL,
+    estado boolean NOT NULL DEFAULT TRUE
 );
 
 CREATE TABLE prenda_temporada (
     id_prenda_temporada SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    temporada varchar(100) NOT NULL
+    temporada varchar(100) NOT NULL,
+    estado boolean NOT NULL DEFAULT TRUE
 );
 
 CREATE TABLE prenda (
@@ -40,12 +44,14 @@ CREATE TABLE prenda (
     id_color_prenda SMALLINT UNSIGNED NOT NULL REFERENCES color_prenda(id_color_prenda),
     id_tipo_material SMALLINT UNSIGNED NOT NULL  REFERENCES tipo_material(id_tipo_material),
     id_prenda_temporada SMALLINT UNSIGNED NOT NULL REFERENCES prenda_temporada(id_prenda_temporada),
-    imagen VARCHAR(100) NOT NULL
+    imagen VARCHAR(100) NOT NULL,
+    estado boolean NOT NULL DEFAULT TRUE
 );
 
 CREATE TABLE talla_prenda (
     id_talla_prenda SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    tipo_talla VARCHAR(3) NOT NULL
+    tipo_talla VARCHAR(3) NOT NULL,
+    estado boolean NOT NULL DEFAULT TRUE
 );
 
 CREATE TABLE disponibilidad_prenda (

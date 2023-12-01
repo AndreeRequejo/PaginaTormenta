@@ -1,11 +1,11 @@
 from bd import obtener_conexion
 
 
-def insertar_talla_prenda(id_talla_prenda,tipo_talla):
+def insertar_talla_prenda(tipo_talla):
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
-        cursor.execute("INSERT INTO talla_prenda (id_talla_prenda,tipo_talla) VALUES (%s, %s)",
-                        (id_talla_prenda,tipo_talla,))
+        cursor.execute("INSERT INTO talla_prenda (tipo_talla) VALUES (%s)",
+                        (tipo_talla,))
     conexion.commit()
     conexion.close()
 
