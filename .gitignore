@@ -1,3 +1,4 @@
 # Ignorar entorno virtual
 .venv/
 __pycache__
+bd.py
