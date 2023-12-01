@@ -80,7 +80,7 @@ def obtener_total_registros():
     conexion = obtener_conexion()
     contador = None
     with conexion.cursor() as cursor:
-        cursor.execute("SELECT COUNT(*) AS total FROM prenda AS p ")
+        cursor.execute("SELECT COUNT(*) AS total FROM prenda AS p")
         contador = cursor.fetchone()[0]
     conexion.close()
     return contador
@@ -90,8 +90,19 @@ def prendas_paginacion(cant_elementos, inicio_index):
     prendas = []
     with conexion.cursor() as cursor:
         cursor.execute("SELECT id_prenda, codigo, nomPrenda, imagen, (SELECT precio FROM disponibilidad_prenda WHERE id_prenda = P.id_prenda LIMIT 1) as precio FROM prenda AS P "
-                        + "WHERE id_prenda >= 1 "
-                        + "ORDER BY id_prenda DESC LIMIT %s OFFSET %s", (cant_elementos,inicio_index - 1,))
+                       "WHERE id_prenda >= 1 and codigo LIKE %s "
+                       "ORDER BY id_prenda DESC LIMIT %s OFFSET %s", ('P%',cant_elementos, inicio_index - 1,))
+        prendas = cursor.fetchall()
+    conexion.close()
+    return prendas
+
+def prendas_paginacion_nov(cant_elementos, inicio_index):
+    conexion = obtener_conexion()
+    prendas = []
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT id_prenda, codigo, nomPrenda, imagen, (SELECT precio FROM disponibilidad_prenda WHERE id_prenda = P.id_prenda LIMIT 1) as precio FROM prenda AS P "
+                       "WHERE id_prenda >= 1 and codigo LIKE %s "
+                       "ORDER BY id_prenda DESC LIMIT %s OFFSET %s", ('M%',cant_elementos, inicio_index - 1,))
         prendas = cursor.fetchall()
     conexion.close()
     return prendas

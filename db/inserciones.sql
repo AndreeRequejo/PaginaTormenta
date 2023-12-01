@@ -109,6 +109,20 @@ VALUES ('PD0011', 'BLUSA DVK BEA HSO', '', 8, 2, 1, 1,'PD0011.webp');
 INSERT INTO prenda (codigo, nomPrenda, descripcion, id_tipo_prenda, id_color_prenda, id_tipo_material, id_prenda_temporada, imagen)
 VALUES ('PD0012', 'PANTALON POSER CARGO', '', 2, 6, 2, 3,'PD0012.webp');
 
+-- MASCULINOS
+
+INSERT INTO prenda (codigo, nomPrenda, descripcion, id_tipo_prenda, id_color_prenda, id_tipo_material, id_prenda_temporada, imagen)
+VALUES ('MD0013', 'POLO DUNKELVOLK CLASICO', '', 3, 13, 1, 1,'MD0013.webp');
+
+INSERT INTO prenda (codigo, nomPrenda, descripcion, id_tipo_prenda, id_color_prenda, id_tipo_material, id_prenda_temporada, imagen)
+VALUES ('MD0014', 'POLERA DUNKELVOLK CREW', '', 5, 2, 1, 2,'MD0014.webp');
+
+INSERT INTO prenda (codigo, nomPrenda, descripcion, id_tipo_prenda, id_color_prenda, id_tipo_material, id_prenda_temporada, imagen)
+VALUES ('MD0015', 'POLERA CHAMPION GRAPHIC', '', 5, 4, 1, 3,'MD0015.webp');
+
+INSERT INTO prenda (codigo, nomPrenda, descripcion, id_tipo_prenda, id_color_prenda, id_tipo_material, id_prenda_temporada, imagen)
+VALUES ('MD0016', 'CASACA DC SHOES HEAVY', '', 4, 6, 7, 4,'MD0016.webp');
+
 -- INSERCIONES DE DISPONIBILIDAD_PRENDAS
 
 -- 1
@@ -194,3 +208,31 @@ INSERT INTO disponibilidad_prenda (id_prenda, id_talla_prenda, precio, stock) VA
 INSERT INTO disponibilidad_prenda (id_prenda, id_talla_prenda, precio, stock) VALUES (12,8,75.40,80);
 INSERT INTO disponibilidad_prenda (id_prenda, id_talla_prenda, precio, stock) VALUES (12,9,75.40,80);
 INSERT INTO disponibilidad_prenda (id_prenda, id_talla_prenda, precio, stock) VALUES (12,10,75.40,80);
+
+-- 13
+INSERT INTO disponibilidad_prenda (id_prenda, id_talla_prenda, precio, stock) VALUES (13,1,40.50,50);
+INSERT INTO disponibilidad_prenda (id_prenda, id_talla_prenda, precio, stock) VALUES (13,2,40.50,50);
+INSERT INTO disponibilidad_prenda (id_prenda, id_talla_prenda, precio, stock) VALUES (13,3,40.50,50);
+INSERT INTO disponibilidad_prenda (id_prenda, id_talla_prenda, precio, stock) VALUES (13,4,40.50,50);
+INSERT INTO disponibilidad_prenda (id_prenda, id_talla_prenda, precio, stock) VALUES (13,5,40.50,50);
+
+-- 14
+INSERT INTO disponibilidad_prenda (id_prenda, id_talla_prenda, precio, stock) VALUES (14,1,89.50,50);
+INSERT INTO disponibilidad_prenda (id_prenda, id_talla_prenda, precio, stock) VALUES (14,2,89.50,50);
+INSERT INTO disponibilidad_prenda (id_prenda, id_talla_prenda, precio, stock) VALUES (14,3,89.50,50);
+INSERT INTO disponibilidad_prenda (id_prenda, id_talla_prenda, precio, stock) VALUES (14,4,89.50,50);
+INSERT INTO disponibilidad_prenda (id_prenda, id_talla_prenda, precio, stock) VALUES (14,5,89.50,50);
+
+-- 15
+INSERT INTO disponibilidad_prenda (id_prenda, id_talla_prenda, precio, stock) VALUES (15,1,99.50,50);
+INSERT INTO disponibilidad_prenda (id_prenda, id_talla_prenda, precio, stock) VALUES (15,2,99.50,50);
+INSERT INTO disponibilidad_prenda (id_prenda, id_talla_prenda, precio, stock) VALUES (15,3,99.50,50);
+INSERT INTO disponibilidad_prenda (id_prenda, id_talla_prenda, precio, stock) VALUES (15,4,99.50,50);
+INSERT INTO disponibilidad_prenda (id_prenda, id_talla_prenda, precio, stock) VALUES (15,5,99.50,50);
+
+-- 16
+INSERT INTO disponibilidad_prenda (id_prenda, id_talla_prenda, precio, stock) VALUES (16,1,209.50,50);
+INSERT INTO disponibilidad_prenda (id_prenda, id_talla_prenda, precio, stock) VALUES (16,2,209.50,50);
+INSERT INTO disponibilidad_prenda (id_prenda, id_talla_prenda, precio, stock) VALUES (16,3,209.50,50);
+INSERT INTO disponibilidad_prenda (id_prenda, id_talla_prenda, precio, stock) VALUES (16,4,209.50,50);
+INSERT INTO disponibilidad_prenda (id_prenda, id_talla_prenda, precio, stock) VALUES (16,5,209.50,50);

@@ -173,7 +173,7 @@ def catalogoNovedades():
     #! Calcular el índice del primer registro y limitar la consulta a un rango de registros
     start_index = (page_num - 1) * per_page + 1
 
-    prendas = controlador_prenda.prendas_paginacion(per_page, start_index)
+    prendas = controlador_prenda.prendas_paginacion_nov(per_page, start_index)
 
     #! Calcular el índice del último registro
     end_index = min(start_index + per_page, registros)
