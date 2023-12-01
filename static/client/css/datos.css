@@ -307,3 +307,14 @@ input#flexRadioDefault2 {
   border-top-right-radius: 0px !important;
 }
 
+.linea-container {
+  position: relative;
+}
+
+.icon-eye {
+  position: absolute;
+  right: 0px;  /* Ajusta esto según sea necesario */
+  top: 50%;
+  transform: translate(0, -50%);
+  cursor: pointer;
+}

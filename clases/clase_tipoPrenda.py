@@ -1,13 +1,13 @@
 class TipoPrenda:
-    id = 0
-    tipoPrenda = ""
+    id_tipo_prenda = 0
+    tipo = ""
 
-    def __init__(self,p_id,p_tipoPrenda):
-        self.id=p_id
-        self.tipoPrenda=p_tipoPrenda
+    def __init__(self,p_id_tipo_prenda,p_tipo):
+        self.id_tipo_prenda=p_id_tipo_prenda
+        self.tipo=p_tipo
 
     def obtenerObjetoSerializable(self):
         dicTemp = dict()
-        dicTemp["id"] = self.id
-        dicTemp["tipoPrenda"] = self.tipoPrenda
+        dicTemp["id_tipo_prenda"] = self.id_tipo_prenda
+        dicTemp["tipo"] = self.tipo
         return dicTemp

@@ -30,3 +30,28 @@ function scrollToTop() {
 window.onload = function () {
     scrollToTop(); // Desplaza la página hacia arriba al cargarse/reiniciarse
 };
+
+
+function toggleCurrentPassword() {
+    const passwordInput = document.getElementById('currentPassword');
+    const toggleButton = document.getElementById('toggleCurrentPassword');
+    const hiddenIcon = document.getElementById('toggleCurrentPasswordHidden');
+
+    const isPasswordVisible = passwordInput.type === 'text';
+
+    passwordInput.type = isPasswordVisible ? 'password' : 'text';
+    toggleButton.className = isPasswordVisible ? 'icon-eye bx bxs-low-vision rounded' : 'icon-eye bx bx-low-vision rounded';
+    hiddenIcon.hidden = !isPasswordVisible;
+  }
+
+  function toggleNewPassword() {
+    const passwordInput = document.getElementById('newPassword');
+    const toggleButton = document.getElementById('toggleNewPassword');
+    const hiddenIcon = document.getElementById('toggleNewPasswordHidden');
+
+    const isPasswordVisible = passwordInput.type === 'text';
+
+    passwordInput.type = isPasswordVisible ? 'password' : 'text';
+    toggleButton.className = isPasswordVisible ? 'icon-eye bx bxs-low-vision rounded' : 'icon-eye bx bx-low-vision rounded';
+    hiddenIcon.hidden = !isPasswordVisible;
+  }

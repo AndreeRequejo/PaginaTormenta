@@ -8,6 +8,7 @@ import controllers.controlador_usuarios as controlador_usuarios
 import controllers.controlador_talla_prenda as controlador_talla_prenda
 import controllers.controlador_prenda as controlador_prenda
 import controllers.controlador_disponibilidad as controlador_disponibilidad
+import controllers.controlador_venta as controlador_venta
 import clases.clase_color as clase_color
 import clases.clase_disponibilidad as clase_disponibilidad
 import clases.clase_material as clase_material
@@ -16,10 +17,12 @@ import clases.clase_talla_prenda as clase_talla_prenda
 import clases.clase_temporada as clase_temporada
 import clases.clase_tipoPrenda as clase_tipoPrenda
 import clases.clase_usuario as clase_usuario
+import clases.clase_venta as clase_venta
 import hashlib
 import random
 import os
 from werkzeug.utils import secure_filename
+from werkzeug.exceptions import BadRequest
 from flask_jwt import JWT, jwt_required, current_identity
 from flask_paginate import Pagination
 
@@ -82,7 +85,7 @@ def login():
         if username == 'admin':
             return redirect("vista_admin")
         else:
-            return redirect("/index")
+            return redirect("/mi_cuenta")
     return render_template("client/login.html")
 
 
@@ -91,22 +94,51 @@ def login():
 #! Redireccion entre vistaUsuario
 @app.route("/mi_cuenta")
 def mi_cuenta():
-    return render_template("client/mi_cuenta.html")
+    valor_cookie = request.cookies.get('username')
+    usuario = controlador_usuarios.obtener_usuario(valor_cookie)
+    return render_template("/client/mi_cuenta.html", usuario=usuario)
 
 
 @app.route("/direcciones")
 def direcciones():
-    return render_template("client/direcciones.html")
+    valor_cookie = request.cookies.get('username')
+    usuario = controlador_usuarios.obtener_usuario(valor_cookie)
+    return render_template("client/direcciones.html", usuario=usuario)
 
 
 @app.route("/misCompras")
 def misCompras():
-    return render_template("client/misCompras.html")
+    valor_cookie = request.cookies.get('username')
+    usuario = controlador_usuarios.obtener_usuario(valor_cookie)
+        #! Contar el número total de registros
+    registros = controlador_venta.obtener_total_registros()
+
+    #! Obtener el número de página actual y la cantidad de resultados por página
+    page_num = request.args.get('page', 1, type=int)
+    per_page = 2
+
+    #! Calcular el índice del primer registro y limitar la consulta a un rango de registros
+    start_index = (page_num - 1) * per_page + 1
+
+    ventas = controlador_venta.ventas_paginacion(per_page, start_index, usuario[0])
+
+    #! Calcular el índice del último registro
+    end_index = min(start_index + per_page, registros)
+    # end_index = start_index + per_page - 1
+    if end_index > registros:
+        end_index = registros
+
+    #! Crear objeto paginable
+    pagination = Pagination(page=page_num, total=registros,
+                            per_page=per_page, css_framework='bootstrap')
+    return render_template("client/misCompras.html", usuario=usuario, ventas=ventas,pagination=pagination)
 
 
 @app.route("/mediosPago")
 def mediosPago():
-    return render_template("client/mediosPago.html")
+    valor_cookie = request.cookies.get('username')
+    usuario = controlador_usuarios.obtener_usuario(valor_cookie)
+    return render_template("client/mediosPago.html", usuario=usuario)
 
 
 @app.route("/quienes_somos")
@@ -171,21 +203,47 @@ def catalogoPrendas():
     return render_template("client/catalogo_prendas.html", prendas=prendas, pagination=pagination)
 
 
+
 @app.route("/detalle-prenda/<int:id>")
 def detallePrenda(id):
     prenda = controlador_prenda.obtener_prenda_id(id)
     tallas = controlador_disponibilidad.obtener_tallas_prenda(id)
     return render_template("client/detalle_prenda.html", prenda=prenda, tallas=tallas)
 
+@app.route("/detalle-compra/<int:id>")
+def detalleCompra(id):
+    detalle_venta = controlador_venta.obtener_detalle_venta_id(id)
+    return render_template("client/misCompras.html", detalle_venta=detalle_venta)
+
+'''
+@app.route("/datos-usuario")
+def datosUsuario():
+    valor_cookie = request.cookies.get('username')
+    usuario = controlador_usuarios.obtener_usuario(valor_cookie)
+    return render_template("/mi_cuenta", usuario=usuario)
+    '''
+
+@app.route('/obtener_ultimo_id_venta', methods=['GET'])
+def obtener_ultimo_id_venta():
+    ultimo_id_venta = controlador_venta.generar_venta()
+    return jsonify({'ultimoIdVenta': ultimo_id_venta})
 
 @app.route("/carrito-compras")
 def carritoCompras():
     return render_template("client/carrito.html")
 
+@app.route("/entrega-compras")
+def entregaCompras():
+    return render_template("client/entrega.html")
+
+@app.route("/pago-compras")
+def pagoCompras():
+    return render_template("client/pago.html")
 
 @app.route("/listaDeseados")
 def listaDeseados():
     return render_template("client/Lista_de_deseos.html")
+
 
 
 @app.route("/index")
@@ -227,6 +285,28 @@ def procesar_login():
     return redirect("client/login")
 
 
+@app.route("/procesar_cambio_con", methods=["POST"])
+def procesar_cambio_con():
+    contraseña_actual = request.form["contraseña_actual"]
+    nueva_contraseña = request.form["nueva_contraseña"]
+
+    usuario = controlador_usuarios.obtener_usuario(request.cookies.get("username"))
+
+    if usuario is not None:
+        contraseña_hash_actual = hashlib.sha256(contraseña_actual.encode("utf-8")).hexdigest()
+
+        if contraseña_hash_actual == usuario[2]:
+            if nueva_contraseña != contraseña_actual:
+                contraseña_hash_nueva = hashlib.sha256(nueva_contraseña.encode("utf-8")).hexdigest()
+                controlador_usuarios.actualizar_contrasena_usuario(request.cookies.get("username"), contraseña_hash_nueva)
+                return redirect("/procesar_logout")
+            else:
+                return redirect("/mi_cuenta")
+        else:
+            return redirect("/mi_cuenta")
+    else:
+        return redirect("/login")
+
 @app.route("/procesar_logout")
 def procesar_logout():
     valor_cookie = request.cookies.get('username')
@@ -245,7 +325,11 @@ def guardar_usuario():
         username = request.form["username"]
         email = request.form["email"]
         password = request.form["password"]
-
+        nombre_completo = request.form["nombre_completo"]
+        apellido_paterno = request.form["apellido_paterno"]
+        apellido_materno = request.form["apellido_materno"]
+        telefono = request.form["telefono"]
+        docid = request.form["docid"]
         # Realiza una consulta en la base de datos para verificar si el username y el email ya existen
         username_existente = controlador_usuarios.username_existente(username)
         email_existente = controlador_usuarios.email_existente(email)
@@ -256,7 +340,7 @@ def guardar_usuario():
             return jsonify({"error": "La dirección de correo electrónico ya está en uso. Por favor, elija otra."})
         else:
             # Si el username y el email son válidos y disponibles, procede con el registro
-            controlador_usuarios.insertar_usuario(username, email, password)
+            controlador_usuarios.insertar_usuario(username, email, password, nombre_completo, apellido_paterno, apellido_materno,telefono,docid)
             return redirect("/login")
 
 
@@ -522,6 +606,65 @@ def guardar_prenda():
     # De cualquier modo, y si todo fue bien, redireccionar
     return redirect("/prenda")
 
+@app.route("/guardar_venta", methods=["POST"])
+def guardar_venta():
+    try:
+        total = float(request.form["monto_total"])
+        descuento = int(request.form["descuento"])
+        valor_cookie = request.cookies.get('username')
+        id_usuario_c = controlador_usuarios.obtener_usuario(valor_cookie)
+
+        if not id_usuario_c:
+            raise BadRequest("Usuario no válido")
+
+        comprobante = request.form["valor_comprobante_dinamico"]
+        comp = controlador_venta.obtener_comprobante(comprobante)
+
+        detalles_venta = []
+
+        cantidad_productos = int(request.form["cantidad_productos"])
+        id_venta = controlador_venta.generar_venta()
+        for i in range(cantidad_productos):
+            nomPrenda = request.form.get(f"producto_{i}_nomPrenda")
+            id_prenda = controlador_prenda.obtener_nombre_prenda(nomPrenda)
+            
+            if id_prenda:
+                id_prenda = id_prenda[0][0]  # Extraer el valor correcto de la tupla
+            else:
+                raise BadRequest(f"No se encontró id_prenda para {nomPrenda}")
+
+            talla = request.form.get(f"producto_{i}_talla")
+            id_talla = controlador_talla_prenda.obtener_talla_por_talla(talla)
+
+            if id_talla:
+                id_talla = id_talla[0]  # Extraer el valor correcto de la tupla
+            else:
+                raise BadRequest(f"No se encontró id_talla para {talla}")
+
+            cantidad = int(request.form.get(f"producto_{i}_cantidad"))
+            precio = float(request.form.get(f"producto_{i}_precio"))
+
+            detalle = {'id_prenda': id_prenda, 'id_talla_prenda': id_talla, 'precio': precio, 'cantidad': cantidad}
+            detalles_venta.append(detalle)
+
+        # Imprimir detalles_venta para debug
+        print("Detalles de venta:", detalles_venta)
+
+        # Insertar en la base de datos
+        controlador_venta.insertar_venta_y_detalles(id_venta,total, descuento, id_usuario_c[0], comp, detalles_venta)
+        # O algún mensaje de éxito
+
+        # Devolver una respuesta JSON indicando éxito
+                # Activar la ventana modal en el lado del cliente antes de la redirección
+        return redirect("/index")
+    
+    except Exception as e:
+        # Manejar excepciones (puedes imprimir el error o realizar alguna acción específica)
+        print(f"Error al procesar la venta: {e}")
+        return str(e), 400  # Devolver mensaje de error al cliente.
+
+
+
 
 @app.route("/editar_prenda/<int:id>")
 def editar_prenda(id):
@@ -642,13 +785,17 @@ def recibeFoto(file, codProd):
 def api_obtener_color_prenda():
     response = dict()
     datos = []
-    color_prendas = controlador_color_prenda.obtener_color_prenda()
-    for color in color_prendas:
-        objColor = clase_color.Color(color[0], color[1])
-        datos.append(objColor.obtenerObjetoSerializable())
+    try:
+        color_prendas = controlador_color_prenda.obtener_color_prenda()
+        for color in color_prendas:
+            objColor = clase_color.Color(color[0], color[1])
+            datos.append(objColor.obtenerObjetoSerializable())
+        response["code"] = 0
+        response["message"] = "Colores listados correctamente"
+    except Exception as e:
+        response["code"] = 1
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
     response["data"] = datos
-    response["code"] = 1
-    response["message"] = "Listado correcto de colores."
     return jsonify(response)
 
 
@@ -657,16 +804,23 @@ def api_obtener_color_prenda():
 def api_obtener_color_por_id():
     response = dict()
     datos = []
-    id = request.json["id"]
-    if not controlador_color_prenda.color_existe_por_id(id):
+    try:
+        id = request.json["id_color_prenda"]
+        if not controlador_color_prenda.color_existe_por_id(id):
+            response["code"] = 3
+            response["message"] = "Error: El ID proporcionado no fue encontrado."
+        else:
+            color_prendas = controlador_color_prenda.obtener_color_por_id(id)
+            objColor = clase_color.Color(color_prendas[0], color_prendas[1])
+            datos.append(objColor.obtenerObjetoSerializable())
+            response["code"] = 0
+            response["message"] = "Color encontrado correctamente."
+    except KeyError:
         response["code"] = 2
-        response["message"] = "Error: El color con el ID proporcionado no fue encontrado."
-    else:
-        color_prendas = controlador_color_prenda.obtener_color_por_id(id)
-        objColor = clase_color.Color(color_prendas[0], color_prendas[1])
-        datos.append(objColor.obtenerObjetoSerializable())
+        response["message"] = "Error: El JSON proporcionado no contiene la clave correcta."
+    except Exception as e:
         response["code"] = 1
-        response["message"] = "Color encontrado correctamente."
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
     response["data"] = datos
     return jsonify(response)
 
@@ -676,15 +830,21 @@ def api_obtener_color_por_id():
 def api_guardar_color_prenda():
     response = dict()
     datos = []
-    nombre_color = request.json["nombre_color"]
-    if not controlador_color_prenda.color_existe(nombre_color):
-        controlador_color_prenda.insertar_color_prenda(nombre_color)
-        response["code"] = 1
-        response["message"] = "Color guardado correctamente."
-    else:
+    try:
+        nombre_color = request.json["color"]
+        if not controlador_color_prenda.color_existe(nombre_color):
+            controlador_color_prenda.insertar_color_prenda(nombre_color)
+            response["code"] = 0
+            response["message"] = "Color guardado correctamente."
+        else:
+            response["code"] = 4
+            response["message"] = "Error: El color ya existe."
+    except KeyError:
         response["code"] = 2
-        response["message"] = "Error: El color ya existe."
-
+        response["message"] = "Error: El JSON proporcionado no contiene la clave correcta."
+    except Exception as e:
+        response["code"] = 1
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
     response["data"] = datos
     return jsonify(response)
 
@@ -694,19 +854,27 @@ def api_guardar_color_prenda():
 def api_actualizar_color_prenda():
     response = dict()
     datos = []
-    id = request.json["id"]
-    nombre_color = request.json["nombre_color"]
-    if not controlador_color_prenda.color_existe_por_id(id):
-        response["code"] = 3
-        response["message"] = "Error: El color con el ID proporcionado no existe."
-    else:
-        if not controlador_color_prenda.color_existe(nombre_color):
-            controlador_color_prenda.actualizar_color_prenda(nombre_color, id)
-            response["code"] = 1
-            response["message"] = "Color actualizado correctamente."
+    try:
+        id = request.json["id_color_prenda"]
+        nombre_color = request.json["color"]
+        if not controlador_color_prenda.color_existe_por_id(id):
+            response["code"] = 3
+            response["message"] = "Error: El ID proporcionado no fue encontrado."
         else:
-            response["code"] = 2
-            response["message"] = "Error: El color ya existe."
+            if not controlador_color_prenda.color_existe(nombre_color):
+                controlador_color_prenda.actualizar_color_prenda(
+                    nombre_color, id)
+                response["code"] = 0
+                response["message"] = "Color actualizado correctamente."
+            else:
+                response["code"] = 4
+                response["message"] = "Error: El color ya existe."
+    except KeyError:
+        response["code"] = 2
+        response["message"] = "Error: El JSON proporcionado no contiene las claves correctas."
+    except Exception as e:
+        response["code"] = 1
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
     response["data"] = datos
     return jsonify(response)
 
@@ -716,16 +884,24 @@ def api_actualizar_color_prenda():
 def api_eliminar_color_prenda():
     response = dict()
     datos = []
-    color_id = request.json["id"]
-    if controlador_color_prenda.color_existe_por_id(color_id):
-        controlador_color_prenda.eliminar_color_prenda(color_id)
-        response["code"] = 1
-        response["message"] = "Color eliminado correctamente."
-    else:
+    try:
+        id = request.json["id_color_prenda"]
+        if controlador_color_prenda.color_existe_por_id(id):
+            controlador_color_prenda.eliminar_color_prenda(id)
+            response["code"] = 0
+            response["message"] = "Color eliminado correctamente."
+        else:
+            response["code"] = 3
+            response["message"] = "Error: El ID proporcionado no fue encontrado."
+    except KeyError:
         response["code"] = 2
-        response["message"] = "Error: El color con el ID proporcionado no fue encontrado."
+        response["message"] = "Error: El JSON proporcionado no contiene las claves correctas."
+    except Exception as e:
+        response["code"] = 1
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
     response["data"] = datos
     return jsonify(response)
+
 
 # ? APIS Disponibilidad de Prenda
 
@@ -735,14 +911,18 @@ def api_eliminar_color_prenda():
 def api_obtener_disponibilidad():
     response = dict()
     datos = []
-    disponibilidad_prendas = controlador_disponibilidad.obtener_disponibilidad_prenda()
-    for disponibilidad in disponibilidad_prendas:
-        objDisp = clase_disponibilidad.Disponibilidad(
-            disponibilidad[0], disponibilidad[1], disponibilidad[2], disponibilidad[3], disponibilidad[4], disponibilidad[5])
-        datos.append(objDisp.obtenerObjetoSerializable())
+    try:
+        disponibilidad_prendas = controlador_disponibilidad.obtener_disponibilidad_prenda()
+        for disponibilidad in disponibilidad_prendas:
+            objDisp = clase_disponibilidad.Disponibilidad(
+                disponibilidad[0], disponibilidad[1], disponibilidad[2], disponibilidad[3], disponibilidad[4], disponibilidad[5])
+            datos.append(objDisp.obtenerObjetoSerializable())
+        response["code"] = 0
+        response["message"] = "Disponibilidad listada correctamente"
+    except Exception as e:
+        response["code"] = 1
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
     response["data"] = datos
-    response["code"] = 1
-    response["message"] = "Listado correcto de colores."
     return jsonify(response)
 
 
@@ -751,19 +931,26 @@ def api_obtener_disponibilidad():
 def api_obtener_disponibilidad_por_ids():
     response = dict()
     datos = []
-    id_prenda = request.json["id_prenda"]
-    id_talla = request.json["id_talla_prenda"]
-    if not controlador_disponibilidad.disponibilidad_existe(id_prenda, id_talla):
+    try:
+        id_prenda = request.json["id_prenda"]
+        id_talla = request.json["id_talla_prenda"]
+        if not controlador_disponibilidad.disponibilidad_existe(id_prenda, id_talla):
+            response["code"] = 3
+            response["message"] = "Error: Los ID's proporcionados no fueron encontrados."
+        else:
+            disponibilidad = controlador_disponibilidad.obtener_disponibilidad_id(
+                id_prenda, id_talla)
+            objDisp = clase_disponibilidad.Disponibilidad(
+                disponibilidad[0], disponibilidad[1], disponibilidad[2], disponibilidad[3], disponibilidad[4], disponibilidad[5])
+            datos.append(objDisp.obtenerObjetoSerializable())
+            response["code"] = 0
+            response["message"] = "Disponibilidad encontrada correctamente."
+    except KeyError:
         response["code"] = 2
-        response["message"] = "Error: La disponibilidad con la talla y prenda proporcionado no fue encontrado."
-    else:
-        disponibilidad = controlador_disponibilidad.obtener_disponibilidad_id(
-            id_prenda, id_talla)
-        objDisp = clase_disponibilidad.Disponibilidad(
-            disponibilidad[0], disponibilidad[1], disponibilidad[2], disponibilidad[3], disponibilidad[4], disponibilidad[5])
-        datos.append(objDisp.obtenerObjetoSerializable())
+        response["message"] = "Error: El JSON proporcionado no contiene la clave correcta."
+    except Exception as e:
         response["code"] = 1
-        response["message"] = "Disponibilidad encontrada correctamente."
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
     response["data"] = datos
     return jsonify(response)
 
@@ -773,22 +960,29 @@ def api_obtener_disponibilidad_por_ids():
 def api_guardar_disponibilidad():
     response = dict()
     datos = []
-    id_prenda = request.json["id_prenda"]
-    id_talla = request.json["id_talla"]
-    precio = request.json["precio"]
-    stock = request.json["stock"]
-    if controlador_disponibilidad.disponibilidad_existe(id_prenda, id_talla):
-        response["code"] = 2
-        response["message"] = "Error: Esta disponibilidad ya existe."
-    else:
-        if not controlador_disponibilidad.prenda_talla_existen(id_prenda, id_talla):
-            response["code"] = 3
-            response["message"] = "Error: La prenda o la talla no existen."
+    try:
+        id_prenda = request.json["id_prenda"]
+        id_talla = request.json["id_talla_prenda"]
+        precio = request.json["precio"]
+        stock = request.json["stock"]
+        if controlador_disponibilidad.disponibilidad_existe(id_prenda, id_talla):
+            response["code"] = 4
+            response["message"] = "Error: La disponibilidad ya existe."
         else:
-            controlador_disponibilidad.insertar_disponibilidad_prenda(
-                id_prenda, id_talla, precio, stock)
-            response["code"] = 1
-            response["message"] = "Disponibilidad guardada correctamente."
+            if not controlador_disponibilidad.prenda_talla_existen(id_prenda, id_talla):
+                response["code"] = 3
+                response["message"] = "Error: Los ID's proporcionados no fueron encontrados."
+            else:
+                controlador_disponibilidad.insertar_disponibilidad_prenda(
+                    id_prenda, id_talla, precio, stock)
+                response["code"] = 0
+                response["message"] = "Disponibilidad guardada correctamente."
+    except KeyError:
+        response["code"] = 2
+        response["message"] = "Error: El JSON proporcionado no contiene la clave correcta."
+    except Exception as e:
+        response["code"] = 1
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
     response["data"] = datos
     return jsonify(response)
 
@@ -798,18 +992,25 @@ def api_guardar_disponibilidad():
 def api_actualizar_disponibilidad():
     response = dict()
     datos = []
-    id_prenda = request.json["id_prenda"]
-    id_talla = request.json["id_talla"]
-    precio = request.json["precio"]
-    stock = request.json["stock"]
-    if not controlador_disponibilidad.obtener_disponibilidad_id(id_prenda, id_talla):
+    try:
+        id_prenda = request.json["id_prenda"]
+        id_talla = request.json["id_talla_prenda"]
+        precio = request.json["precio"]
+        stock = request.json["stock"]
+        if not controlador_disponibilidad.obtener_disponibilidad_id(id_prenda, id_talla):
+            response["code"] = 3
+            response["message"] = "Error: Los ID's proporcionados no fueron encontrados."
+        else:
+            controlador_disponibilidad.actualizar_disponibilidad_prenda(
+                precio, stock, id_prenda, id_talla)
+            response["code"] = 0
+            response["message"] = "Disponibilidad actualizada exitosamente"
+    except KeyError:
         response["code"] = 2
-        response["message"] = "Error: La disponibilidad con los ID proporcionado no existe."
-    else:
-        controlador_disponibilidad.actualizar_disponibilidad_prenda(
-            precio, stock, id_prenda, id_talla)
+        response["message"] = "Error: El JSON proporcionado no contiene las claves correctas."
+    except Exception as e:
         response["code"] = 1
-        response["message"] = "Disponibilidad actualizada exitosamente"
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
     response["data"] = datos
     return jsonify(response)
 
@@ -819,34 +1020,45 @@ def api_actualizar_disponibilidad():
 def api_eliminar_disponibilidad_():
     response = dict()
     datos = []
-    id_prenda = request.json["id_prenda"]
-    id_talla = request.json["id_talla"]
-    if controlador_disponibilidad.disponibilidad_existe(id_prenda, id_talla):
-        controlador_disponibilidad.eliminar_disponibilidad_prenda(
-            id_prenda, id_talla)
-        response["code"] = 1
-        response["message"] = "Disponibilidad de prenda eliminada exitosamente."
-    else:
+    try:
+        id_prenda = request.json["id_prenda"]
+        id_talla = request.json["id_talla_prenda"]
+        if controlador_disponibilidad.disponibilidad_existe(id_prenda, id_talla):
+            controlador_disponibilidad.eliminar_disponibilidad_prenda(
+                id_prenda, id_talla)
+            response["code"] = 0
+            response["message"] = "Disponibilidad eliminada exitosamente."
+        else:
+            response["code"] = 3
+            response["message"] = "Error: Los ID's proporcionados no fueron encontrados."
+    except KeyError:
         response["code"] = 2
-        response["message"] = "Error: El color con el ID proporcionado no fue encontrado."
+        response["message"] = "Error: El JSON proporcionado no contiene las claves correctas."
+    except Exception as e:
+        response["code"] = 1
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
     response["data"] = datos
     return jsonify(response)
 
 # ? APIS Material de Prenda
 
 
-@app.route("/api_material_prenda")
+@app.route("/api_obtener_material_prenda")
 @jwt_required()
-def api_material_prenda():
+def api_obtener_material_prenda():
     response = dict()
     datos = []
-    material_prendas = controlador_material.obtener_material()
-    for material in material_prendas:
-        objMaterial = clase_material.Material(material[0], material[1])
-        datos.append(objMaterial.obtenerObjetoSerializable())
+    try:
+        material_prendas = controlador_material.obtener_material()
+        for material in material_prendas:
+            objMaterial = clase_material.Material(material[0], material[1])
+            datos.append(objMaterial.obtenerObjetoSerializable())
+        response["code"] = 0
+        response["message"] = "Materiales listados correctamente."
+    except Exception as e:
+        response["code"] = 1
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
     response["data"] = datos
-    response["code"] = 1
-    response["message"] = "Listado correcto de materiales."
     return jsonify(response)
 
 
@@ -855,16 +1067,23 @@ def api_material_prenda():
 def api_material_prenda_por_id():
     response = dict()
     datos = []
-    id = request.json["id"]
-    if not controlador_material.material_existe_por_id(id):
+    try:
+        id = request.json["id_tipo_material"]
+        if not controlador_material.material_existe_por_id(id):
+            response["code"] = 3
+            response["message"] = "Error: El ID proporcionado no fue encontrado."
+        else:
+            material = controlador_material.obtener_material_id(id)
+            objMaterial = clase_material.Material(material[0], material[1])
+            datos.append(objMaterial.obtenerObjetoSerializable())
+            response["code"] = 0
+            response["message"] = "Material encontrado correctamente."
+    except KeyError:
         response["code"] = 2
-        response["message"] = "Error: El material con el ID proporcionado no fue encontrado."
-    else:
-        material = controlador_material.obtener_material_id(id)
-        objMaterial = clase_material.Material(material[0], material[1])
-        datos.append(objMaterial.obtenerObjetoSerializable())
+        response["message"] = "Error: El JSON proporcionado no contiene la clave correcta."
+    except Exception as e:
         response["code"] = 1
-        response["message"] = "Material encontrado correctamente."
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
     response["data"] = datos
     return jsonify(response)
 
@@ -874,15 +1093,21 @@ def api_material_prenda_por_id():
 def api_guardar_material():
     response = dict()
     datos = []
-    nomMat = request.json["nombre_material"]
-    if not controlador_material.material_existe(nomMat):
-        controlador_material.insertar_material(nomMat)
-        response["code"] = 1
-        response["message"] = "Material guardado correctamente."
-    else:
+    try:
+        nomMat = request.json["material"]
+        if not controlador_material.material_existe(nomMat):
+            controlador_material.insertar_material(nomMat)
+            response["code"] = 0
+            response["message"] = "Material guardado correctamente."
+        else:
+            response["code"] = 4
+            response["message"] = "Error: El material ya existe."
+    except KeyError:
         response["code"] = 2
-        response["message"] = "Error: El material ya existe."
-
+        response["message"] = "Error: El JSON proporcionado no contiene la clave correcta."
+    except Exception as e:
+        response["code"] = 1
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
     response["data"] = datos
     return jsonify(response)
 
@@ -892,19 +1117,26 @@ def api_guardar_material():
 def api_actualizar_material():
     response = dict()
     datos = []
-    id = request.json["id"]
-    nomMaterial = request.json["nombre_material"]
-    if not controlador_material.material_existe_por_id(id):
-        response["code"] = 3
-        response["message"] = "Error: El Material con el ID proporcionado no existe."
-    else:
-        if not controlador_material.material_existe(nomMaterial):
-            controlador_material.actualizar_material(nomMaterial, id)
-            response["code"] = 1
-            response["message"] = "Material actualizado correctamente."
+    try:
+        id = request.json["id_tipo_material"]
+        nomMaterial = request.json["material"]
+        if not controlador_material.material_existe_por_id(id):
+            response["code"] = 3
+            response["message"] = "Error: El ID proporcionado no fue encontrado."
         else:
-            response["code"] = 2
-            response["message"] = "Error: El material ya existe."
+            if not controlador_material.material_existe(nomMaterial):
+                controlador_material.actualizar_material(nomMaterial, id)
+                response["code"] = 0
+                response["message"] = "Material actualizado correctamente."
+            else:
+                response["code"] = 4
+                response["message"] = "Error: El material ya existe."
+    except KeyError:
+        response["code"] = 2
+        response["message"] = "Error: El JSON proporcionado no contiene las claves correctas."
+    except Exception as e:
+        response["code"] = 1
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
     response["data"] = datos
     return jsonify(response)
 
@@ -914,14 +1146,21 @@ def api_actualizar_material():
 def api_eliminar_material():
     response = dict()
     datos = []
-    material_id = request.json["id"]
-    if controlador_material.material_existe_por_id(material_id):
-        controlador_material.eliminar_material(material_id)
-        response["code"] = 1
-        response["message"] = "Material eliminado correctamente."
-    else:
+    try:
+        id = request.json["id_tipo_material"]
+        if controlador_material.material_existe_por_id(id):
+            controlador_material.eliminar_material(id)
+            response["code"] = 0
+            response["message"] = "Material eliminado correctamente."
+        else:
+            response["code"] = 3
+            response["message"] = "Error: El ID proporcionado no fue encontrado."
+    except KeyError:
         response["code"] = 2
-        response["message"] = "Error: El material con el ID proporcionado no fue encontrado."
+        response["message"] = "Error: El JSON proporcionado no contiene la clave correcta."
+    except Exception as e:
+        response["code"] = 1
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
     response["data"] = datos
     return jsonify(response)
 
@@ -933,14 +1172,18 @@ def api_eliminar_material():
 def api_obtener_prenda():
     response = dict()
     datos = []
-    prendas = controlador_prenda.obtener_prenda()
-    for prenda in prendas:
-        objPrenda = clase_prenda.Prenda(
-            prenda[0], prenda[1], prenda[2], prenda[3], prenda[4], prenda[5], prenda[6], prenda[7], prenda[8])
-        datos.append(objPrenda.obtenerObjetoSerializable())
+    try:
+        prendas = controlador_prenda.obtener_prenda_total()
+        for prenda in prendas:
+            objPrenda = clase_prenda.Prenda(
+                prenda[0], prenda[1], prenda[2], prenda[3], prenda[4], prenda[5], prenda[6], prenda[7], prenda[8])
+            datos.append(objPrenda.obtenerObjetoSerializable())
+        response["code"] = 0
+        response["message"] = "Prendas listadas correctamente."
+    except Exception as e:
+        response["code"] = 1
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
     response["data"] = datos
-    response["code"] = 1
-    response["message"] = "Listado correcto de prendas."
     return jsonify(response)
 
 
@@ -949,17 +1192,24 @@ def api_obtener_prenda():
 def api_prenda_por_id():
     response = dict()
     datos = []
-    id = request.json["id"]
-    if not controlador_prenda.prenda_existe_por_id(id):
+    try:
+        id = request.json["id_prenda"]
+        if not controlador_prenda.prenda_existe_por_id(id):
+            response["code"] = 3
+            response["message"] = "Error: El ID proporcionado no fue encontrado."
+        else:
+            prenda = controlador_prenda.obtener_prenda_id2(id)
+            objPrenda = clase_prenda.Prenda(
+                prenda[0], prenda[1], prenda[2], prenda[3], prenda[4], prenda[5], prenda[6], prenda[7], prenda[8])
+            datos.append(objPrenda.obtenerObjetoSerializable())
+            response["code"] = 0
+            response["message"] = "Prenda encontrada correctamente."
+    except KeyError:
         response["code"] = 2
-        response["message"] = "Error: La prenda con el ID proporcionado no fue encontrada."
-    else:
-        prenda = controlador_prenda.obtener_prenda_id2(id)
-        objPrenda = clase_prenda.Prenda(
-            prenda[0], prenda[1], prenda[2], prenda[3], prenda[4], prenda[5], prenda[6], prenda[7], prenda[8])
-        datos.append(objPrenda.obtenerObjetoSerializable())
+        response["message"] = "Error: El JSON proporcionado no contiene la clave correcta."
+    except Exception as e:
         response["code"] = 1
-        response["message"] = "Prenda encontrada correctamente."
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
     response["data"] = datos
     return jsonify(response)
 
@@ -969,22 +1219,29 @@ def api_prenda_por_id():
 def api_guardar_prenda():
     response = dict()
     datos = []
-    codigo = request.json["cod_prenda"]
-    nomPrenda = request.json["nom_prenda"]
-    descripcion = request.json["desc_prenda"]
-    tipo_prenda = int(request.json["tipo_prenda"])
-    color_prenda = int(request.json["color_prenda"])
-    temporada_prenda = int(request.json["temporada_prenda"])
-    material_prenda = int(request.json["material_prenda"])
-    imagen = request.json["imagen"]
-    if not controlador_prenda.prenda_existe(codigo):
-        controlador_prenda.insertar_prenda(
-            codigo, nomPrenda, descripcion, tipo_prenda, color_prenda, material_prenda, temporada_prenda, imagen)
-        response["code"] = 1
-        response["message"] = "Prenda guardada correctamente."
-    else:
+    try:
+        codigo = request.json["codigo"]
+        nomPrenda = request.json["nomPrenda"]
+        descripcion = request.json["descripcion"]
+        tipo_prenda = int(request.json["id_tipo_prenda"])
+        color_prenda = int(request.json["id_color_prenda"])
+        material_prenda = int(request.json["id_tipo_material"])
+        temporada_prenda = int(request.json["id_prenda_temporada"])
+        imagen = request.json["imagen"]
+        if not controlador_prenda.prenda_existe(codigo):
+            controlador_prenda.insertar_prenda(
+                codigo, nomPrenda, descripcion, tipo_prenda, color_prenda, material_prenda, temporada_prenda, imagen)
+            response["code"] = 0
+            response["message"] = "Prenda guardada correctamente."
+        else:
+            response["code"] = 4
+            response["message"] = "Error: La prenda ya existe."
+    except KeyError:
         response["code"] = 2
-        response["message"] = "Error: La prenda ya existe."
+        response["message"] = "Error: El JSON proporcionado no contiene la clave correcta."
+    except Exception as e:
+        response["code"] = 1
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
     response["data"] = datos
     return jsonify(response)
 
@@ -994,27 +1251,35 @@ def api_guardar_prenda():
 def api_actualizar_prenda():
     response = dict()
     datos = []
-    id = request.json["id"]
-    codigo = request.json["codigo"]
-    nomPrenda = request.json["nom_prenda"]
-    descripcion = request.json["desc_prenda"]
-    tipo_prenda = int(request.json["tipo_prenda"])
-    color_prenda = int(request.json["color_prenda"])
-    temporada_prenda = int(request.json["temporada_prenda"])
-    material_prenda = int(request.json["material_prenda"])
-    imagen = request.json["imagen"]
-    if not controlador_prenda.prenda_existe_por_id(id):
-        response["code"] = 3
-        response["message"] = "Error: La prenda con el ID proporcionado no existe."
-    else:
-        if controlador_prenda.prenda_existe(codigo):
-            controlador_prenda.actualizar_prenda(
-                nomPrenda, descripcion, tipo_prenda, color_prenda, material_prenda, temporada_prenda, imagen, id)
-            response["code"] = 1
-            response["message"] = "Prenda actualizada correctamente"
+    try:
+        id = request.json["id_prenda"]
+        codigo = request.json["codigo"]
+        nomPrenda = request.json["nomPrenda"]
+        descripcion = request.json["descripcion"]
+        tipo_prenda = int(request.json["id_tipo_prenda"])
+        color_prenda = int(request.json["id_color_prenda"])
+        material_prenda = int(request.json["id_tipo_material"])
+        temporada_prenda = int(request.json["id_prenda_temporada"])
+        imagen = request.json["imagen"]
+        if not controlador_prenda.prenda_existe_por_id(id):
+            response["code"] = 3
+            response["message"] = "Error: El ID proporcionado no fue encontrado."
         else:
-            response["code"] = 2
-            response["message"] = "Error: la prenda ya existe"
+            if controlador_prenda.prenda_existe(codigo):
+                controlador_prenda.actualizar_prenda(
+                    nomPrenda, descripcion, tipo_prenda, color_prenda, material_prenda, temporada_prenda, imagen, id)
+                response["code"] = 0
+                response["message"] = "Prenda actualizada correctamente"
+            else:
+                response["code"] = 4
+                response["message"] = "Error: La prenda ya existe."
+    except KeyError:
+        response["code"] = 2
+        response["message"] = "Error: El JSON proporcionado no contiene las claves correctas."
+    except Exception as e:
+        response["code"] = 1
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
+    response["data"] = datos
     return jsonify(response)
 
 
@@ -1023,108 +1288,151 @@ def api_actualizar_prenda():
 def api_eliminar_prenda():
     response = dict()
     datos = []
-    id = request.json["id"]
-    if controlador_prenda.prenda_existe_por_id(id):
-        controlador_prenda.eliminar_prenda(id)
-        response["code"] = 1
-        response["message"] = "Prenda eliminada correctamente."
-    else:
+    try:
+        id = request.json["id_prenda"]
+        if controlador_prenda.prenda_existe_por_id(id):
+            controlador_prenda.eliminar_prenda(id)
+            response["code"] = 0
+            response["message"] = "Prenda eliminada correctamente."
+        else:
+            response["code"] = 3
+            response["message"] = "Error: El ID proporcionado no fue encontrado."
+    except KeyError:
         response["code"] = 2
-        response["message"] = "Error: La prenda con el ID proporcionado no fue encontrada."
-        response["data"] = datos
+        response["message"] = "Error: El JSON proporcionado no contiene las claves correctas."
+    except Exception as e:
+        response["code"] = 1
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
+    response["data"] = datos
     return jsonify(response)
 
+
 # ? APIS Talla de Prenda
+
 
 @app.route("/api_obtener_talla_prenda")
 @jwt_required()
 def api_obtener_talla_prenda():
     response = dict()
     datos = []
-    talla_prendas = controlador_talla_prenda.obtener_talla_prenda()
-    for talla in talla_prendas:
-        objTalla = clase_talla_prenda.Prenda(talla[0], talla[1])
-        datos.append(objTalla.obtenerObjetoSerializable())
+    try:
+        talla_prendas = controlador_talla_prenda.obtener_talla_prenda()
+        for talla in talla_prendas:
+            objTalla = clase_talla_prenda.Talla(talla[0], talla[1])
+            datos.append(objTalla.obtenerObjetoSerializable())
+        response["code"] = 0
+        response["message"] = "Tallas listadas correctamente."
+    except Exception as e:
+        response["code"] = 1
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
     response["data"] = datos
-    response["code"] = 1
-    response["message"] = "Listado correcto de las tallas."
     return jsonify(response)
+
 
 @app.route("/api_obtener_talla_prenda_por_id", methods=["POST"])
 @jwt_required()
 def api_obtener_talla_prenda_por_id():
     response = dict()
     datos = []
-    id_talla_prenda = request.json["id_talla_prenda"]
-    if not controlador_talla_prenda.talla_existe_por_id(id_talla_prenda):
+    try:
+        id_talla_prenda = request.json["id_talla_prenda"]
+        if not controlador_talla_prenda.talla_existe_por_id(id_talla_prenda):
+            response["code"] = 3
+            response["message"] = "Error: El ID proporcionado no fue encontrado."
+        else:
+            talla = controlador_talla_prenda.obtener_talla_por_id(
+                id_talla_prenda)
+            objTalla = clase_talla_prenda.Talla(talla[0], talla[1])
+            datos.append(objTalla.obtenerObjetoSerializable())
+            response["code"] = 0
+            response["message"] = "Talla encontrada correctamente."
+    except KeyError:
         response["code"] = 2
-        response["message"] = "Error: La talla con el ID proporcionado no fue encontrada."
-    else:
-        talla = controlador_talla_prenda.obtener_talla_por_id(id_talla_prenda)
-        objTalla = clase_talla_prenda.Prenda(talla[0], talla[1])
-        datos.append(objTalla.obtenerObjetoSerializable())
+        response["message"] = "Error: El JSON proporcionado no contiene la clave correcta."
+    except Exception as e:
         response["code"] = 1
-        response["message"] = "Talla encontrada correctamente."
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
     response["data"] = datos
     return jsonify(response)
+
 
 @app.route("/api_guardar_talla_prenda", methods=["POST"])
 @jwt_required()
 def api_guardar_talla_prenda():
     response = dict()
     datos = []
-    id_talla_prenda = request.json["id_talla_prenda"]
-    tipo_talla = request.json["tipo_talla"]
-
-    if not controlador_talla_prenda.talla_existe_por_id(id_talla_prenda):
+    try:
+        tipo_talla = request.json["tipo_talla"]
         if not controlador_talla_prenda.talla_existe(tipo_talla):
-            controlador_talla_prenda.insertar_talla_prenda(id_talla_prenda,tipo_talla)
-            response["code"] = 1
-            response["message"] = "Talla de prenda guardada correctamente."
+            controlador_talla_prenda.insertar_talla_prenda(tipo_talla)
+            response["code"] = 0
+            response["message"] = "Talla guardada correctamente."
         else:
-            response["code"] = 2
-            response["message"] = "Error: La talla de prenda ya existe."
-    else:
-        response["code"] = 3
-        response["message"] = "Error: El talla de prenda con el ID proporcionado ya existe."        
+            response["code"] = 4
+            response["message"] = "Error: La talla ya existe."
+    except KeyError:
+        response["code"] = 2
+        response["message"] = "Error: El JSON proporcionado no contiene la clave correcta."
+    except Exception as e:
+        response["code"] = 1
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
     response["data"] = datos
     return jsonify(response)
+
 
 @app.route("/api_actualizar_talla_prenda", methods=["POST"])
 @jwt_required()
 def api_actualizar_talla_prenda():
     response = dict()
     datos = []
-    id_talla_prenda = request.json["id_talla_prenda"]
-    tipo_talla = request.json["tipo_talla"]
-    if not controlador_talla_prenda.talla_existe_por_id(id_talla_prenda):
-        response["code"] = 3
-        response["message"] = "Error: La talla con el ID proporcionado no existe."
-    else:
-        if not controlador_talla_prenda.talla_existe(tipo_talla):
-            controlador_talla_prenda.actualizar_talla_prenda(tipo_talla, id_talla_prenda)
-            response["code"] = 1
-            response["message"] = "Talla actualizada correctamente"
+    try:
+        id_talla_prenda = request.json["id_talla_prenda"]
+        tipo_talla = request.json["tipo_talla"]
+        if not controlador_talla_prenda.talla_existe_por_id(id_talla_prenda):
+            response["code"] = 3
+            response["message"] = "Error: El ID proporcionado no fue encontrado."
         else:
-            response["code"] = 2
-            response["message"] = "Error: La talla ya existe"
+            if not controlador_talla_prenda.talla_existe(tipo_talla):
+                controlador_talla_prenda.actualizar_talla_prenda(
+                    tipo_talla, id_talla_prenda)
+                response["code"] = 0
+                response["message"] = "Talla actualizada correctamente"
+            else:
+                response["code"] = 4
+                response["message"] = "Error: La talla ya existe"
+    except KeyError:
+        response["code"] = 2
+        response["message"] = "Error: El JSON proporcionado no contiene las claves correctas."
+    except Exception as e:
+        response["code"] = 1
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
+    response["data"] = datos
     return jsonify(response)
+
 
 @app.route("/api_eliminar_talla_prenda", methods=["POST"])
 @jwt_required()
 def api_eliminar_talla_prenda():
     response = dict()
     datos = []
-    id_talla_prenda = request.json["id_talla_prenda"]
-    if controlador_talla_prenda.talla_existe_por_id(id_talla_prenda):
-        controlador_talla_prenda.eliminar_talla_prenda(id_talla_prenda)
-        response["code"] = 1
-        response["message"] = "Talla eliminada correctamente."
-    else:
+    try:
+        id_talla_prenda = request.json["id_talla_prenda"]
+        if controlador_talla_prenda.talla_existe_por_id(id_talla_prenda):
+            controlador_talla_prenda.eliminar_talla_prenda(id_talla_prenda)
+            response["code"] = 0
+            response["message"] = "Talla eliminada correctamente."
+        else:
+            response["code"] = 3
+            response["message"] = "Error: El ID proporcionado no fue encontrado."
+    except KeyError:
         response["code"] = 2
-        response["message"] = "Error: La Talla con el ID proporcionado no fue encontrada."
-        response["data"] = datos
+        response["message"] = "Error: El JSON proporcionado no contiene las claves correctas."
+    except Exception as e:
+        response["code"] = 1
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
+    response["data"] = datos
     return jsonify(response)
+
 
 # ? APIS Temporada
 
@@ -1133,13 +1441,18 @@ def api_eliminar_talla_prenda():
 def api_obtener_temporada_prenda():
     response = dict()
     datos = []
-    temporada_prendas = controlador_temporadas.obtener_temporada()
-    for temporada in temporada_prendas:
-        objTemporada = clase_temporada.Temporada(temporada[0], temporada[1])
-        datos.append(objTemporada.obtenerObjetoSerializable())
+    try:
+        temporada_prendas = controlador_temporadas.obtener_temporada()
+        for temporada in temporada_prendas:
+            objTemporada = clase_temporada.Temporada(
+                temporada[0], temporada[1])
+            datos.append(objTemporada.obtenerObjetoSerializable())
+        response["code"] = 0
+        response["message"] = "Temporadas listadas correctamente."
+    except Exception as e:
+        response["code"] = 1
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
     response["data"] = datos
-    response["code"] = 1
-    response["message"] = "Listado de temporadas correcto."
     return jsonify(response)
 
 
@@ -1148,18 +1461,25 @@ def api_obtener_temporada_prenda():
 def api_obtener_temporada_por_id():
     response = dict()
     datos = []
-    id = request.json["id"]
-    if not controlador_temporadas.temporada_existe_por_id(id):
+    try:
+        id = request.json["id_prenda_temporada"]
+        if not controlador_temporadas.temporada_existe_por_id(id):
+            response["code"] = 3
+            response["message"] = "Error: El ID proporcionado no fue encontrado."
+        else:
+            temporadas_prendas = controlador_temporadas.obtener_temporada_id(
+                id)
+            objTemporada = clase_temporada.Temporada(
+                temporadas_prendas[0], temporadas_prendas[1])
+            datos.append(objTemporada.obtenerObjetoSerializable())
+            response["code"] = 0
+            response["message"] = "Temporada encontrada correctamente."
+    except KeyError:
         response["code"] = 2
-        response["message"] = "Error: La temporada con el ID proporcionado no fue encontrado."
-    else:
-        temporadas_prendas = controlador_temporadas.obtener_temporada_id(id)
-        objTemporada = clase_temporada.Temporada(
-            temporadas_prendas[0], temporadas_prendas[1])
-        datos.append(objTemporada.obtenerObjetoSerializable())
+        response["message"] = "Error: El JSON proporcionado no contiene la clave correcta."
+    except Exception as e:
         response["code"] = 1
-        response["message"] = "Color encontrado correctamente."
-
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
     response["data"] = datos
     return jsonify(response)
 
@@ -1169,15 +1489,21 @@ def api_obtener_temporada_por_id():
 def api_guardar_temporada():
     response = dict()
     datos = []
-    nomTemp = request.json["nombre_temporada"]
-    if not controlador_temporadas.temporada_existe(nomTemp):
-        controlador_temporadas.insertar_temporada(nomTemp)
-        response["code"] = 1
-        response["message"] = "Temporada guardada correctamente."
-    else:
+    try:
+        nomTemp = request.json["temporada"]
+        if not controlador_temporadas.temporada_existe(nomTemp):
+            controlador_temporadas.insertar_temporada(nomTemp)
+            response["code"] = 0
+            response["message"] = "Temporada guardada correctamente."
+        else:
+            response["code"] = 4
+            response["message"] = "Error: La temporada ya existe."
+    except KeyError:
         response["code"] = 2
-        response["message"] = "Error: La temporada ya existe."
-
+        response["message"] = "Error: El JSON proporcionado no contiene la clave correcta."
+    except Exception as e:
+        response["code"] = 1
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
     response["data"] = datos
     return jsonify(response)
 
@@ -1187,19 +1513,26 @@ def api_guardar_temporada():
 def api_actualizar_temporada():
     response = dict()
     datos = []
-    id = request.json["id"]
-    nomTemporada = request.json["nombre_temporada"]
-    if not controlador_temporadas.temporada_existe_por_id(id):
-        response["code"] = 3
-        response["message"] = "Error: La temporada con el ID proporcionado no existe."
-    else:
-        if not controlador_temporadas.temporada_existe(nomTemporada):
-            controlador_temporadas.actualizar_temporada(nomTemporada, id)
-            response["code"] = 1
-            response["message"] = "Temporada actualizada correctamente."
+    try:
+        id = request.json["id_prenda_temporada"]
+        nomTemporada = request.json["temporada"]
+        if not controlador_temporadas.temporada_existe_por_id(id):
+            response["code"] = 3
+            response["message"] = "Error: El ID proporcionado no fue encontrado."
         else:
-            response["code"] = 2
-            response["message"] = "Error: La temporada ya existe."
+            if not controlador_temporadas.temporada_existe(nomTemporada):
+                controlador_temporadas.actualizar_temporada(nomTemporada, id)
+                response["code"] = 0
+                response["message"] = "Temporada actualizada correctamente."
+            else:
+                response["code"] = 4
+                response["message"] = "Error: La temporada ya existe."
+    except KeyError:
+        response["code"] = 2
+        response["message"] = "Error: El JSON proporcionado no contiene las claves correctas."
+    except Exception as e:
+        response["code"] = 1
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
     response["data"] = datos
     return jsonify(response)
 
@@ -1209,31 +1542,44 @@ def api_actualizar_temporada():
 def api_eliminar_temporada():
     response = dict()
     datos = []
-    temporada_id = request.json["id"]
-    if controlador_temporadas.temporada_existe_por_id(temporada_id):
-        controlador_temporadas.eliminar_temporada(temporada_id)
-        response["code"] = 1
-        response["message"] = "Temporada eliminada correctamente."
-    else:
+    try:
+        temporada_id = request.json["id_prenda_temporada"]
+        if controlador_temporadas.temporada_existe_por_id(temporada_id):
+            controlador_temporadas.eliminar_temporada(temporada_id)
+            response["code"] = 0
+            response["message"] = "Temporada eliminada correctamente."
+        else:
+            response["code"] = 3
+            response["message"] = "Error: El ID proporcionado no fue encontrado."
+    except KeyError:
         response["code"] = 2
-        response["message"] = "Error: La temporada con el ID proporcionado no fue encontrada."
+        response["message"] = "Error: El JSON proporcionado no contiene las claves correctas."
+    except Exception as e:
+        response["code"] = 1
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
     response["data"] = datos
     return jsonify(response)
 
+
 # ? APIS Tipo de Prenda
+
 
 @app.route("/api_obtener_tipo_prenda")
 @jwt_required()
 def api_obtener_tipo_prenda():
     response = dict()
     datos = []
-    tipo_prendas = controlador_tipo_prenda.obtener_tipo_prenda()
-    for tipo in tipo_prendas:
-        objTemporada = clase_tipoPrenda.TipoPrenda(tipo[0], tipo[1])
-        datos.append(objTemporada.obtenerObjetoSerializable())
+    try:
+        tipo_prendas = controlador_tipo_prenda.obtener_tipo_prenda()
+        for tipo in tipo_prendas:
+            objTemporada = clase_tipoPrenda.TipoPrenda(tipo[0], tipo[1])
+            datos.append(objTemporada.obtenerObjetoSerializable())
+        response["code"] = 0
+        response["message"] = "Tipos de prendas listadas correctamente."
+    except Exception as e:
+        response["code"] = 1
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
     response["data"] = datos
-    response["code"] = 1
-    response["message"] = "Listado de temporadas correcto."
     return jsonify(response)
 
 
@@ -1242,16 +1588,24 @@ def api_obtener_tipo_prenda():
 def api_obtener_tipo_prenda_por_id():
     response = dict()
     datos = []
-    id_tipo_prenda = request.json["id_tipo_prenda"]
-    if not controlador_tipo_prenda.tipo_prenda_existe_por_id(id_tipo_prenda):
+    try:
+        id_tipo_prenda = request.json["id_tipo_prenda"]
+        if not controlador_tipo_prenda.tipo_prenda_existe_por_id(id_tipo_prenda):
+            response["code"] = 3
+            response["message"] = "Error: El ID proporcionado no fue encontrado."
+        else:
+            tipo = controlador_tipo_prenda.obtener_tipo_prenda_por_id(
+                id_tipo_prenda)
+            objTemporada = clase_tipoPrenda.TipoPrenda(tipo[0], tipo[1])
+            datos.append(objTemporada.obtenerObjetoSerializable())
+            response["code"] = 0
+            response["message"] = "Tipo de prenda encontrada correctamente."
+    except KeyError:
         response["code"] = 2
-        response["message"] = "Error: El Tipo de prenda con el ID proporcionado no fue encontrada."
-    else:
-        tipo = controlador_tipo_prenda.obtener_tipo_prenda_por_id(id_tipo_prenda)
-        objTemporada = clase_tipoPrenda.TipoPrenda(tipo[0], tipo[1])
-        datos.append(objTemporada.obtenerObjetoSerializable())
+        response["message"] = "Error: El JSON proporcionado no contiene la clave correcta."
+    except Exception as e:
         response["code"] = 1
-        response["message"] = "Tipo de prenda encontrada correctamente."
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
     response["data"] = datos
     return jsonify(response)
 
@@ -1261,19 +1615,21 @@ def api_obtener_tipo_prenda_por_id():
 def api_guardar_tipo_prenda():
     response = dict()
     datos = []
-    id_tipo_prenda = request.json["id_tipo_prenda"]
-    tipo = request.json["tipo"]
-    if not controlador_tipo_prenda.tipo_prenda_existe_por_id(id_tipo_prenda):
+    try:
+        tipo = request.json["tipo"]
         if not controlador_tipo_prenda.tipo_prenda_existe(tipo):
-            controlador_tipo_prenda.insertar_tipo_prenda(id_tipo_prenda,tipo)
-            response["code"] = 1
+            controlador_tipo_prenda.insertar_tipo_prenda(tipo)
+            response["code"] = 0
             response["message"] = "Tipo de prenda guardada correctamente."
         else:
-            response["code"] = 2
+            response["code"] = 4
             response["message"] = "Error: El tipo de prenda ya existe."
-    else:
-        response["code"] = 3
-        response["message"] = "Error: El tipo de prenda con el ID proporcionado ya existe."        
+    except KeyError:
+        response["code"] = 2
+        response["message"] = "Error: El JSON proporcionado no contiene la clave correcta."
+    except Exception as e:
+        response["code"] = 1
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
     response["data"] = datos
     return jsonify(response)
 
@@ -1283,19 +1639,28 @@ def api_guardar_tipo_prenda():
 def api_actualizar_tipo_prenda():
     response = dict()
     datos = []
-    id_tipo_prenda = request.json["id_tipo_prenda"]
-    tipo = request.json["tipo"]
-    if not controlador_tipo_prenda.tipo_prenda_existe_por_id(id_tipo_prenda):
-        response["code"] = 3
-        response["message"] = "Error: El tipo de prenda con el ID proporcionado no existe."
-    else:
-        if not controlador_tipo_prenda.tipo_prenda_existe(tipo):
-            controlador_tipo_prenda.actualizar_tipo_prenda(tipo,id_tipo_prenda)
-            response["code"] = 1
-            response["message"] = "Tipo de prenda actualizada correctamente"
+    try:
+        id_tipo_prenda = request.json["id_tipo_prenda"]
+        tipo = request.json["tipo"]
+        if not controlador_tipo_prenda.tipo_prenda_existe_por_id(id_tipo_prenda):
+            response["code"] = 3
+            response["message"] = "Error: El ID proporcionado no fue encontrado."
         else:
-            response["code"] = 2
-            response["message"] = "Error: El tipo de prenda ya existe"
+            if not controlador_tipo_prenda.tipo_prenda_existe(tipo):
+                controlador_tipo_prenda.actualizar_tipo_prenda(
+                    tipo, id_tipo_prenda)
+                response["code"] = 0
+                response["message"] = "Tipo de prenda actualizada correctamente"
+            else:
+                response["code"] = 4
+                response["message"] = "Error: El tipo de prenda ya existe"
+    except KeyError:
+        response["code"] = 2
+        response["message"] = "Error: El JSON proporcionado no contiene las claves correctas."
+    except Exception as e:
+        response["code"] = 1
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
+    response["data"] = datos
     return jsonify(response)
 
 
@@ -1304,17 +1669,163 @@ def api_actualizar_tipo_prenda():
 def api_eliminar_tipo_prenda():
     response = dict()
     datos = []
-    id_tipo_prenda = request.json["id_tipo_prenda"]
-
-    if controlador_tipo_prenda.tipo_prenda_existe_por_id(id_tipo_prenda):
-        controlador_tipo_prenda.eliminar_tipo_prenda(id_tipo_prenda)
-        response["code"] = 1
-        response["message"] = "Tipo de prenda eliminada correctamente."
-    else:
+    try:
+        id_tipo_prenda = request.json["id_tipo_prenda"]
+        if controlador_tipo_prenda.tipo_prenda_existe_por_id(id_tipo_prenda):
+            controlador_tipo_prenda.eliminar_tipo_prenda(id_tipo_prenda)
+            response["code"] = 0
+            response["message"] = "Tipo de prenda eliminada correctamente."
+        else:
+            response["code"] = 3
+            response["message"] = "Error: El ID proporcionado no fue encontrado."
+    except KeyError:
         response["code"] = 2
-        response["message"] = "Error: El tipo de prenda con el ID proporcionado no fue encontrada."
-        response["data"] = datos
+        response["message"] = "Error: El JSON proporcionado no contiene las claves correctas."
+    except Exception as e:
+        response["code"] = 1
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
+    response["data"] = datos
     return jsonify(response)
+
+
+# ? APIS Venta
+
+@app.route("/api_obtener_venta")
+@jwt_required()
+def api_obtener_venta():
+    response = dict()
+    datos = []
+    try:
+        ventas = controlador_venta.obtener_venta()
+        for venta in ventas:
+            objVenta = clase_venta.Venta(
+                venta[0], venta[1], venta[2], venta[3], venta[4], venta[5], venta[6])
+            datos.append(objVenta.obtenerObjetoSerializable())
+        response["code"] = 0
+        response["message"] = "Ventas listadas correctamente."
+    except Exception as e:
+        response["code"] = 1
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
+    response["data"] = datos
+    return jsonify(response)
+
+
+@app.route("/api_venta_por_id", methods=["POST"])
+@jwt_required()
+def api_venta_por_id():
+    response = dict()
+    datos = []
+    try:
+        id = request.json["id_venta"]
+        if not controlador_venta.venta_existe(id):
+            response["code"] = 3
+            response["message"] = "Error: El ID proporcionado no fue encontrado."
+        else:
+            venta = controlador_venta.obtener_venta_id(id)
+            objVenta = clase_venta.Venta(
+                venta[0], venta[1], venta[2], venta[3], venta[4], venta[5], venta[6])
+            datos.append(objVenta.obtenerObjetoSerializable())
+            response["code"] = 0
+            response["message"] = "Venta encontrada correctamente."
+    except KeyError:
+        response["code"] = 2
+        response["message"] = "Error: El JSON proporcionado no contiene la clave correcta."
+    except Exception as e:
+        response["code"] = 1
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
+    response["data"] = datos
+    return jsonify(response)
+
+
+@app.route("/api_guardar_venta", methods=["POST"])
+@jwt_required()
+def api_guardar_venta():
+    response = dict()
+    datos = []
+    try:
+        id_venta = request.json["id_venta"]
+        monto_total = request.json["monto_total"]
+        descuento = request.json["descuento"]
+        id_usuario = int(request.json["id_usuario"])
+        id_tipo_comprobante = int(request.json["id_tipo_comprobante"])
+
+        if not controlador_venta.venta_existe(id_venta):
+            controlador_venta.insertar_venta(
+                id_venta, monto_total, descuento, id_usuario, id_tipo_comprobante)
+            response["code"] = 0
+            response["message"] = "Venta guardada correctamente."
+        else:
+            response["code"] = 4
+            response["message"] = "Error: La venta ya existe."
+    except KeyError:
+        response["code"] = 2
+        response["message"] = "Error: El JSON proporcionado no contiene la clave correcta."
+    except Exception as e:
+        response["code"] = 1
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
+    response["data"] = datos
+    return jsonify(response)
+
+
+@app.route("/api_actualizar_venta", methods=["POST"])
+@jwt_required()
+def api_actualizar_venta():
+    response = dict()
+    datos = []
+    try:
+        id_venta = request.json["id_venta"]
+        fecha = request.json["fecha"]
+        estado = request.json["estado"]
+        monto_total = request.json["monto_total"]
+        descuento = request.json["descuento"]
+        id_usuario = int(request.json["id_usuario"])
+        id_tipo_comprobante = int(request.json["id_tipo_comprobante"])
+
+        if not controlador_venta.venta_existe(id_venta):
+            response["code"] = 3
+            response["message"] = "Error: El ID proporcionado no fue encontrado."
+        else:
+            if controlador_venta.venta_existe(id_venta):
+                controlador_venta.actualizar_venta(
+                    id_venta, fecha, estado, monto_total, descuento, id_usuario, id_tipo_comprobante)
+                response["code"] = 0
+                response["message"] = "Venta actualizada correctamente"
+            else:
+                response["code"] = 4
+                response["message"] = "Error: La venta ya existe"
+    except KeyError:
+        response["code"] = 2
+        response["message"] = "Error: El JSON proporcionado no contiene las claves correctas."
+    except Exception as e:
+        response["code"] = 1
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
+    response["data"] = datos
+    return jsonify(response)
+
+
+@app.route("/api_eliminar_venta", methods=["POST"])
+@jwt_required()
+def api_eliminar_venta():
+    response = dict()
+    datos = []
+    try:
+        id = request.json["id_venta"]
+        if controlador_venta.venta_existe(id):
+            controlador_venta.eliminar_venta(id)
+            response["code"] = 0
+            response["message"] = "Venta eliminada correctamente."
+        else:
+            response["code"] = 3
+            response["message"] = "Error: El ID proporcionado no fue encontrado."
+    except KeyError:
+        response["code"] = 2
+        response["message"] = "Error: El JSON proporcionado no contiene las claves correctas."
+    except Exception as e:
+        response["code"] = 1
+        response["message"] = f"Error al procesar consumo de API: {str(e)}"
+    response["data"] = datos
+    return jsonify(response)
+
 
 #! Iniciar el servidor
 if __name__ == "__main__":

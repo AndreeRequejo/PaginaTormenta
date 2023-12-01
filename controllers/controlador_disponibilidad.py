@@ -80,6 +80,18 @@ def obtener_tallas_prenda(id_prenda):
     return prenda
 
 
+def obtener_cantidad_prenda(id_prenda,id_talla_prenda):
+    conexion = obtener_conexion()
+    prenda = None
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT DP.stock FROM disponibilidad_prenda AS DP "
+                        + "INNER JOIN talla_prenda AS T ON DP.id_talla_prenda = T.id_talla_prenda "
+                        + "WHERE DP.id_prenda = %s and DP.id_talla_prenda = %s", (id_prenda,id_talla_prenda,))
+        prenda = cursor.fetchall()
+    conexion.close()
+    return prenda
+
+
 def actualizar_disponibilidad_prenda(precio, stock, id_prenda, id_talla):
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:

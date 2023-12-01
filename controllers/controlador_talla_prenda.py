@@ -39,6 +39,16 @@ def obtener_talla_por_id(id_talla_prenda):
     conexion.close()
     return talla
 
+def obtener_talla_por_talla(talla_prenda):
+    conexion = obtener_conexion()
+    talla = None
+    with conexion.cursor() as cursor:
+        cursor.execute(
+            "SELECT id_talla_prenda FROM talla_prenda WHERE tipo_talla = %s", (talla_prenda,))
+        talla = cursor.fetchone()
+    conexion.close()
+    return talla
+
 
 def actualizar_talla_prenda(tipo_talla, id_talla_prenda):
     conexion = obtener_conexion()

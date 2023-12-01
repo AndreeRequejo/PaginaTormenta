@@ -40,7 +40,7 @@ document.getElementById('linkBtnEnvio').addEventListener('click', function (even
         }).showToast();
     } else {
         actualizarDatosEnvio();
-        window.location.href = 'pago.html';
+        window.location.href = '/pago-compras';
     }
 });
 
@@ -70,7 +70,7 @@ document.getElementById("linkBtnRecojo").addEventListener("click", function (e) 
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                boxShadow: "5px 5px 10px #ccc"   
+                boxShadow: "5px 5px 10px #ccc"
             },
             offset: {
                 x: '1.5rem', // horizontal axis - can be a number or a string indicating unity. eg: '2em'
@@ -80,7 +80,7 @@ document.getElementById("linkBtnRecojo").addEventListener("click", function (e) 
         }).showToast();
     } else {
         actualizarDatosRecojo();
-        window.location.href = 'pago.html';
+        window.location.href = '/pago-compras';
     }
 });
 
@@ -141,6 +141,6 @@ var btnCancelar = document.getElementById("white");
 btnCancelar.addEventListener("click", redireccion);
 
 function redireccion() {
-    window.location.href = 'carrito.html';
+    window.location.href = '/carrito-compras';
 }
 

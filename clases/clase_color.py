@@ -1,13 +1,13 @@
 class Color:
-    id = 0
+    id_color_prenda = 0
     color = ""
 
-    def __init__(self,p_id,p_color):
-        self.id=p_id
+    def __init__(self,p_id_color_prenda,p_color):
+        self.id_color_prenda=p_id_color_prenda
         self.color=p_color
 
     def obtenerObjetoSerializable(self):
         dicTemp = dict()
-        dicTemp["id"] = self.id
+        dicTemp["id_color_prenda"] = self.id_color_prenda
         dicTemp["color"] = self.color
         return dicTemp

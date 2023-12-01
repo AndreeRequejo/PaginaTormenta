@@ -13,6 +13,9 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='client/img/icono.ico') }}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>{% block titulo %}{% endblock %}</title>
 </head>
 
@@ -29,12 +32,6 @@
                     data-aos-offset="1000"
                     data-aos-easing="ease-in-sine">
                     <a href="{{url_for('login')}}" style="text-decoration: none; color: black;"><i class='bx bx-user '></i></a>
-                    <div class="position-relative">
-                        <a href="{{url_for('listaDeseados')}}" style="text-decoration: none; color: black;">
-                            <i class='bx bx-heart'></i>
-                        </a>
-                        <span class="notification-badge">4</span>
-                    </div>
                     <div class="position-relative">
                         <a href="{{url_for('carritoCompras')}}" style="text-decoration: none; color: black;">
                             <i class='bx bx-cart'></i>
@@ -115,12 +112,12 @@
         </div>
     </footer>
 
-    {% block js %}
+
     <script src="{{url_for('static', filename='client/js/cargarCantProductos.js')}}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    {% endblock %}
+    {% block js %}{% endblock %}
 
 </body>
 

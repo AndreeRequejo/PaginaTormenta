@@ -38,6 +38,16 @@ def obtener_prenda():
     conexion.close()
     return prenda
 
+def obtener_nombre_prenda(nom_prenda):
+    conexion = obtener_conexion()
+    prenda = []
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT id_prenda FROM prenda WHERE nomPrenda = %s", (nom_prenda,))
+        prenda = cursor.fetchall()
+    conexion.close()
+    return prenda
+
+
 def eliminar_prenda(id_prenda):
     conexion = obtener_conexion()
     with conexion.cursor() as cursor:
@@ -79,7 +89,7 @@ def prendas_paginacion(cant_elementos, inicio_index):
     conexion = obtener_conexion()
     prendas = []
     with conexion.cursor() as cursor:
-        cursor.execute("SELECT id_prenda, codigo, nomPrenda, imagen, (SELECT precio FROM disponibilidad_prenda WHERE id_prenda = P.         id_prenda LIMIT 1) as precio FROM prenda AS P "
+        cursor.execute("SELECT id_prenda, codigo, nomPrenda, imagen, (SELECT precio FROM disponibilidad_prenda WHERE id_prenda = P.id_prenda LIMIT 1) as precio FROM prenda AS P "
                         + "WHERE id_prenda >= 1 "
                         + "ORDER BY id_prenda DESC LIMIT %s OFFSET %s", (cant_elementos,inicio_index - 1,))
         prendas = cursor.fetchall()

@@ -8,300 +8,32 @@ TORMENTA
 <main>
 
     <div class="d-flex justify-content-center">
-        <img src="{{ url_for('static', filename='client/img/banner-mujer.jpg') }}" class="d-block w-100 my-3" alt="Imagen 2">
+        <img src="{{ url_for('static', filename='client/img/banner-mujer.jpg') }}" class="d-block w-100 my-3"
+            alt="Imagen 2">
     </div>
 
-    <div class="container-fluid d-block d-sm-block d-dm-flex d-lg-flex d-xl-flex  w-100 co">
-
-        <div class="filtrar col-12 col-sm-12 col-md-12 col-lg-3 col-xl-2">
-            <div class="d-flex align-items-center">
-                <i class='bx bx-filter fs-1'></i>
-                <h4 class="m-0">FILTRAR</h4>
-            </div>
-            <div class="categ my-3">
-                <div class="align-items-center">
-                    <a class="" role="button" href="#categoria" data-bs-toggle="collapse" aria-controls="categoria"
-                        aria-expanded="false">
-                        <div class="d-flex align-items-center justify-content-around ">
-                            <span style="width:50%;"> CATEGORIA</span> <span class="triangle"></span>
-
-                        </div>
-                    </a>
-                </div>
-
-                <div class="collapse  mt-2" style="margin-left: 20%;" id="categoria">
-                    <div class="form-check ">
-                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
-                            id="flexCheckDefault">
-                        <label class="form-check-label mx-2 " for="flexCheckDefault">
-                            Polos </label>
-                    </div>
-
-                </div>
-
-                <div class="collapse  mt-2 " style="margin-left: 20%;" id="categoria">
-                    <div class="form-check">
-                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
-                            id="flexCheckDefault">
-                        <label class="form-check-label mx-2 " for="flexCheckDefault">
-                            Chompas </label>
-                    </div>
-
-                </div>
-
-                <div class="collapse  mt-2" style="margin-left: 20%;" id="categoria">
-                    <div class="form-check ">
-                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
-                            id="flexCheckDefault">
-                        <label class="form-check-label mx-2 " for="flexCheckDefault">
-                            Jeans </label>
-                    </div>
-
-                </div>
-
-                <div class="collapse  mt-2" style="margin-left: 20%;" id="categoria">
-                    <div class="form-check ">
-                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
-                            id="flexCheckDefault">
-                        <label class="form-check-label mx-2 " for="flexCheckDefault">
-                            Camisas </label>
-                    </div>
-
-                </div>
-
-                <div class="collapse mt-2" style="margin-left: 20%;" id="categoria">
-                    <div class="form-check ">
-                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
-                            id="flexCheckDefault">
-                        <label class="form-check-label mx-2 " for="flexCheckDefault">
-                            Casacas </label>
-                    </div>
-
-                </div>
-            </div>
-            <div class="tama my-3">
-                <div class="align-items-center">
-                    <a class="" role="button" href="#tamano" data-bs-toggle="collapse" aria-controls="tamano"
-                        aria-expanded="false">
-                        <div class="d-flex align-items-center justify-content-around ">
-                            <span style="width:50%;"> TAMAÑO</span> <span class="triangle"></span>
-
-                        </div>
-                    </a>
-                </div>
-
-                <div class="collapse  mt-2 " style="margin-left: 20%;" id="tamano">
-                    <div class="form-check ">
-                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
-                            id="flexCheckDefault">
-                        <label class="form-check-label mx-2 " for="flexCheckDefault">
-                            S - XS </label>
-                    </div>
-
-                </div>
-
-                <div class="collapse  mt-2" style="margin-left: 20%;" id="tamano">
-                    <div class="form-check">
-                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
-                            id="flexCheckDefault">
-                        <label class="form-check-label mx-2 " for="flexCheckDefault">
-                            M </label>
-                    </div>
-
-                </div>
-
-                <div class="collapse  mt-2" style="margin-left: 20%;" id="tamano">
-                    <div class="form-check ">
-                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
-                            id="flexCheckDefault">
-                        <label class="form-check-label mx-2 " for="flexCheckDefault">
-                            L - XL </label>
-                    </div>
-
-
-                </div>
-            </div>
-            <div class="colo my-3">
-                <div class="align-items-center">
-                    <a class="" role="button" href="#colo" data-bs-toggle="collapse" aria-controls="colo"
-                        aria-expanded="false">
-                        <div class="d-flex align-items-center justify-content-around ">
-                            <span style="width:50%;"> COLOR</span> <span class="triangle"></span>
-                        </div>
-                    </a>
-                </div>
-                <div class="collapse  mt-2 " style="margin-left: 20%;" id="colo">
-                    <div class="form-check ">
-                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
-                            id="flexCheckDefault">
-                        <label class="form-check-label mx-2 " for="flexCheckDefault">
-                            Rojo </label>
-                    </div>
-                </div>
-                <div class="collapse  mt-2 " style="margin-left: 20%;" id="colo">
-                    <div class="form-check">
-                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
-                            id="flexCheckDefault">
-                        <label class="form-check-label mx-2 " for="flexCheckDefault">
-                            Negro </label>
-                    </div>
-                </div>
-                <div class="collapse  mt-2" style="margin-left: 20%;" id="colo">
-                    <div class="form-check ">
-                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
-                            id="flexCheckDefault">
-                        <label class="form-check-label mx-2 " for="flexCheckDefault">
-                            Azul </label>
-                    </div>
-                </div>
-            </div>
-            <div class="mate my-3">
-                <div class="align-items-center">
-                    <a class="" role="button" href="#mate" data-bs-toggle="collapse" aria-controls="mate"
-                        aria-expanded="false">
-                        <div class="d-flex align-items-center justify-content-around ">
-                            <span style="width:50%;"> MATERIAL</span> <span class="triangle"></span>
-
-                        </div>
-                    </a>
-                </div>
-
-                <div class="collapse  mt-2 " style="margin-left: 20%;" id="mate">
-                    <div class="form-check ">
-                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
-                            id="flexCheckDefault">
-                        <label class="form-check-label mx-2 " for="flexCheckDefault">
-                            Algodón </label>
-                    </div>
-
-                </div>
-
-                <div class="collapse  mt-2 " style="margin-left: 20%;" id="mate">
-                    <div class="form-check">
-                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
-                            id="flexCheckDefault">
-                        <label class="form-check-label mx-2 " for="flexCheckDefault">
-                            Lana </label>
-                    </div>
-
-                </div>
-
-                <div class="collapse  mt-2 " style="margin-left: 20%;" id="mate">
-                    <div class="form-check ">
-                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
-                            id="flexCheckDefault">
-                        <label class="form-check-label mx-2 " for="flexCheckDefault">
-                            Poliester </label>
-                    </div>
-
-                </div>
-
-            </div>
-            <div class="desc my-3">
-                <div class="align-items-center">
-                    <a class="" role="button" href="#desc" data-bs-toggle="collapse" aria-controls="desc"
-                        aria-expanded="false">
-                        <div class="d-flex align-items-center justify-content-around ">
-                            <span style="width:50%;">DESCUENTO</span> <span class="triangle"></span>
-
-                        </div>
-                    </a>
-                </div>
-
-                <div class="collapse  mt-2 " style="margin-left: 20%;" id="desc">
-                    <div class="form-check ">
-                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
-                            id="flexCheckDefault">
-                        <label class="form-check-label mx-2 " for="flexCheckDefault">
-                            10% </label>
-                    </div>
-
-                </div>
-
-                <div class="collapse  mt-2 " style="margin-left: 20%;" id="desc">
-                    <div class="form-check">
-                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
-                            id="flexCheckDefault">
-                        <label class="form-check-label mx-2 " for="flexCheckDefault">
-                            20% </label>
-                    </div>
-
-                </div>
-
-                <div class="collapse  mt-2" style="margin-left: 20%;" id="desc">
-                    <div class="form-check ">
-                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
-                            id="flexCheckDefault">
-                        <label class="form-check-label mx-2 " for="flexCheckDefault">
-                            50% </label>
-                    </div>
-
-
-                </div>
-            </div>
-            <div class="temp my-3">
-                <div class="align-items-center">
-                    <a class="" role="button" href="#temp" data-bs-toggle="collapse" aria-controls="temp"
-                        aria-expanded="false">
-                        <div class="d-flex align-items-center justify-content-around ">
-                            <span style="width:50%;">TEMPORADA</span> <span class="triangle"></span>
-                        </div>
-                    </a>
-                </div>
-                <div class="collapse  mt-2 " style="margin-left: 20%;" id="temp">
-                    <div class="form-check ">
-                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
-                            id="flexCheckDefault">
-                        <label class="form-check-label mx-2 " for="flexCheckDefault">
-                            Invierno</label>
-                    </div>
-                </div>
-                <div class="collapse  mt-2 " style="margin-left: 20%;" id="temp">
-                    <div class="form-check">
-                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
-                            id="flexCheckDefault">
-                        <label class="form-check-label mx-2 " for="flexCheckDefault">
-                            Otoño</label>
-                    </div>
-                </div>
-                <div class="collapse  mt-2" style="margin-left: 20%;" id="temp">
-                    <div class="form-check ">
-                        <input class="form-check-input custom-checkbox p-2 " type="checkbox" value=""
-                            id="flexCheckDefault">
-                        <label class="form-check-label mx-2 " for="flexCheckDefault">
-                            Verano</label>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="container-fluid justify-content-center d-block d-sm-block d-dm-flex d-lg-flex d-xl-flex  w-100 co">
 
         <div class="productos col-12 col-sm-12 col-md-12 col-lg-9 col-xl-10">
-            <div class="ordenar d-flex ">
-                <h5>ORDERNAR POR: </h5>
-                <select class="form-select " aria-label="Combo box">
-                    <option selected>Precio (Menor a Mayor)</option>
-                </select>
-            </div>
 
             <!--###################################### CONTENEDOR DE PRENDAS ######################################-->
 
             <div class="img-prod d-flex flex-wrap justify-content-center w-100 ">
 
-                
+
 
                 {% for prenda in prendas %}
-                    <a href="{{url_for('detallePrenda', id=prenda[0])}}">
-                        <div class="m-3 contenedor-descuento-promo" id="">
-                            <img src="{{ url_for('static', filename='products/' + prenda[3]) }}" alt={{prenda[1]}}>
-                            <input type="hidden" name="id" value="{{prenda[0]}}">
-                            <p class="text-center nombre_prod">{{prenda[2]}}</p>
-                            <p class="prec-act"> <span> S/. <span id="precio3">{{prenda[4]}}</span></span>
-                            </p>
-                            <i class='bx bxs-heart cora1'></i>
-                        </div>
-                    </a>
+                <a href="{{url_for('detallePrenda', id=prenda[0])}}">
+                    <div class="m-3 contenedor-descuento-promo" id="">
+                        <img src="{{ url_for('static', filename='products/' + prenda[3]) }}" alt={{prenda[1]}}>
+                        <input type="hidden" name="id" value="{{prenda[0]}}">
+                        <p class="text-center nombre_prod">{{prenda[2]}}</p>
+                        <p class="prec-act"> <span> S/. <span id="precio3">{{prenda[4]}}</span></span>
+                        </p>
+                        <i class='bx bxs-heart cora1'></i>
+                    </div>
+                </a>
                 {% endfor %}
-
             </div>
 
             <!--###################################### FIN CONTENEDOR DE PRENDAS ######################################-->
@@ -310,7 +42,7 @@ TORMENTA
 
             <div class="btn-toolbar justify-content-center m-3 " role="toolbar" aria-label="Toolbar with button groups">
                 <div class="btn-group me-2 d-flex flex-wrap" role="group" aria-label="First group">
-                          {{ pagination.links }}
+                    {{ pagination.links }}
                 </div>
             </div>
 
@@ -318,7 +50,7 @@ TORMENTA
 
         </div>
     </div>
-    
+
 </main>
 {% endblock %}
 

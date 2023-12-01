@@ -7,7 +7,7 @@ TORMENTA
 {% block contenido %}
     <main>
 
-        <div class="container d-block d-sm-flex d-dm-flex d-lg-flex d-xl-flex  w-100 mt-5">
+        <div class="container d-block d-sm-flex d-dm-flex d-lg-flex d-xl-flex  w-100 my-5">
             <div class="contenedor">
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                     <ol class="breadcrumb">
@@ -20,11 +20,11 @@ TORMENTA
                         <div class="det-bordr">
                             <img src="{{ url_for('static', filename='products/' + prenda[3]) }}" alt={{prenda[0]}} id="imgPrincipal" style="width: 70%;">
                             <div class="det det-bordr my-3 d-flex flex-wrap">
-                                <img src="{{ url_for('static', filename='products/' + prenda[3]) }}" 
+                                <img src="{{ url_for('static', filename='products/' + prenda[3]) }}"
                                     alt="">
-                                <img src="{{ url_for('static', filename='products/' + prenda[3]) }}" 
+                                <img src="{{ url_for('static', filename='products/' + prenda[3]) }}"
                                     alt="" class="mx-4">
-                                <img src="{{ url_for('static', filename='products/' + prenda[3]) }}" 
+                                <img src="{{ url_for('static', filename='products/' + prenda[3]) }}"
                                     alt="">
                             </div>
                             <p class="descrip" style="width: 94%;">{{prenda[2]}}</p>
@@ -33,18 +33,6 @@ TORMENTA
                     </div>
                     <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                         <h3 id="nombreProducto">{{prenda[1]}}</h3>
-                        <div class="d-flex mt-4 fs-5 califica">
-                            <div>
-                                <div class="rating">
-                                    <span class="fa fa-star checked "></span>
-                                    <span class="fa fa-star checked "></span>
-                                    <span class="fa fa-star checked "></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                </div>
-                            </div>
-                            <p>1 valoracion</p>
-                        </div>
                         <hr class="container-fluid">
                         <div class="d-flex ">
 
@@ -114,51 +102,12 @@ TORMENTA
                                         Para los pedidos con "Recojo en Tienda" los tiempos pueden variar. Se notificará
                                         vía email cuando su pedido esté listo para recojo.
                                     </p>
-
-                                </div>
-
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="div-resenia my-3">
-                    <h3>Reseñas(1)</h3>
-                    <div class="d-flex flex-wrap mt-4 comentario">
-                        <div
-                            class="usuario-rese d-flex align-items-center justify-content-center col-12 col-sm-12 col-dm-6 col-lg-3 col-xl-3 ">
-                            <div>
-                                <i class='bx bxs-user-circle'></i>
-                            </div>
-                            <div>
-                                <p class="usu-name">MARTHA ESTELA</p>
-                                <p>Mayo 02,2023</p>
-                                <div>
-                                    <div class="rating">
-                                        <span class="fa fa-star checked "></span>
-                                        <span class="fa fa-star checked "></span>
-                                        <span class="fa fa-star checked "></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="text-rese col-12 col-sm-12 col-dm-6 col-lg-9 col-xl-9 mt-4">
-                            <p>Compré esta chompa y tengo muchas opiniones. Me encanta el estilo de
-                                hombros caídos y el escote redondo, le da un rollo relajado y fácil de llevar. El
-                                detalle del tejido de jersey inverso también es chévere. Pero, las costuras
-                                alrededor de las costillas no son tan buenas, se ven un poco desaliñadas. Y la calidad
-                                del material no es wow, se desgasta rápidamente. La mezcla de algodón y acrílico no es
-                                tan suave ni cálida como esperaba. En resumen, es una chompa con sus altos y bajos, pero
-                                no estoy segura de si la recomendaría.</p>
-                        </div>
                     </div>
-
-
                 </div>
             </div>
-
         </div>
     </main>
 

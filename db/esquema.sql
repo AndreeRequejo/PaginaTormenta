@@ -4,10 +4,11 @@ CREATE TABLE usuarios (
     email varchar(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
     token VARCHAR(255),
-    nombre VARCHAR(60),
-    apellido VARCHAR(60),
+    nombre_completo VARCHAR(60),
+    apellido_paterno VARCHAR(60),
+    apellido_materno varchar(60),
     telefono VARCHAR(9),
-    docid VARCHAR(11)
+    docid VARCHAR(11),
 );
 
 CREATE TABLE tipo_prenda (
