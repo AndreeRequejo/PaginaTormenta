@@ -1175,7 +1175,7 @@ def api_obtener_prenda():
     response = dict()
     datos = []
     try:
-        prendas = controlador_prenda.obtener_prenda_total()
+        prendas = controlador_prenda.obtener_prenda()
         for prenda in prendas:
             objPrenda = clase_prenda.Prenda(
                 prenda[0], prenda[1], prenda[2], prenda[3], prenda[4], prenda[5], prenda[6], prenda[7], prenda[8])
@@ -1200,7 +1200,7 @@ def api_prenda_por_id():
             response["code"] = 3
             response["message"] = "Error: El ID proporcionado no fue encontrado."
         else:
-            prenda = controlador_prenda.obtener_prenda_id2(id)
+            prenda = controlador_prenda.obtener_prenda_id_2(id)
             objPrenda = clase_prenda.Prenda(
                 prenda[0], prenda[1], prenda[2], prenda[3], prenda[4], prenda[5], prenda[6], prenda[7], prenda[8])
             datos.append(objPrenda.obtenerObjetoSerializable())

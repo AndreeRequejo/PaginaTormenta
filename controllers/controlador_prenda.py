@@ -56,6 +56,29 @@ def eliminar_prenda(id_prenda):
     conexion.commit()
     conexion.close()
 
+def obtener_prenda_id_2(id_prenda):
+    conexion = obtener_conexion()
+    prenda = ()
+    try:
+        with conexion.cursor() as cursor:
+            cursor.execute("SELECT id_prenda, codigo, nomPrenda, descripcion, tp.tipo, c.color, m.material, t.temporada, imagen FROM prenda AS p "
+                            + "INNER JOIN tipo_prenda AS tp ON p.id_tipo_prenda = tp.id_tipo_prenda "
+                            + "INNER JOIN color_prenda AS c ON p.id_color_prenda = c.id_color_prenda "
+                            + "INNER JOIN tipo_material AS m ON p.id_tipo_material = m.id_tipo_material "
+                            + "INNER JOIN prenda_temporada AS t ON p.id_prenda_temporada = t.id_prenda_temporada "
+                            + " WHERE id_prenda = %s", (id_prenda,))
+            prenda = cursor.fetchone()
+
+            # Agregar mensajes de impresión para depuración
+            print("Prenda obtenida:", prenda)
+
+    except Exception as e:
+        print(f"Error al obtener prenda por ID: {str(e)}")
+    finally:
+        conexion.close()
+    return prenda
+
+
 def obtener_prenda_id(id_prenda):
     conexion = obtener_conexion()
     prenda = None
@@ -74,13 +97,13 @@ def actualizar_prenda(nombre, descripcion, id_tipo, id_color, id_material, id_te
     with conexion.cursor() as cursor:
         cursor.execute("UPDATE prenda SET nomPrenda = %s, descripcion = %s, id_tipo_prenda = %s, id_color_prenda = %s, id_tipo_material = %s, id_prenda_temporada = %s, imagen = %s WHERE id_prenda = %s", (nombre, descripcion, id_tipo, id_color, id_material, id_temporada, imagen, id_prenda,))
     conexion.commit()
-    conexion.close() 
+    conexion.close()
 
 def obtener_total_registros():
     conexion = obtener_conexion()
     contador = None
     with conexion.cursor() as cursor:
-        cursor.execute("SELECT COUNT(*) AS total FROM prenda AS p")
+        cursor.execute("SELECT COUNT(*) AS total FROM prenda AS p ")
         contador = cursor.fetchone()[0]
     conexion.close()
     return contador
@@ -106,3 +129,21 @@ def prendas_paginacion_nov(cant_elementos, inicio_index):
         prendas = cursor.fetchall()
     conexion.close()
     return prendas
+
+def clavesForaneas_existen(id_tipo_prenda, id_color_prenda,id_tipo_material,id_prenda_temporada):
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT 1 FROM tipo_prenda WHERE id_tipo_prenda = %s", (id_tipo_prenda,))
+        tipo_prenda_existe = cursor.fetchone() is not None
+
+        cursor.execute("SELECT 1 FROM color_prenda WHERE id_color_prenda = %s", (id_color_prenda,))
+        color_prenda_existe = cursor.fetchone() is not None
+
+        cursor.execute("SELECT 1 FROM tipo_material WHERE id_tipo_material = %s", (id_tipo_material,))
+        tipo_material_existe = cursor.fetchone() is not None
+
+        cursor.execute("SELECT 1 FROM prenda_temporada WHERE id_prenda_temporada = %s", (id_prenda_temporada,))
+        prenda_temporada_existe = cursor.fetchone() is not None
+
+    conexion.close()
+    return tipo_prenda_existe and color_prenda_existe and tipo_material_existe and prenda_temporada_existe
