@@ -59,23 +59,15 @@ def eliminar_prenda(id_prenda):
 def obtener_prenda_id_2(id_prenda):
     conexion = obtener_conexion()
     prenda = ()
-    try:
-        with conexion.cursor() as cursor:
-            cursor.execute("SELECT id_prenda, codigo, nomPrenda, descripcion, tp.tipo, c.color, m.material, t.temporada, imagen FROM prenda AS p "
-                            + "INNER JOIN tipo_prenda AS tp ON p.id_tipo_prenda = tp.id_tipo_prenda "
-                            + "INNER JOIN color_prenda AS c ON p.id_color_prenda = c.id_color_prenda "
-                            + "INNER JOIN tipo_material AS m ON p.id_tipo_material = m.id_tipo_material "
-                            + "INNER JOIN prenda_temporada AS t ON p.id_prenda_temporada = t.id_prenda_temporada "
-                            + " WHERE id_prenda = %s", (id_prenda,))
-            prenda = cursor.fetchone()
-
-            # Agregar mensajes de impresión para depuración
-            print("Prenda obtenida:", prenda)
-
-    except Exception as e:
-        print(f"Error al obtener prenda por ID: {str(e)}")
-    finally:
-        conexion.close()
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT id_prenda, codigo, nomPrenda, descripcion, tp.tipo, c.color, m.material, t.temporada, imagen FROM prenda AS p "
+                        + "INNER JOIN tipo_prenda AS tp ON p.id_tipo_prenda = tp.id_tipo_prenda "
+                        + "INNER JOIN color_prenda AS c ON p.id_color_prenda = c.id_color_prenda "
+                        + "INNER JOIN tipo_material AS m ON p.id_tipo_material = m.id_tipo_material "
+                        + "INNER JOIN prenda_temporada AS t ON p.id_prenda_temporada = t.id_prenda_temporada "
+                        + " WHERE id_prenda = %s", (id_prenda,))
+        prenda = cursor.fetchone()
+    conexion.close()
     return prenda
 
 

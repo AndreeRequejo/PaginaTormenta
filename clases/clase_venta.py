@@ -6,8 +6,9 @@ class Venta:
     descuento = 0.00
     id_usuario = 0
     id_tipo_comprobante = 0
+    igv = 0.00
 
-    def __init__(self, v_id_venta,v_fecha,   v_estado, v_monto_total, v_descuento, v_id_usuario, v_id_tipo_comprobante):
+    def __init__(self, v_id_venta,v_fecha,   v_estado, v_monto_total, v_descuento, v_id_usuario, v_id_tipo_comprobante,v_igv):
         self.id_venta = v_id_venta
         self.fecha = v_fecha
         self.estado = v_estado
@@ -15,6 +16,7 @@ class Venta:
         self.descuento = v_descuento
         self.id_usuario = v_id_usuario
         self.id_tipo_comprobante = v_id_tipo_comprobante
+        self.igv = v_igv
 
     def obtenerObjetoSerializable(self):
         dicTemp = dict()
@@ -25,4 +27,5 @@ class Venta:
         dicTemp["descuento"] = self.descuento
         dicTemp["id_usuario"] = self.id_usuario
         dicTemp["id_tipo_comprobante"] = self.id_tipo_comprobante
+        dicTemp["igv"] = self.igv
         return dicTemp

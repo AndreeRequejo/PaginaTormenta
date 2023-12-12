@@ -119,7 +119,7 @@ def actualizar_venta(id_venta,fecha,estado,monto_total,descuento,id_usuario,id_t
     with conexion.cursor() as cursor:
         cursor.execute("UPDATE venta SET fecha = %s, estado = %s, monto_total = %s, descuento = %s, id_usuario = %s, id_tipo_comprobante = %s WHERE id_venta = %s", (fecha, estado, monto_total, descuento, id_usuario, id_tipo_comprobante, id_venta,))
     conexion.commit()
-    conexion.close() 
+    conexion.close()
 
 def eliminar_venta(id_venta):
     conexion = obtener_conexion()
@@ -156,3 +156,15 @@ def generar_venta():
     finally:
         conexion.close()
     return venta
+
+def clavesForaneas_existen(id_usuario, id_tipo_comprobante):
+    conexion = obtener_conexion()
+    with conexion.cursor() as cursor:
+        cursor.execute("SELECT 1 FROM usuarios WHERE id = %s", (id_usuario,))
+        usuario_existe = cursor.fetchone() is not None
+
+        cursor.execute("SELECT 1 FROM tipo_comprobante_venta WHERE id_tipo_comprobante_venta = %s", (id_tipo_comprobante,))
+        tipoComprobante_existe = cursor.fetchone() is not None
+
+    conexion.close()
+    return usuario_existe and tipoComprobante_existe

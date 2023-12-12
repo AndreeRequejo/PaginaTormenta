@@ -1230,14 +1230,18 @@ def api_guardar_prenda():
         material_prenda = int(request.json["id_tipo_material"])
         temporada_prenda = int(request.json["id_prenda_temporada"])
         imagen = request.json["imagen"]
-        if not controlador_prenda.prenda_existe(codigo):
-            controlador_prenda.insertar_prenda(
-                codigo, nomPrenda, descripcion, tipo_prenda, color_prenda, material_prenda, temporada_prenda, imagen)
-            response["code"] = 0
-            response["message"] = "Prenda guardada correctamente."
+        if not controlador_prenda.clavesForaneas_existen(tipo_prenda, color_prenda, material_prenda, temporada_prenda):
+            response["code"] = 3
+            response["message"] = "Error: Los ID's proporcionados no fueron encontrados."
         else:
-            response["code"] = 4
-            response["message"] = "Error: La prenda ya existe."
+            if controlador_prenda.prenda_existe(codigo):
+                response["code"] = 4
+                response["message"] = "Error: La prenda ya existe."
+            else:
+                controlador_prenda.insertar_prenda(
+                    codigo, nomPrenda, descripcion, tipo_prenda, color_prenda, material_prenda, temporada_prenda, imagen)
+                response["code"] = 0
+                response["message"] = "Prenda guardada correctamente."
     except KeyError:
         response["code"] = 2
         response["message"] = "Error: El JSON proporcionado no contiene la clave correcta."
@@ -1263,18 +1267,18 @@ def api_actualizar_prenda():
         material_prenda = int(request.json["id_tipo_material"])
         temporada_prenda = int(request.json["id_prenda_temporada"])
         imagen = request.json["imagen"]
-        if not controlador_prenda.prenda_existe_por_id(id):
+        if not controlador_prenda.clavesForaneas_existen(tipo_prenda, color_prenda, material_prenda, temporada_prenda):
             response["code"] = 3
-            response["message"] = "Error: El ID proporcionado no fue encontrado."
+            response["message"] = "Error: Los ID's proporcionados no fueron encontrados."
         else:
             if controlador_prenda.prenda_existe(codigo):
+                response["code"] = 4
+                response["message"] = "Error: La prenda ya existe."
+            else:
                 controlador_prenda.actualizar_prenda(
                     nomPrenda, descripcion, tipo_prenda, color_prenda, material_prenda, temporada_prenda, imagen, id)
                 response["code"] = 0
                 response["message"] = "Prenda actualizada correctamente"
-            else:
-                response["code"] = 4
-                response["message"] = "Error: La prenda ya existe."
     except KeyError:
         response["code"] = 2
         response["message"] = "Error: El JSON proporcionado no contiene las claves correctas."
@@ -1700,8 +1704,11 @@ def api_obtener_venta():
     try:
         ventas = controlador_venta.obtener_venta()
         for venta in ventas:
+            venta_sin_impuestos = float(venta[3]) / 1.18
+            igv = float(venta[3]) - venta_sin_impuestos
+            igv = round(igv,2)
             objVenta = clase_venta.Venta(
-                venta[0], venta[1], venta[2], venta[3], venta[4], venta[5], venta[6])
+                venta[0], venta[1], venta[2], venta[3], venta[4], venta[5], venta[6],igv)
             datos.append(objVenta.obtenerObjetoSerializable())
         response["code"] = 0
         response["message"] = "Ventas listadas correctamente."
@@ -1728,6 +1735,7 @@ def api_venta_por_id():
                 venta[0], venta[1], venta[2], venta[3], venta[4], venta[5], venta[6])
             datos.append(objVenta.obtenerObjetoSerializable())
             response["code"] = 0
+
             response["message"] = "Venta encontrada correctamente."
     except KeyError:
         response["code"] = 2
@@ -1751,14 +1759,18 @@ def api_guardar_venta():
         id_usuario = int(request.json["id_usuario"])
         id_tipo_comprobante = int(request.json["id_tipo_comprobante"])
 
-        if not controlador_venta.venta_existe(id_venta):
-            controlador_venta.insertar_venta(
-                id_venta, monto_total, descuento, id_usuario, id_tipo_comprobante)
-            response["code"] = 0
-            response["message"] = "Venta guardada correctamente."
+        if not controlador_venta.clavesForaneas_existen(id_usuario,id_tipo_comprobante):
+            response["code"] = 3
+            response["message"] = "Error: Los ID's proporcionados no fueron encontrados."
         else:
-            response["code"] = 4
-            response["message"] = "Error: La venta ya existe."
+            if controlador_venta.venta_existe(id_venta):
+                response["code"] = 4
+                response["message"] = "Error: La venta ya existe."
+            else:
+                controlador_venta.insertar_venta(
+                    id_venta, monto_total, descuento, id_usuario, id_tipo_comprobante)
+                response["code"] = 0
+                response["message"] = "Venta guardada correctamente."
     except KeyError:
         response["code"] = 2
         response["message"] = "Error: El JSON proporcionado no contiene la clave correcta."
@@ -1782,19 +1794,19 @@ def api_actualizar_venta():
         descuento = request.json["descuento"]
         id_usuario = int(request.json["id_usuario"])
         id_tipo_comprobante = int(request.json["id_tipo_comprobante"])
-
-        if not controlador_venta.venta_existe(id_venta):
+        if not controlador_venta.clavesForaneas_existen(id_usuario,id_tipo_comprobante):
             response["code"] = 3
-            response["message"] = "Error: El ID proporcionado no fue encontrado."
+            response["message"] = "Error: Los ID's proporcionados no fueron encontrados."
         else:
             if controlador_venta.venta_existe(id_venta):
+                response["code"] = 4
+                response["message"] = "Error: La venta ya existe."
+            else:
                 controlador_venta.actualizar_venta(
                     id_venta, fecha, estado, monto_total, descuento, id_usuario, id_tipo_comprobante)
                 response["code"] = 0
                 response["message"] = "Venta actualizada correctamente"
-            else:
-                response["code"] = 4
-                response["message"] = "Error: La venta ya existe"
+
     except KeyError:
         response["code"] = 2
         response["message"] = "Error: El JSON proporcionado no contiene las claves correctas."

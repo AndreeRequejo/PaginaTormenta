@@ -1,8 +1,7 @@
 import pymysql
 
 def obtener_conexion():
-    return pymysql.connect(host='127.0.0.1',
-                                port=3306,
-                                user='root',
-                                password='1234',
-                                db='bdproyectofinal')
+    return pymysql.connect(host='GrupoWeb1.mysql.pythonanywhere-services.com',
+                                user='GrupoWeb1',
+                                password='Vale 2502',
+                                db='GrupoWeb1$ProyectoFinal')
